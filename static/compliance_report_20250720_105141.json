@@ -1,0 +1,121 @@
+{
+  "property_info": {
+    "bin": "1051687",
+    "borough": "MANHATTAN",
+    "block": "1623",
+    "lot": "34",
+    "address": "1662 PARK AVENUE"
+  },
+  "compliance_data": {
+    "hpd_violations": {
+      "count": 100,
+      "sample_records": [
+        {
+          "violationid": "2707469",
+          "inspectiondate": "1997-01-08T00:00:00.000",
+          "novdescription": "SECTION 27-2005 ADM CODE REPAIR THE BROKEN OR DEFECTIVE PLASTERED SURFACES AND PAINT IN A UNIFORM COLOR CEILING 3 STY SOUTHEAST APT 3S 2 ROOM EAST WEST ROOM. LOCATED AT APT 3S",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "2707466",
+          "inspectiondate": "1997-01-08T00:00:00.000",
+          "novdescription": "SECTION 27-2005 ADM CODE PROPERLY REPAIR THE BROKEN OR DEFECTIVE UNCLOSABLE 3 STY SOUTHEAST APT 3S EAST ROOM. LOCATED AT APT 3S",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "2707467",
+          "inspectiondate": "1997-01-08T00:00:00.000",
+          "novdescription": "SECTION 27-2005 ADM CODE REPLACE WITH NEW THE BROKEN OR DEFECTIVE BROKEN FRONT DOOR 3 STY WITH SELF-CLOSING FIREPROOF 3 STY SOUTHEAST APT 3S. LOCATED AT APT 3S",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "9871392",
+          "inspectiondate": "2013-06-15T00:00:00.000",
+          "novdescription": "SECTION 27-2018 ADMIN. CODE: ABATE THE NUISANCE CONSISTING OF MICE IN THE ENTIRE APARTMENT LOCATED AT APT 2N, 2nd STORY, 2nd APARTMENT FROM WEST AT NORTH",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "10166807",
+          "inspectiondate": "2014-03-09T00:00:00.000",
+          "novdescription": "SECTION 27-2031 ADM CODE PROVIDE HOT WATER AT ALL HOT WATER FIXTURES IN THE ENTIRE APARTMENT LOCATED AT APT 2S, 2nd STORY, 1st APARTMENT FROM EAST AT SOUTH",
+          "currentstatus": "VIOLATION CLOSED"
+        }
+      ]
+    },
+    "dob_violations": {
+      "count": 11,
+      "sample_records": [
+        {
+          "violation_number": "02150",
+          "issue_date": "19940901",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "07086",
+          "issue_date": "19970210",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "01527",
+          "issue_date": "20040213",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "00854",
+          "issue_date": "20151001",
+          "violation_type": "LBLVIO-LOW PRESSURE BOILER                                             BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "00857",
+          "issue_date": "20170224",
+          "violation_type": "LBLVIO-LOW PRESSURE BOILER                                             BOILER  REQUIRED"
+        }
+      ]
+    },
+    "boiler_inspections": {
+      "count": 10,
+      "sample_records": [
+        {
+          "tracking_number": "2019-10000034621Y0001-186936",
+          "inspection_type": "External",
+          "inspection_date": "03/06/2019 00:00:00",
+          "report_status": "Accepted \u0096 Civil Penalties Due"
+        },
+        {
+          "tracking_number": "2019-10000034621Y0001-195400",
+          "inspection_type": "External",
+          "inspection_date": "07/25/2019 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2020-10000034621Y0001-249343",
+          "inspection_type": "External",
+          "inspection_date": "02/07/2020 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2021-10000034621Y0001-345454",
+          "inspection_type": "External",
+          "inspection_date": "02/05/2021 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2022-10000034621Y0001-454100",
+          "inspection_type": "External",
+          "inspection_date": "03/21/2022 00:00:00",
+          "report_status": "Accepted"
+        }
+      ]
+    },
+    "elevator_inspections": {
+      "count": 0
+    },
+    "complaints_311": {
+      "count": 0
+    },
+    "fdny_violations": {
+      "count": 0
+    }
+  },
+  "generated_at": "2025-07-20 10:51:37"
+}

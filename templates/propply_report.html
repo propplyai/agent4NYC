@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propply AI - Property Compliance Report</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .analyze-btn {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .analyze-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .property-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .property-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .property-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .meta-value {
+            color: #333;
+        }
+
+        .overall-score {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .score-display {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .score-warning { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .score-critical { background: linear-gradient(135deg, #f44336, #d32f2f); }
+
+        .compliance-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .compliance-row {
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .compliance-row:hover {
+            background: #f8f9fa;
+        }
+
+        .compliance-row.expanded {
+            background: #f0f4ff;
+        }
+
+        .row-summary {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 60px;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .score-excellent { background: #4CAF50; }
+        .score-good { background: #2196F3; }
+        .score-warning { background: #FF9800; }
+        .score-critical { background: #f44336; }
+
+        .status-summary {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .expand-icon {
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .compliance-row.expanded .expand-icon {
+            transform: rotate(90deg);
+        }
+
+        .row-details {
+            display: none;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .compliance-row.expanded .row-details {
+            display: block;
+        }
+
+        .details-content {
+            padding: 25px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detail-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #666;
+            min-width: 120px;
+        }
+
+        .detail-value {
+            color: #333;
+            text-align: right;
+            flex: 1;
+        }
+
+        .records-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .records-header {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .records-header, .record-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 15px;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .record-row:last-child {
+            border-bottom: none;
+        }
+
+        .record-row:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        .expandable-text {
+            cursor: pointer;
+            color: #667eea;
+            transition: color 0.2s ease;
+        }
+
+        .expandable-text:hover {
+            color: #5a6fd8;
+            text-decoration: underline;
+        }
+
+        .description-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .violation-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row strong {
+            color: #666;
+            min-width: 120px;
+        }
+
+        .description-text {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .violation-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-item {
+            margin-bottom: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        /* Simplified Overall Score Display */
+        .score-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .score-circle-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 15px;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        
+        .score-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .score-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced AI Analysis Section */
+        .ai-insights {
+            background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+            border-radius: 12px;
+            padding: 0;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e3e8ef;
+        }
+        
+        .insights-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .insights-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .insights-title .ai-icon {
+            font-size: 1.4rem;
+            color: #FFD700;
+        }
+        
+        .ai-confidence-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .ai-content {
+            padding: 25px;
+        }
+        
+        /* Risk Assessment Redesign */
+        .risk-assessment-enhanced {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid;
+        }
+        
+        .risk-critical-border { border-left-color: #dc2626; }
+        .risk-high-border { border-left-color: #ea580c; }
+        .risk-moderate-border { border-left-color: #d97706; }
+        .risk-low-border { border-left-color: #16a34a; }
+        
+        .risk-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .risk-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .risk-badge-enhanced {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .risk-critical { background: #fecaca; color: #dc2626; }
+        .risk-high { background: #fed7aa; color: #ea580c; }
+        .risk-moderate { background: #fde68a; color: #d97706; }
+        .risk-low { background: #bbf7d0; color: #16a34a; }
+        
+        .risk-summary {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151;
+            margin-bottom: 15px;
+        }
+        
+        .risk-factors {
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .risk-factors-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .risk-factors-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .risk-factor-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+        
+        .risk-factor-item:before {
+            content: '•';
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Priority Actions Redesign */
+        .priority-actions-enhanced {
+            margin-bottom: 20px;
+        }
+        
+        .actions-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 15px;
+        }
+        
+        .action-card-enhanced {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .action-card-enhanced:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        
+        .action-critical { border-left-color: #dc2626; }
+        .action-high { border-left-color: #ea580c; }
+        .action-medium { border-left-color: #d97706; }
+        .action-low { border-left-color: #16a34a; }
+        
+        .action-header-enhanced {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .action-priority-enhanced {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .priority-critical { background: #fecaca; color: #dc2626; }
+        .priority-high { background: #fed7aa; color: #ea580c; }
+        .priority-medium { background: #fde68a; color: #d97706; }
+        .priority-low { background: #bbf7d0; color: #16a34a; }
+        
+        .action-category {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .action-title-enhanced {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1f2937;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .action-reason {
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .action-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #f3f4f6;
+        }
+        
+        .action-detail {
+            text-align: center;
+        }
+        
+        .action-detail-label {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .action-detail-value {
+            font-size: 0.9rem;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        
+        .ai-meta-enhanced {
+            text-align: center;
+            padding: 15px 25px;
+            background: #f9fafb;
+            border-radius: 0 0 12px 12px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        /* Vendor Marketplace Styles */
+        .vendor-marketplace {
+            background: linear-gradient(135deg, #f8fffe 0%, #ffffff 100%);
+            border-radius: 12px;
+            padding: 0;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e3f2f1;
+        }
+        
+        .marketplace-badge {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        
+        .vendor-content {
+            padding: 25px;
+        }
+        
+        .vendor-intro {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #374151;
+        }
+        
+        .vendor-categories {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .vendor-category {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .vendor-category-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vendor-list {
+            padding: 20px;
+        }
+        
+        .vendor-card {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            align-items: center;
+        }
+        
+        .vendor-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+        
+        .vendor-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .vendor-info {
+            min-width: 0;
+        }
+        
+        .vendor-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+        
+        .vendor-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        .vendor-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .vendor-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .star-rating {
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .vendor-distance {
+            background: #f3f4f6;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+        
+        .vendor-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .vendor-action-btn {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: white;
+            color: #374151;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .vendor-action-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .vendor-action-btn.primary {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .vendor-action-btn.primary:hover {
+            background: #5a6fd8;
+            border-color: #5a6fd8;
+            color: white;
+        }
+        
+        .vendor-meta {
+            text-align: center;
+            padding: 15px 25px;
+            background: #f8fffe;
+            border-radius: 0 0 12px 12px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            border-top: 1px solid #e3f2f1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .truncated-text {
+            cursor: pointer;
+            color: #667eea;
+            position: relative;
+        }
+
+        .truncated-text:hover {
+            color: #5a6fd8;
+        }
+
+        .truncated-text::after {
+            content: " (click to expand)";
+            font-size: 0.85em;
+            color: #999;
+            font-style: italic;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fff3f3;
+            color: #d32f2f;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #d32f2f;
+            margin-top: 20px;
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header .tagline {
+                font-size: 1rem;
+            }
+
+            .row-summary {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .property-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .records-header, .record-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-input {
+                margin-bottom: 10px;
+            }
+
+            /* AI Analysis Mobile Styles */
+            .actions-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .action-details {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .risk-factors {
+                padding: 12px;
+            }
+
+            /* Vendor Marketplace Mobile Styles */
+            .vendor-card {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 15px;
+            }
+
+            .vendor-info {
+                order: 1;
+            }
+
+            .vendor-rating {
+                order: 2;
+                justify-self: start;
+            }
+
+            .vendor-distance {
+                order: 3;
+                justify-self: start;
+                margin-top: 5px;
+            }
+
+            .vendor-actions {
+                order: 4;
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .vendor-action-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 12px;
+            }
+
+            .vendor-details {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .vendor-detail-item {
+                font-size: 0.85rem;
+            }
+
+            .vendor-name {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
+            .star-rating {
+                font-size: 0.9rem;
+            }
+
+            .vendor-category-header {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+
+            .vendor-list {
+                padding: 15px;
+            }
+
+            /* Modal Mobile Styles */
+            .modal-content {
+                width: 95%;
+                max-width: none;
+                margin: 10px auto;
+                padding: 20px;
+                max-height: 90vh;
+            }
+
+            .modal-title {
+                font-size: 1.1rem;
+            }
+
+            .violation-details {
+                padding: 15px;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .detail-value {
+                text-align: left;
+            }
+
+            /* Score Circle Mobile */
+            .score-circle-large {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
+
+            .score-title {
+                font-size: 1.1rem;
+            }
+
+            .score-subtitle {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Tablet Responsive Design */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .actions-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .vendor-card {
+                grid-template-columns: 2fr auto auto;
+                gap: 12px;
+            }
+
+            .vendor-details {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            .vendor-actions {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .vendor-action-btn {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-section, .property-summary, .ai-insights, .vendor-marketplace, .compliance-table {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .insights-header, .vendor-category-header {
+                padding: 15px;
+            }
+
+            .insights-title {
+                font-size: 1.1rem;
+            }
+
+            .vendor-intro {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            .vendor-name {
+                font-size: 0.95rem;
+            }
+
+            .vendor-detail-item {
+                font-size: 0.8rem;
+            }
+
+            .vendor-action-btn {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+
+            .action-card-enhanced {
+                padding: 15px;
+            }
+
+            .action-title-enhanced {
+                font-size: 0.95rem;
+            }
+
+            .action-reason {
+                font-size: 0.85rem;
+            }
+
+            .risk-assessment-enhanced {
+                padding: 15px;
+            }
+
+            .risk-title {
+                font-size: 1rem;
+            }
+
+            .risk-summary {
+                font-size: 0.9rem;
+            }
+
+            .property-title {
+                font-size: 1.5rem;
+            }
+
+            .meta-item {
+                padding: 8px 0;
+            }
+
+            .analyze-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Improve touch targets on mobile */
+            .compliance-row {
+                min-height: 60px;
+            }
+
+            .expand-icon {
+                padding: 10px;
+            }
+
+            .truncated-text {
+                line-height: 1.4;
+                word-break: break-word;
+            }
+
+            .vendor-distance {
+                font-size: 0.75rem;
+                padding: 3px 6px;
+            }
+
+            .marketplace-badge, .ai-confidence-badge {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-chart-line"></i> Propply AI</h1>
+            <p class="tagline">Comprehensive Property Compliance Intelligence</p>
+        </div>
+
+        <div class="search-section">
+            <form class="search-form" id="analysisForm">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="addressInput" 
+                    placeholder="Enter NYC property address (e.g., 140 West 28 Street, Manhattan)"
+                    required
+                />
+                <button type="submit" class="analyze-btn" id="analyzeBtn">
+                    <i class="fas fa-search"></i> Generate Report
+                </button>
+            </form>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="loading" id="loadingDiv">
+                <div class="spinner"></div>
+                <p><strong>Generating comprehensive compliance report...</strong></p>
+                <p>Analyzing HPD, DOB, Elevator, Boiler, and Electrical data</p>
+            </div>
+
+            <div id="resultsContent" style="display: none;">
+                <div class="property-summary">
+                    <div class="property-title" id="propertyAddress"></div>
+                    <div class="property-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">BIN:</span>
+                            <span class="meta-value" id="propertyBIN"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">BBL:</span>
+                            <span class="meta-value" id="propertyBBL"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Borough:</span>
+                            <span class="meta-value" id="propertyBorough"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Block/Lot:</span>
+                            <span class="meta-value" id="propertyBlockLot"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">ZIP Code:</span>
+                            <span class="meta-value" id="propertyZip"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Report Date:</span>
+                            <span class="meta-value" id="reportDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simplified Overall Score -->
+                <div class="score-summary">
+                    <div class="score-circle-large" id="overallScoreCircle">
+                        <span id="overallScore">0</span>
+                    </div>
+                    <div class="score-title">Overall Compliance Score</div>
+                    <div class="score-subtitle">Comprehensive NYC Property Analysis</div>
+                </div>
+
+                <!-- Enhanced AI Insights -->
+                <div class="ai-insights" id="aiInsightsSection" style="display: block;">
+                    <div class="insights-header">
+                        <div class="insights-title">
+                            <i class="fas fa-brain ai-icon"></i>
+                            AI-Powered Compliance Analysis
+                        </div>
+                        <div class="ai-confidence-badge" id="aiConfidenceBadge">
+                            <i class="fas fa-spinner fa-spin"></i> Processing...
+                        </div>
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div id="aiLoadingState" class="ai-content">
+                        <div class="risk-assessment-enhanced risk-moderate-border">
+                            <div class="risk-header">
+                                <div class="risk-title">
+                                    <i class="fas fa-cog fa-spin"></i> Analyzing Property Data
+                                </div>
+                            </div>
+                            <div class="risk-summary">
+                                Our AI agent is conducting a comprehensive analysis of your property's compliance data across all NYC datasets. This process typically takes 20-30 seconds and includes evaluation of HPD violations, DOB records, elevator systems, boiler inspections, and electrical permits.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced AI Results (hidden initially) -->
+                    <div id="aiResultsState" style="display: none;" class="ai-content">
+                        <!-- Risk Assessment -->
+                        <div class="risk-assessment-enhanced" id="riskAssessmentContainer">
+                            <div class="risk-header">
+                                <div class="risk-title">
+                                    <i class="fas fa-exclamation-triangle"></i> Risk Assessment
+                                </div>
+                                <div class="risk-badge-enhanced" id="riskBadgeEnhanced">ANALYZING</div>
+                            </div>
+                            <div class="risk-summary" id="riskSummaryEnhanced">
+                                Analyzing compliance data...
+                            </div>
+                            <div class="risk-factors">
+                                <div class="risk-factors-title">Key Risk Factors</div>
+                                <ul class="risk-factors-list" id="riskFactorsList">
+                                    <li class="risk-factor-item">Loading analysis...</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Priority Actions -->
+                        <div class="priority-actions-enhanced">
+                            <div class="actions-title">
+                                <i class="fas fa-tasks"></i> Priority Actions & Recommendations
+                            </div>
+                            <div class="actions-grid" id="actionsGrid">
+                                <!-- Actions will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Financial Impact (if available) -->
+                        <div id="financialImpactSection" style="display: none;">
+                            <div class="actions-title">
+                                <i class="fas fa-dollar-sign"></i> Financial Impact Analysis
+                            </div>
+                            <div class="actions-grid">
+                                <div class="action-card-enhanced">
+                                    <div class="action-title-enhanced">Potential Fines</div>
+                                    <div class="action-reason" id="potentialFines">Calculating...</div>
+                                </div>
+                                <div class="action-card-enhanced">
+                                    <div class="action-title-enhanced">Estimated Costs</div>
+                                    <div class="action-reason" id="estimatedCosts">Calculating...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-meta-enhanced">
+                        <i class="fas fa-robot"></i> Analysis powered by advanced AI • 
+                        Confidence: <span id="aiConfidenceText">--</span>% • 
+                        Completed: <span id="analysisTimeText">--</span>
+                    </div>
+                </div>
+
+                <!-- Vendor Marketplace Section -->
+                <div class="vendor-marketplace" id="vendorMarketplaceSection" style="display: none;">
+                    <div class="insights-header">
+                        <div class="insights-title">
+                            <i class="fas fa-users ai-icon"></i>
+                            Recommended Service Providers
+                        </div>
+                        <div class="marketplace-badge">
+                            <i class="fas fa-check-circle"></i> Verified & Licensed
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-content">
+                        <div class="vendor-intro">
+                            <p>Based on your property's compliance needs, we've identified qualified contractors in your area:</p>
+                        </div>
+                        
+                        <div class="vendor-categories" id="vendorCategories">
+                            <!-- Vendor categories will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-meta">
+                        <i class="fas fa-shield-alt"></i> All contractors verified through NYC licensing databases • 
+                        <i class="fas fa-map-marker-alt"></i> Sorted by proximity and ratings • 
+                        <i class="fas fa-clock"></i> Updated: <span id="vendorUpdateTime">--</span>
+                    </div>
+                </div>
+
+                <div class="compliance-table">
+                    <div class="table-header">
+                        <i class="fas fa-list-ul"></i> Detailed Compliance Analysis
+                    </div>
+                    
+                    <div class="compliance-row" onclick="toggleRow('hpd', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-home category-icon"></i>
+                                HPD Violations
+                            </div>
+                            <div class="status-summary" id="hpdStatus">0 total, 0 active</div>
+                            <div class="status-summary" id="hpdDescription">Housing violations and maintenance issues</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Violation Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Violations:</span>
+                                                <span class="detail-value" id="hpdTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Active Violations:</span>
+                                                <span class="detail-value" id="hpdActive">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="hpdRecords">
+                                    <div class="records-header">
+                                        <div>Violation ID</div>
+                                        <div>Status</div>
+                                        <div>Date</div>
+                                        <div>Description</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-row" onclick="toggleRow('dob', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-building category-icon"></i>
+                                DOB Violations
+                            </div>
+                            <div class="status-summary" id="dobStatus">0 total, 0 active</div>
+                            <div class="status-summary">Building code and construction violations</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Violation Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Violations:</span>
+                                                <span class="detail-value" id="dobTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Active Violations:</span>
+                                                <span class="detail-value" id="dobActive">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="dobRecords">
+                                    <div class="records-header">
+                                        <div>Violation ID</div>
+                                        <div>Category</div>
+                                        <div>Date</div>
+                                        <div>Description</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-row" onclick="toggleRow('elevator', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-elevator category-icon"></i>
+                                Elevator Inspections
+                            </div>
+                            <div class="status-summary" id="elevatorStatus">0 total, 0 active</div>
+                            <div class="status-summary">Elevator and conveyor device inspections</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Device Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Devices:</span>
+                                                <span class="detail-value" id="elevatorTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Active Devices:</span>
+                                                <span class="detail-value" id="elevatorActive">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="elevatorRecords">
+                                    <div class="records-header">
+                                        <div>Device Number</div>
+                                        <div>Type</div>
+                                        <div>Status</div>
+                                        <div>Last Updated</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-row" onclick="toggleRow('boiler', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-fire category-icon"></i>
+                                Boiler Inspections
+                            </div>
+                            <div class="status-summary" id="boilerStatus">0 devices</div>
+                            <div class="status-summary">Boiler safety and maintenance inspections</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Inspection Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Devices:</span>
+                                                <span class="detail-value" id="boilerTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Recent Inspections:</span>
+                                                <span class="detail-value" id="boilerRecent">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Defects Found:</span>
+                                                <span class="detail-value" id="boilerDefects">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="boilerRecords">
+                                    <div class="records-header">
+                                        <div>Boiler ID</div>
+                                        <div>Inspection Date</div>
+                                        <div>Status</div>
+                                        <div>Defects</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-row" onclick="toggleRow('electrical', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-bolt category-icon"></i>
+                                Electrical Permits
+                            </div>
+                            <div class="status-summary" id="electricalStatus">0 permits, 0 active</div>
+                            <div class="status-summary">Electrical work permits and inspections</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Permit Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Permits:</span>
+                                                <span class="detail-value" id="electricalTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Active Permits:</span>
+                                                <span class="detail-value" id="electricalActive">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="electricalRecords">
+                                    <div class="records-header">
+                                        <div>Filing Number</div>
+                                        <div>Status</div>
+                                        <div>Date</div>
+                                        <div>Description</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+        </div>
+
+        <!-- Modal for expanded descriptions -->
+        <div id="descriptionModal" class="description-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle">Violation Details</div>
+                    <button class="close-btn" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="violation-details" id="violationDetails">
+                        <!-- Violation metadata will be populated here -->
+                    </div>
+                    <div class="description-text" id="fullDescription">
+                        <!-- Full description will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = null;
+
+        document.getElementById('analysisForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const address = document.getElementById('addressInput').value.trim();
+            if (!address) return;
+            
+            // Show results section and loading
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('loadingDiv').style.display = 'block';
+            document.getElementById('resultsContent').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Disable form
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            
+            try {
+                const response = await fetch('/api/analyze-property', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ address: address })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('Full response data received:', data);
+                    console.log('AI analysis in response:', data.ai_analysis);
+                    currentData = data;
+                    displayResults(data);
+                } else {
+                    showError(data.error || 'Analysis failed');
+                }
+                
+            } catch (error) {
+                showError('Network error: ' + error.message);
+            } finally {
+                // Re-enable form
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-search"></i> Generate Report';
+                document.getElementById('loadingDiv').style.display = 'none';
+            }
+        });
+        
+        function displayResults(data) {
+            document.getElementById('resultsContent').style.display = 'block';
+            
+            // Property summary with error handling
+            const setTextContent = (id, value) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value;
+                else console.warn(`Element with ID '${id}' not found`);
+            };
+            
+            setTextContent('propertyAddress', data.property.address);
+            setTextContent('propertyBIN', data.property.bin);
+            setTextContent('propertyBBL', data.property.bbl);
+            setTextContent('propertyBorough', data.property.borough);
+            setTextContent('propertyBlockLot', `${data.property.block}/${data.property.lot}`);
+            setTextContent('propertyZip', data.property.zip_code);
+            setTextContent('reportDate', new Date().toLocaleDateString());
+            
+            // Overall score
+            const overallScore = data.compliance_scores.overall;
+            setTextContent('overallScore', overallScore);
+            const scoreCircle = document.getElementById('overallScoreCircle');
+            if (scoreCircle) scoreCircle.className = 'score-circle-large ' + getScoreClass(overallScore);
+            
+            // HPD
+            updateComplianceRow('hpd', `${data.violations.hpd_total} total, ${data.violations.hpd_active} active`);
+            setTextContent('hpdTotal', data.violations.hpd_total);
+            setTextContent('hpdActive', data.violations.hpd_active);
+            
+            // DOB
+            updateComplianceRow('dob', `${data.violations.dob_total} total, ${data.violations.dob_active} active`);
+            setTextContent('dobTotal', data.violations.dob_total);
+            setTextContent('dobActive', data.violations.dob_active);
+            
+            // Elevator
+            updateComplianceRow('elevator', `${data.equipment.elevator_total} total, ${data.equipment.elevator_active} active`);
+            setTextContent('elevatorTotal', data.equipment.elevator_total);
+            setTextContent('elevatorActive', data.equipment.elevator_active);
+            
+            // Boiler
+            setTextContent('boilerStatus', `${data.equipment.boiler_total} devices`);
+            setTextContent('boilerTotal', data.equipment.boiler_total);
+            
+            // Electrical
+            updateComplianceRow('electrical', `${data.equipment.electrical_permits_total} permits, ${data.equipment.electrical_permits_active} active`);
+            setTextContent('electricalTotal', data.equipment.electrical_permits_total);
+            setTextContent('electricalActive', data.equipment.electrical_permits_active);
+            
+            // Display AI Analysis if available
+            console.log('Checking AI analysis data:', data.ai_analysis);
+            if (data.ai_analysis && data.ai_analysis.property_analysis) {
+                console.log('Displaying AI analysis...');
+                displayAIAnalysisCompact(data.ai_analysis);
+            } else {
+                console.log('No AI analysis data found or incomplete structure');
+                // Show error state instead of hiding section
+                document.getElementById('aiLoadingState').style.display = 'none';
+                document.getElementById('aiResultsState').style.display = 'block';
+                
+                // Show error message using correct element IDs
+                const riskBadge = document.getElementById('riskBadgeEnhanced');
+                const riskSummary = document.getElementById('riskSummaryEnhanced');
+                const actionsGrid = document.getElementById('actionsGrid');
+                
+                if (riskBadge) {
+                    riskBadge.textContent = 'ERROR';
+                    riskBadge.className = 'risk-badge-enhanced risk-critical';
+                }
+                
+                if (riskSummary) {
+                    riskSummary.textContent = 'AI analysis temporarily unavailable. Please try again later.';
+                }
+                
+                if (actionsGrid) {
+                    actionsGrid.innerHTML = `
+                        <div class="action-card-enhanced action-critical">
+                            <div class="action-title-enhanced">AI Analysis Unavailable</div>
+                            <div class="action-reason">Our AI agent is currently processing other requests. The compliance data above is still accurate.</div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Display vendor recommendations if available
+            console.log('Checking vendor recommendations data:', data.vendor_recommendations);
+            if (data.vendor_recommendations) {
+                console.log('Displaying vendor recommendations...');
+                displayVendorRecommendations(data.vendor_recommendations);
+            } else {
+                console.log('No vendor recommendations data found');
+            }
+        }
+        
+        function updateComplianceRow(category, status) {
+            const statusElement = document.getElementById(category + 'Status');
+            if (statusElement) {
+                statusElement.textContent = status;
+            } else {
+                console.warn(`Status element for category '${category}' not found`);
+            }
+        }
+        
+        function displayAIAnalysisCompact(aiData) {
+            try {
+                console.log('AI Data received:', aiData);
+                
+                const analysis = aiData.property_analysis;
+                const riskAssessment = analysis.overall_risk_assessment;
+                
+                // Hide loading state and show results
+                document.getElementById('aiLoadingState').style.display = 'none';
+                document.getElementById('aiResultsState').style.display = 'block';
+                
+                // Update confidence badge in header
+                const confidence = aiData.ai_confidence || '--';
+                const confidenceText = typeof confidence === 'string' && confidence.toUpperCase() === 'HIGH' ? '95' : confidence;
+                document.getElementById('aiConfidenceBadge').innerHTML = `<i class="fas fa-check-circle"></i> ${confidenceText}% Confidence`;
+                
+                // Risk Assessment
+                const riskLevel = riskAssessment.risk_level.toLowerCase();
+                const riskContainer = document.getElementById('riskAssessmentContainer');
+                if (riskContainer) riskContainer.className = `risk-assessment-enhanced risk-${riskLevel}-border`;
+                
+                const riskBadge = document.getElementById('riskBadgeEnhanced');
+                if (riskBadge) {
+                    riskBadge.textContent = riskAssessment.risk_level;
+                    riskBadge.className = `risk-badge-enhanced risk-${riskLevel}`;
+                }
+                
+                const riskSummaryElement = document.getElementById('riskSummaryEnhanced');
+                if (riskSummaryElement) riskSummaryElement.textContent = riskAssessment.risk_summary;
+                
+                // Risk Factors
+                const riskFactorsList = document.getElementById('riskFactorsList');
+                riskFactorsList.innerHTML = '';
+                if (riskAssessment.primary_risk_factors && Array.isArray(riskAssessment.primary_risk_factors)) {
+                    riskAssessment.primary_risk_factors.forEach(factor => {
+                        const li = document.createElement('li');
+                        li.className = 'risk-factor-item';
+                        li.textContent = factor;
+                        riskFactorsList.appendChild(li);
+                    });
+                }
+                
+                // Priority Actions - Enhanced Grid
+                const actionsGrid = document.getElementById('actionsGrid');
+                actionsGrid.innerHTML = '';
+                
+                if (analysis.priority_actions && Array.isArray(analysis.priority_actions)) {
+                    analysis.priority_actions.forEach(action => {
+                        const actionCard = document.createElement('div');
+                        const priorityLevel = action.priority.toLowerCase();
+                        actionCard.className = `action-card-enhanced action-${priorityLevel}`;
+                        
+                        const timeline = action.timeline || 'Not specified';
+                        const cost = action.estimated_cost || 'Not specified';
+                        
+                        actionCard.innerHTML = `
+                            <div class="action-header-enhanced">
+                                <div class="action-priority-enhanced priority-${priorityLevel}">
+                                    ${action.priority}
+                                </div>
+                                <div class="action-category">${action.category}</div>
+                            </div>
+                            <div class="action-title-enhanced">${action.action}</div>
+                            <div class="action-reason">${action.reason}</div>
+                            <div class="action-details">
+                                <div class="action-detail">
+                                    <div class="action-detail-label">Timeline</div>
+                                    <div class="action-detail-value">${timeline}</div>
+                                </div>
+                                <div class="action-detail">
+                                    <div class="action-detail-label">Est. Cost</div>
+                                    <div class="action-detail-value">${cost}</div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        actionsGrid.appendChild(actionCard);
+                    });
+                } else {
+                    // Show fallback if no priority actions
+                    actionsGrid.innerHTML = `
+                        <div class="action-card-enhanced">
+                            <div class="action-title-enhanced">No Critical Actions Required</div>
+                            <div class="action-reason">Property appears to be in good compliance standing based on current analysis.</div>
+                        </div>
+                    `;
+                }
+                
+                // Financial Impact (if available)
+                if (analysis.financial_impact) {
+                    const financialSection = document.getElementById('financialImpactSection');
+                    if (financialSection) financialSection.style.display = 'block';
+                    
+                    const potentialFinesElement = document.getElementById('potentialFines');
+                    if (potentialFinesElement) potentialFinesElement.textContent = analysis.financial_impact.potential_fines || 'Not specified';
+                    
+                    const estimatedCostsElement = document.getElementById('estimatedCosts');
+                    if (estimatedCostsElement) estimatedCostsElement.textContent = analysis.financial_impact.maintenance_costs || 'Not specified';
+                }
+                
+                // Footer metadata
+                const aiConfidenceTextElement = document.getElementById('aiConfidenceText');
+                if (aiConfidenceTextElement) aiConfidenceTextElement.textContent = confidenceText;
+                
+                const analysisTime = aiData.analysis_timestamp ? 
+                    new Date(aiData.analysis_timestamp).toLocaleTimeString() : 
+                    new Date().toLocaleTimeString();
+                const analysisTimeElement = document.getElementById('analysisTimeText');
+                if (analysisTimeElement) analysisTimeElement.textContent = analysisTime;
+                
+            } catch (error) {
+                console.error('Error displaying AI analysis:', error);
+                console.error('AI Data structure:', aiData);
+                
+                // Show error state
+                document.getElementById('aiLoadingState').style.display = 'none';
+                document.getElementById('aiResultsState').style.display = 'block';
+                
+                // Update header to show error
+                document.getElementById('aiConfidenceBadge').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+                document.getElementById('aiConfidenceBadge').style.background = 'rgba(220, 38, 38, 0.2)';
+                
+                // Show error in risk assessment
+                const riskContainer = document.getElementById('riskAssessmentContainer');
+                riskContainer.className = 'risk-assessment-enhanced risk-critical-border';
+                document.getElementById('riskBadgeEnhanced').textContent = 'ERROR';
+                document.getElementById('riskBadgeEnhanced').className = 'risk-badge-enhanced risk-critical';
+                document.getElementById('riskSummaryEnhanced').textContent = 'Unable to process AI analysis at this time. Please try again later.';
+                
+                document.getElementById('actionsGrid').innerHTML = `
+                    <div class="action-card-enhanced action-critical">
+                        <div class="action-title-enhanced">AI Analysis Temporarily Unavailable</div>
+                        <div class="action-reason">Our AI service is currently processing other requests. The compliance data shown above remains accurate and actionable.</div>
+                    </div>
+                `;
+            }
+        }
+        
+        function displayVendorRecommendations(vendorData) {
+            try {
+                console.log('Displaying vendor recommendations:', vendorData);
+                
+                if (!vendorData || Object.keys(vendorData).length === 0) {
+                    console.log('No vendor recommendations to display');
+                    return;
+                }
+                
+                // Show the vendor marketplace section
+                document.getElementById('vendorMarketplaceSection').style.display = 'block';
+                
+                const vendorCategories = document.getElementById('vendorCategories');
+                vendorCategories.innerHTML = '';
+                
+                // Category display names and icons
+                const categoryInfo = {
+                    'hpd': { name: 'Housing & Maintenance', icon: 'fas fa-home' },
+                    'dob': { name: 'Building & Construction', icon: 'fas fa-building' },
+                    'elevator': { name: 'Elevator Services', icon: 'fas fa-elevator' },
+                    'boiler': { name: 'HVAC & Boiler', icon: 'fas fa-fire' },
+                    'electrical': { name: 'Electrical Services', icon: 'fas fa-bolt' },
+                    'fire_safety': { name: 'Fire Safety & Alarms', icon: 'fas fa-shield-alt' }
+                };
+                
+                // Create vendor categories
+                for (const [category, vendors] of Object.entries(vendorData)) {
+                    if (!vendors || vendors.length === 0) continue;
+                    
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'vendor-category';
+                    
+                    const categoryName = categoryInfo[category]?.name || category.toUpperCase();
+                    const categoryIcon = categoryInfo[category]?.icon || 'fas fa-tools';
+                    
+                    categoryDiv.innerHTML = `
+                        <div class="vendor-category-header">
+                            <i class="${categoryIcon}"></i>
+                            ${categoryName}
+                            <span style="margin-left: auto; font-size: 0.9rem;">${vendors.length} providers</span>
+                        </div>
+                        <div class="vendor-list">
+                            ${vendors.map(vendor => createVendorCard(vendor)).join('')}
+                        </div>
+                    `;
+                    
+                    vendorCategories.appendChild(categoryDiv);
+                }
+                
+                // Update timestamp
+                const vendorUpdateElement = document.getElementById('vendorUpdateTime');
+                if (vendorUpdateElement) vendorUpdateElement.textContent = new Date().toLocaleTimeString();
+                
+                console.log('✅ Vendor recommendations displayed successfully');
+                
+            } catch (error) {
+                console.error('Error displaying vendor recommendations:', error);
+            }
+        }
+        
+        function createVendorCard(vendor) {
+            const rating = vendor.rating || 0;
+            const ratingCount = vendor.rating_count || 0;
+            const distance = vendor.distance_miles || 'N/A';
+            const phone = vendor.phone || '';
+            const website = vendor.website || '';
+            
+            // Create star rating display
+            const starRating = createStarRating(rating);
+            
+            // Create contact buttons
+            const contactButtons = [];
+            if (phone) {
+                contactButtons.push(`<a href="tel:${phone}" class="vendor-action-btn"><i class="fas fa-phone"></i> Call</a>`);
+            }
+            if (website) {
+                contactButtons.push(`<a href="${website}" target="_blank" class="vendor-action-btn primary"><i class="fas fa-external-link-alt"></i> Website</a>`);
+            }
+            
+            return `
+                <div class="vendor-card">
+                    <div class="vendor-info">
+                        <div class="vendor-name">${vendor.name || 'Unknown'}</div>
+                        <div class="vendor-details">
+                            <div class="vendor-detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${vendor.address || 'Address not available'}
+                            </div>
+                            ${vendor.business_status ? `
+                                <div class="vendor-detail-item">
+                                    <i class="fas fa-store"></i>
+                                    ${vendor.business_status}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-rating">
+                        <div class="star-rating">
+                            ${starRating}
+                            <span>${rating}/5</span>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #6b7280;">
+                            ${ratingCount} reviews
+                        </div>
+                    </div>
+                    
+                    <div class="vendor-distance">${distance} mi</div>
+                    
+                    <div class="vendor-actions">
+                        ${contactButtons.join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            
+            let stars = '';
+            
+            // Full stars
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            // Half star
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            // Empty stars
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+        
+        function toggleRow(category, event) {
+            // Prevent event bubbling from child elements
+            if (event) {
+                event.stopPropagation();
+            }
+            
+            const row = event.currentTarget;
+            const isExpanded = row.classList.contains('expanded');
+            
+            // Close all rows
+            document.querySelectorAll('.compliance-row').forEach(r => r.classList.remove('expanded'));
+            
+            // If this row wasn't expanded, expand it and load details
+            if (!isExpanded) {
+                row.classList.add('expanded');
+                loadRowDetails(category);
+            }
+        }
+        
+        function loadRowDetails(category) {
+            if (!currentData || !currentData.inspections) return;
+            
+            // Helper function for safe textContent setting
+            const setTextContent = (id, value) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value;
+                else console.warn(`Element with ID '${id}' not found`);
+            };
+            
+            const recordsContainer = document.getElementById(category + 'Records');
+            const existingHeader = recordsContainer.querySelector('.records-header');
+            
+            // Clear existing records except header
+            while (recordsContainer.children.length > 1) {
+                recordsContainer.removeChild(recordsContainer.lastChild);
+            }
+            
+            let data = currentData.inspections[category + '_data'] || 
+                      currentData.inspections[category + '_violations'] || 
+                      currentData.inspections[category.replace('_', '_inspections')] ||
+                      [];
+            
+            // Filter to show only active violations/records
+            if (category === 'hpd') {
+                // Show only open violations (not RESOLVE, CERTIFIED, CLOSE)
+                data = data.filter(record => {
+                    const status = (record.violationstatus || '').toUpperCase();
+                    const currentStatus = (record.currentstatus || '').toUpperCase();
+                    return !['RESOLVE', 'RESOLVED', 'CERTIFIED', 'CLOSE', 'CLOSED', 'DISMISSED'].includes(status) && 
+                           !['RESOLVE', 'RESOLVED', 'CERTIFIED', 'CLOSE', 'CLOSED', 'DISMISSED'].includes(currentStatus);
+                });
+            } else if (category === 'dob') {
+                // Show only open violations (not RESOLVE, DISMISS, etc.)
+                data = data.filter(record => {
+                    const disposition = (record.disposition_comments || '').toUpperCase();
+                    const status = (record.violation_status || '').toUpperCase();
+                    return !['RESOLVE', 'RESOLVED', 'DISMISS', 'DISMISSED', 'CERTIFIED', 'CLOSE', 'CLOSED'].includes(disposition) &&
+                           !['RESOLVE', 'RESOLVED', 'DISMISS', 'DISMISSED', 'CERTIFIED', 'CLOSE', 'CLOSED'].includes(status);
+                });
+            } else if (category === 'elevator') {
+                // Show only active devices
+                data = data.filter(record => {
+                    const status = (record.device_status || '').toUpperCase();
+                    return !['INACTIVE', 'REMOVED', 'TERMINATED', 'CANCELLED'].includes(status);
+                });
+            } else if (category === 'electrical') {
+                // Show only active permits
+                data = data.filter(record => {
+                    const status = (record.filing_status || '').toUpperCase();
+                    return !['EXPIRED', 'CANCELLED', 'CLOSED', 'DISAPPROVED', 'REVOKED'].includes(status);
+                });
+            }
+            // For boiler, show all records as they are inspection records, not violations
+            
+            if (data.length === 0) {
+                const noDataRow = document.createElement('div');
+                noDataRow.className = 'record-row';
+                noDataRow.innerHTML = '<div colspan="4" style="text-align: center; color: #666; grid-column: 1/-1;">No active records found</div>';
+                recordsContainer.appendChild(noDataRow);
+                return;
+            }
+            
+            // Add up to 10 records
+            data.slice(0, 10).forEach(record => {
+                const row = document.createElement('div');
+                row.className = 'record-row';
+                
+                if (category === 'hpd') {
+                    const description = record.novdescription || 'N/A';
+                    const descriptionHtml = description.length > 50 ? 
+                        `<span class="truncated-text" onclick="showDescriptionModal('HPD Violation', ${JSON.stringify(record).replace(/"/g, '&quot;')}, '${description.replace(/'/g, "\\'")}', event)">
+                            ${truncate(description, 50)}
+                        </span>` : description;
+                    
+                    row.innerHTML = `
+                        <div>${record.violationid || 'N/A'}</div>
+                        <div>${record.violationstatus || 'N/A'}</div>
+                        <div>${formatDate(record.approveddate)}</div>
+                        <div>${descriptionHtml}</div>
+                    `;
+                } else if (category === 'dob') {
+                    const description = record.description || 'N/A';
+                    const descriptionHtml = description.length > 50 ? 
+                        `<span class="truncated-text" onclick="showDescriptionModal('DOB Violation', ${JSON.stringify(record).replace(/"/g, '&quot;')}, '${description.replace(/'/g, "\\'")}', event)">
+                            ${truncate(description, 50)}
+                        </span>` : description;
+                    
+                    row.innerHTML = `
+                        <div>${record.isn_dob_bis_viol || 'N/A'}</div>
+                        <div>${record.violation_category || 'N/A'}</div>
+                        <div>${formatDate(record.issue_date)}</div>
+                        <div>${descriptionHtml}</div>
+                    `;
+                } else if (category === 'elevator') {
+                    row.innerHTML = `
+                        <div>${record.device_number || 'N/A'}</div>
+                        <div>${record.device_type || 'N/A'}</div>
+                        <div>${record.device_status || 'N/A'}</div>
+                        <div>${formatDate(record.status_date)}</div>
+                    `;
+                } else if (category === 'boiler') {
+                    row.innerHTML = `
+                        <div>${record.boiler_id || 'N/A'}</div>
+                        <div>${formatDate(record.inspection_date)}</div>
+                        <div>${record.report_status || 'N/A'}</div>
+                        <div>${record.defects_exist || 'N/A'}</div>
+                    `;
+                    
+                    // Update defects count
+                    const defects = data.filter(r => r.defects_exist === 'Yes').length;
+                    setTextContent('boilerDefects', defects);
+                    setTextContent('boilerRecent', data.length);
+                } else if (category === 'electrical') {
+                    const description = record.job_description || 'N/A';
+                    const descriptionHtml = description.length > 50 ? 
+                        `<span class="truncated-text" onclick="showDescriptionModal('Electrical Permit', ${JSON.stringify(record).replace(/"/g, '&quot;')}, '${description.replace(/'/g, "\\'")}', event)">
+                            ${truncate(description, 50)}
+                        </span>` : description;
+                    
+                    row.innerHTML = `
+                        <div>${record.filing_number || 'N/A'}</div>
+                        <div>${record.filing_status || 'N/A'}</div>
+                        <div>${formatDate(record.filing_date)}</div>
+                        <div>${descriptionHtml}</div>
+                    `;
+                }
+                
+                recordsContainer.appendChild(row);
+            });
+            
+            if (data.length > 10) {
+                const moreRow = document.createElement('div');
+                moreRow.className = 'record-row';
+                moreRow.innerHTML = `<div style="text-align: center; color: #666; font-style: italic; grid-column: 1/-1;">... and ${data.length - 10} more records</div>`;
+                recordsContainer.appendChild(moreRow);
+            }
+        }
+        
+        function formatDate(dateStr) {
+            if (!dateStr) return 'N/A';
+            
+            // Convert string to string if it's a number
+            const dateString = String(dateStr);
+            
+            try {
+                // Handle YYYYMMDD format (e.g., "20240802")
+                if (/^\d{8}$/.test(dateString)) {
+                    const year = dateString.substring(0, 4);
+                    const month = dateString.substring(4, 6);
+                    const day = dateString.substring(6, 8);
+                    const date = new Date(year, month - 1, day); // month is 0-indexed
+                    
+                    if (!isNaN(date.getTime())) {
+                        return date.toLocaleDateString();
+                    }
+                }
+                
+                // Handle standard date formats
+                const date = new Date(dateString);
+                if (!isNaN(date.getTime())) {
+                    return date.toLocaleDateString();
+                }
+                
+                // If all else fails, return the original string
+                return dateString;
+            } catch {
+                return dateString;
+            }
+        }
+        
+        function truncate(str, length) {
+            if (!str) return 'N/A';
+            return str.length > length ? str.substring(0, length) + '...' : str;
+        }
+        
+        function getScoreClass(score) {
+            if (score >= 95) return 'score-excellent';
+            if (score >= 85) return 'score-good';
+            if (score >= 70) return 'score-warning';
+            return 'score-critical';
+        }
+        
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+        
+        function showDescriptionModal(title, record, description, event) {
+            // Prevent event bubbling to parent elements
+            if (event) {
+                event.stopPropagation();
+            }
+            
+            const modal = document.getElementById('descriptionModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const violationDetails = document.getElementById('violationDetails');
+            const fullDescription = document.getElementById('fullDescription');
+            
+            // Set modal title
+            if (modalTitle) modalTitle.textContent = title;
+            
+            // Set full description
+            if (fullDescription) fullDescription.innerHTML = `<p><strong>Full Description:</strong></p><p>${description}</p>`;
+            
+            // Set violation details based on type
+            let detailsHtml = '';
+            if (title === 'HPD Violation') {
+                detailsHtml = `
+                    <div class="detail-item"><strong>Violation ID:</strong> ${record.violationid || 'N/A'}</div>
+                    <div class="detail-item"><strong>Status:</strong> ${record.violationstatus || 'N/A'}</div>
+                    <div class="detail-item"><strong>Current Status:</strong> ${record.currentstatus || 'N/A'}</div>
+                    <div class="detail-item"><strong>Approved Date:</strong> ${formatDate(record.approveddate)}</div>
+                    <div class="detail-item"><strong>Rent Impairing:</strong> ${record.rentimpairing || 'N/A'}</div>
+                `;
+            } else if (title === 'DOB Violation') {
+                detailsHtml = `
+                    <div class="detail-item"><strong>Violation ID:</strong> ${record.isn_dob_bis_viol || 'N/A'}</div>
+                    <div class="detail-item"><strong>Category:</strong> ${record.violation_category || 'N/A'}</div>
+                    <div class="detail-item"><strong>Type:</strong> ${record.violation_type || 'N/A'}</div>
+                    <div class="detail-item"><strong>Issue Date:</strong> ${formatDate(record.issue_date)}</div>
+                    <div class="detail-item"><strong>Disposition:</strong> ${record.disposition_comments || 'N/A'}</div>
+                `;
+            } else if (title === 'Electrical Permit') {
+                detailsHtml = `
+                    <div class="detail-item"><strong>Filing Number:</strong> ${record.filing_number || 'N/A'}</div>
+                    <div class="detail-item"><strong>Filing Date:</strong> ${formatDate(record.filing_date)}</div>
+                    <div class="detail-item"><strong>Status:</strong> ${record.filing_status || 'N/A'}</div>
+                    <div class="detail-item"><strong>Applicant:</strong> ${record.applicant_first_name || ''} ${record.applicant_last_name || ''}</div>
+                    <div class="detail-item"><strong>Completion Date:</strong> ${formatDate(record.completion_date)}</div>
+                    <div class="detail-item"><strong>Amount Paid:</strong> $${record.amount_paid || 'N/A'}</div>
+                `;
+            }
+            
+            if (violationDetails) violationDetails.innerHTML = detailsHtml;
+            
+            // Show modal
+            modal.style.display = 'flex';
+            
+            // Add click outside to close
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            };
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('descriptionModal');
+            modal.style.display = 'none';
+            
+            // Remove click outside handler
+            modal.onclick = null;
+        }
+    </script>
+</body>
+</html>

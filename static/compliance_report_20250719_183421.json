@@ -1,0 +1,111 @@
+{
+  "property_info": {
+    "bin": "4007993",
+    "borough": "QUEENS",
+    "block": "603",
+    "lot": "40",
+    "address": "35-40 31 STREET"
+  },
+  "compliance_data": {
+    "hpd_violations": {
+      "count": 52,
+      "sample_records": [
+        {
+          "violationid": "16024722",
+          "inspectiondate": "2023-06-07T00:00:00.000",
+          "novdescription": "\u00a7 27-2013 ADM CODE PAINT WITH LIGHT COLORED PAINT TO THE SATISFACTION OF THIS DEPARTMENT AT EAST WALL, WEST WALL, 1st DOOR FROM WEST AT NORTH WALL IN THE 4th ROOM FROM NORTH AT WEST LOCATED AT APT 3F, 3rd STORY, 1st APARTMENT FROM EAST AT SOUTH",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "16227816",
+          "inspectiondate": "2023-09-14T00:00:00.000",
+          "novdescription": "\u00a7 27-2005 HMC: PROPERLY REPAIR OR REPLACE THE BROKEN OR DEFECTIVE MORTISE LOCK AND ASSEMBLY IN THE ENTRANCE LOCATED AT APT 3F, 3rd STORY, 1st APARTMENT FROM NORTH AT EAST",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "16227819",
+          "inspectiondate": "2023-09-14T00:00:00.000",
+          "novdescription": "\u00a7 27-2037, 2038 HMC: PROVIDE A SAFE AND ADEQUATE SUPPLY OF ELECTRIC SERVICE TO THE FIXTURES ELECTRICAL OUTLET ON WEST WALL IN THE 2nd ROOM FROM EAST LOCATED AT APT 3F, 3rd STORY, 1st APARTMENT FROM NORTH AT EAST",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "16227820",
+          "inspectiondate": "2023-09-14T00:00:00.000",
+          "novdescription": "\u00a7 27-2005, 2007 ADM CODE REMOVE ALL ENCUMBRANCES CONSISTING OF CONSISTING OF PLANT POTS AND CONSTRUCTION MATERIAL ON 3RD STORY PUBLIC HALL STAIRS TO ROOF , 3rd STORY",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "16230892",
+          "inspectiondate": "2023-09-16T00:00:00.000",
+          "novdescription": "\u00a7 27-2013 ADM CODE PAINT WITH LIGHT COLORED PAINT TO THE SATISFACTION OF THIS DEPARTMENT , WEST WALL, SOUTH WALL, 1st WINDOW FRAME FROM NORTH AT EAST WALL, CEILING IN THE KITCHEN LOCATED AT APT 3F, 3rd STORY, 1st APARTMENT FROM WEST AT NORTH",
+          "currentstatus": "VIOLATION CLOSED"
+        }
+      ]
+    },
+    "dob_violations": {
+      "count": 3,
+      "sample_records": [
+        {
+          "violation_number": "24477",
+          "issue_date": "20060106",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "25005",
+          "issue_date": "20080103",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "24855",
+          "issue_date": "20090101",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        }
+      ]
+    },
+    "boiler_inspections": {
+      "count": 9,
+      "sample_records": [
+        {
+          "tracking_number": "2018-40000113652N0001-83367",
+          "inspection_type": "External",
+          "inspection_date": "06/13/2018 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2019-40000113652N0001-182755",
+          "inspection_type": "External",
+          "inspection_date": "06/06/2019 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2020-40000113652N0001-259317",
+          "inspection_type": "External",
+          "inspection_date": "03/12/2020 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2021-40000113652N0001-344422",
+          "inspection_type": "External",
+          "inspection_date": "01/29/2021 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2022-40000113652N0001-470350",
+          "inspection_type": "External",
+          "inspection_date": "05/23/2022 00:00:00",
+          "report_status": "Accepted"
+        }
+      ]
+    },
+    "elevator_inspections": {
+      "count": 0
+    },
+    "complaints_311": {
+      "count": 0
+    },
+    "fdny_violations": {
+      "count": 0
+    }
+  },
+  "generated_at": "2025-07-19 18:34:17"
+}

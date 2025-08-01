@@ -1,0 +1,116 @@
+{
+  "property_info": {
+    "bin": "4433339",
+    "borough": "QUEENS",
+    "block": "4465",
+    "lot": "175",
+    "address": "13-22 147 STREET",
+    "owner": {
+      "name": "ANGELO ROCCO"
+    }
+  },
+  "compliance_data": {
+    "hpd_violations": {
+      "count": 100,
+      "sample_records": [
+        {
+          "violationid": "16342272",
+          "inspectiondate": "2023-10-27T00:00:00.000",
+          "novdescription": "\u00a7 27-2005 HMC: PROPERLY REPAIR OR REPLACE THE BROKEN OR DEFECTIVE LOCKSET DEVICE AT BUILDING ENTRACE DOOR, AT PUBLIC HALL, 1st STORY",
+          "currentstatus": "NOV SENT OUT"
+        },
+        {
+          "violationid": "17239230",
+          "inspectiondate": "2024-09-02T00:00:00.000",
+          "novdescription": "\u00a7 27-2005 HMC: PROPERLY REPAIR OR REPLACE THE BROKEN OR DEFECTIVE LACTCH ON STREET BUILDING ENTRANCE DOOR , 1st STORY",
+          "currentstatus": "VIOLATION DISMISSED"
+        },
+        {
+          "violationid": "17239235",
+          "inspectiondate": "2024-09-02T00:00:00.000",
+          "novdescription": "\u00a7 26-1103 ADMIN. CODE: POST AND MAINTAIN A PROPER NOTICE ON WALL OF THE ENTRANCE STORY IN ENGLISH AND SPANISH ON THE AVAILABILITY OF THE AGENCY\u001aS HOUSING INFORMATION GUIDE. A SAMPLE NOTICE CAN BE FOUND AT WWW.NYC.GOV/HPD. AT PUBLIC HALL",
+          "currentstatus": "VIOLATION DISMISSED"
+        },
+        {
+          "violationid": "17557107",
+          "inspectiondate": "2024-12-15T00:00:00.000",
+          "novdescription": "\u00a7 27-2033 ADM CODE POST NOTICE, IN FORM APPROVED BY THE DEPARTMENT, STATING THE NAME AND LOCATION OF THE PERSON DESIGNATED BY THE OWNER TO HAVE KEY TO BUILDINGS HEATING SYSTEM AT WALL AT PUBLIC HALL, 1st STORY",
+          "currentstatus": "VIOLATION DISMISSED"
+        },
+        {
+          "violationid": "17557104",
+          "inspectiondate": "2024-12-15T00:00:00.000",
+          "novdescription": "\u00a7 27-2005, 27-2007, 27-2041.1 HMC, \u00a7238, \u00a7 309; \u00a7 107 (2) ( C) MDL AND 28 RCNY \u00a725-171: REPLACE OR REPAIR THE SELF-CLOSING DOORS THAT IS MISSING OR DEFECTIVE LATCH AT BUILDING FRONT ENTRANCE DOOR , 1st STORY",
+          "currentstatus": "NOV SENT OUT"
+        }
+      ]
+    },
+    "dob_violations": {
+      "count": 3,
+      "sample_records": [
+        {
+          "violation_number": "01397",
+          "issue_date": "19940607",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "40521",
+          "issue_date": "19950829",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "29727",
+          "issue_date": "19980504",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        }
+      ]
+    },
+    "boiler_inspections": {
+      "count": 7,
+      "sample_records": [
+        {
+          "tracking_number": "2018-40000046320Y0001-121306",
+          "inspection_type": "External",
+          "inspection_date": "11/02/2018 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2019-40000046320Y0001-176807",
+          "inspection_type": "External",
+          "inspection_date": "05/10/2019 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2020-40000046320Y0001-269690",
+          "inspection_type": "External",
+          "inspection_date": "05/22/2020 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2021-40000046320Y0001-422207",
+          "inspection_type": "External",
+          "inspection_date": "12/03/2021 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2022-40000046320Y0001-501615",
+          "inspection_type": "External",
+          "inspection_date": "09/12/2022 00:00:00",
+          "report_status": "Accepted"
+        }
+      ]
+    },
+    "elevator_inspections": {
+      "count": 0
+    },
+    "complaints_311": {
+      "count": 0,
+      "error": "Error searching by address: 'NoneType' object has no attribute 'empty'"
+    },
+    "fdny_violations": {
+      "count": 0,
+      "error": "Error searching by address: 'NoneType' object has no attribute 'empty'"
+    }
+  },
+  "generated_at": "2025-07-16 18:57:22"
+}

@@ -1,0 +1,129 @@
+{
+  "property_info": {
+    "bin": "3057591",
+    "borough": "BROOKLYN",
+    "block": "2013",
+    "lot": "7501",
+    "address": "555 WASHINGTON AVENUE"
+  },
+  "compliance_data": {
+    "hpd_violations": {
+      "count": 28,
+      "sample_records": [
+        {
+          "violationid": "16113397",
+          "inspectiondate": "2023-07-19T00:00:00.000",
+          "novdescription": "\u00a7 27-2005, 2007 ADM CODE REMOVE THE ILLEGAL FASTENING COSISTING OF ELECTROMANETIC LOCKING DEVICE ON GATE AT ENTANCE TO FRONT COURTYARD",
+          "currentstatus": "NOV SENT OUT"
+        },
+        {
+          "violationid": "16113402",
+          "inspectiondate": "2023-07-19T00:00:00.000",
+          "novdescription": "\u00a7 27-2005 ADM CODE PROVIDE HEAVY DUTY ACCETABLE LOCKING DEVICE AT ENTRANCE GATE TO FRON COURT YARD",
+          "currentstatus": "NOV SENT OUT"
+        },
+        {
+          "violationid": "16540226",
+          "inspectiondate": "2023-12-22T00:00:00.000",
+          "novdescription": "\u00a7 27-2029 ADM CODE PROVIDE AN ADEQUATE SUPPLY OF HEAT FOR THE APARTMENT IN THE ENTIRE APARTMENT LOCATED AT APT 1Q, 1st STORY, 1st APARTMENT FROM WEST AT NORTH",
+          "currentstatus": "VIOLATION CLOSED"
+        },
+        {
+          "violationid": "16525211",
+          "inspectiondate": "2023-12-15T00:00:00.000",
+          "novdescription": "\u00a7 27-2005, 27-2007, 27-2041.1 HMC, \u00a7238, \u00a7 309; \u00a7 107 (2) ( C) MDL AND 28 RCNY \u00a725-171: REPLACE OR REPAIR THE SELF-CLOSING DOORS THAT IS MISSING OR DEFECTIVE HINGES IN THE ENTRANCE LOCATED AT APT 1Q, 1st STORY, 1st APARTMENT FROM WEST AT NORTH , SECTION ''south''",
+          "currentstatus": "NOV SENT OUT"
+        },
+        {
+          "violationid": "16525212",
+          "inspectiondate": "2023-12-15T00:00:00.000",
+          "novdescription": "\u00a7 27-2005, 2007 ADM CODE REMOVE DEVICE PREVENTING DOOR FROM BEING SELF-CLOSING CONSISTING OF KICK DOWN DOOR STOP PERMANENTLY INSTALLED AT BUILDING ENTRANCE DOOR AT PUBLIC HALL, 1st STORY",
+          "currentstatus": "NOV SENT OUT"
+        }
+      ]
+    },
+    "dob_violations": {
+      "count": 41,
+      "sample_records": [
+        {
+          "violation_number": "30792",
+          "issue_date": "19930601",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "40069",
+          "issue_date": "19930816",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "02054",
+          "issue_date": "19940725",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "30793",
+          "issue_date": "19940601",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "25520",
+          "issue_date": "19950829",
+          "violation_type": "LL6291-LOCAL LAW 62/91 - BOILERS                                       BOILER  REQUIRED"
+        }
+      ]
+    },
+    "boiler_inspections": {
+      "count": 8,
+      "sample_records": [
+        {
+          "tracking_number": "2018-30000065701Y0001-56573",
+          "inspection_type": "External",
+          "inspection_date": "03/13/2018 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2019-30000065701Y0001-144970",
+          "inspection_type": "External",
+          "inspection_date": "01/14/2019 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2020-30000065701Y0001-256012",
+          "inspection_type": "External",
+          "inspection_date": "03/02/2020 00:00:00",
+          "report_status": "Accepted"
+        },
+        {
+          "tracking_number": "2021-30000065701Y0001-389584",
+          "inspection_type": "External",
+          "inspection_date": "05/26/2021 00:00:00",
+          "report_status": "Accepted \u0096 Civil Penalties Due"
+        },
+        {
+          "tracking_number": "2022-30000065701Y0001-437604",
+          "inspection_type": "External",
+          "inspection_date": "01/06/2022 00:00:00",
+          "report_status": "Accepted"
+        }
+      ]
+    },
+    "elevator_inspections": {
+      "count": 1,
+      "sample_records": [
+        {
+          "device_number": "3P7892",
+          "device_type": "Elevator",
+          "device_status": "Active",
+          "status_date": "2020-12-18T00:00:00.000"
+        }
+      ]
+    },
+    "complaints_311": {
+      "count": 0
+    },
+    "fdny_violations": {
+      "count": 0
+    }
+  },
+  "generated_at": "2025-07-19 18:44:38"
+}

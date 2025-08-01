@@ -1,0 +1,107 @@
+{
+  "property_info": {
+    "address": "1662 PARK AVENUE",
+    "bin": "1051687",
+    "block": "1623",
+    "borough": "MANHATTAN",
+    "dataset": "hpd_violations",
+    "lot": "34",
+    "strategy": "exact_match"
+  },
+  "hpd_violations": {
+    "total": 100,
+    "recent_issues": [
+      {
+        "date": "2014-03-09",
+        "description": "Maintenance violation",
+        "status": "Violation Closed",
+        "details": "SECTION 27-2031 ADM CODE PROVIDE HOT WATER AT ALL HOT WATER FIXTURES IN THE ENTIRE APARTMENT LOCA..."
+      },
+      {
+        "date": "2013-06-15",
+        "description": "General compliance violation",
+        "status": "Violation Closed",
+        "details": "SECTION 27-2018 ADMIN. CODE: ABATE THE NUISANCE CONSISTING OF MICE IN THE ENTIRE APARTMENT LOCATE..."
+      },
+      {
+        "date": "1997-01-08",
+        "description": "Maintenance violation",
+        "status": "Violation Closed",
+        "details": "SECTION 27-2005 ADM CODE REPAIR THE BROKEN OR DEFECTIVE PLASTERED SURFACES AND PAINT IN A UNIFORM..."
+      },
+      {
+        "date": "1997-01-08",
+        "description": "Maintenance violation",
+        "status": "Violation Closed",
+        "details": "SECTION 27-2005 ADM CODE PROPERLY REPAIR THE BROKEN OR DEFECTIVE UNCLOSABLE 3 STY SOUTHEAST APT 3..."
+      }
+    ],
+    "status_breakdown": {
+      "Violation Closed": 5
+    },
+    "time_period": "2023-2024",
+    "severity_analysis": {
+      "Critical": 1,
+      "Major": 0,
+      "Minor": 4
+    }
+  },
+  "dob_violations": {
+    "total": 11,
+    "status_breakdown": {
+      "Unknown": 5
+    },
+    "historical_pattern": "No significant patterns identified",
+    "time_period": "2000-2020",
+    "categories": {
+      "Elevator Issues": 0,
+      "Construction Violations": 0,
+      "Certification Failures": 0,
+      "Benchmarking Failures": 0
+    }
+  },
+  "equipment_data": null,
+  "scorecard": {
+    "areas": [
+      {
+        "area": "DOB Compliance",
+        "status": "\u274c Needs Work",
+        "status_icon": "\u274c",
+        "score": "D",
+        "notes": "11 violations require attention"
+      },
+      {
+        "area": "HPD Compliance",
+        "status": "\u26a0\ufe0f Needs Work",
+        "status_icon": "\u26a0\ufe0f",
+        "score": "C",
+        "notes": "100 violations need attention"
+      }
+    ]
+  },
+  "recommendations": {
+    "immediate": [
+      "Review and resolve old DOB violations - Check if still applicable"
+    ],
+    "ongoing": [
+      "Stay current on energy benchmarking - Avoid future DOB violations",
+      "Implement preventive maintenance schedule - Address issues before violations"
+    ]
+  },
+  "highlights": {
+    "summary": "This is a well-maintained residential building with:",
+    "strengths": [
+      "Professional building management evidenced by consistent inspections"
+    ],
+    "conclusion": "The building requires immediate attention to address multiple compliance issues and prevent further violations."
+  },
+  "generated_at": "2025-07-20T10:52:09.646924",
+  "ai_insights": {
+    "compliance_trend": "Concerning",
+    "risk_level": "High",
+    "attention_areas": [
+      "High violation count needs immediate attention"
+    ],
+    "positive_indicators": []
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "property_info": {
+    "bin": "4017505",
+    "borough": "QUEENS",
+    "block": "842",
+    "lot": "75",
+    "address": "23-12 31 STREET"
+  },
+  "compliance_data": {
+    "hpd_violations": {
+      "count": 8,
+      "sample_records": [
+        {
+          "violationid": "16872286",
+          "inspectiondate": "2024-04-12T00:00:00.000",
+          "novdescription": "(A) \u00a7 HMC:FILE ANNUAL BEDBUG REPORT IN ACCORDANCE WITH HPD RULE AS DESCRIBED ON THE BACK OF THIS NOTICE OF VIOLATION OR AS DESCRIBED ON HPD\u001aS WEBSITE, WWW.NYC.GOV\\HPD, SEARCH BED BUGS.",
+          "currentstatus": "NOV SENT OUT"
+        },
+        {
+          "violationid": "17500778",
+          "inspectiondate": "2024-12-02T00:00:00.000",
+          "novdescription": "\u00a727-2107 ADM CODE OWNER FAILED TO FILE A VALID REGISTRATION STATEMENT WITH THE DEPARTMENT AS REQUIRED BY ADM CODE \u00a727-2097 AND IS THEREFORE SUBJECT TO CIVIL PENALTIES, PROHIBITED FROM CERTIFYING VIOLATIONS, AND DENIED THE RIGHT TO RECOVER POSSESSION OF PREMISES FOR NONPAYMENT OF RENT UNTIL A VALID REGISTRATION STATEMENT IS FILED.",
+          "currentstatus": "INFO NOV SENT OUT"
+        },
+        {
+          "violationid": "16450020",
+          "inspectiondate": "2023-11-24T00:00:00.000",
+          "novdescription": "\u00a727-2107 ADM CODE OWNER FAILED TO FILE A VALID REGISTRATION STATEMENT WITH THE DEPARTMENT AS REQUIRED BY ADM CODE \u00a727-2097 AND IS THEREFORE SUBJECT TO CIVIL PENALTIES, PROHIBITED FROM CERTIFYING VIOLATIONS, AND DENIED THE RIGHT TO RECOVER POSSESSION OF PREMISES FOR NONPAYMENT OF RENT UNTIL A VALID REGISTRATION STATEMENT IS FILED.",
+          "currentstatus": "VIOLATION DISMISSED"
+        },
+        {
+          "violationid": "14977145",
+          "inspectiondate": "2022-03-03T00:00:00.000",
+          "novdescription": "(A) \u00a7 HMC:FILE ANNUAL BEDBUG REPORT IN ACCORDANCE WITH HPD RULE AS DESCRIBED ON THE BACK OF THIS NOTICE OF VIOLATION OR AS DESCRIBED ON HPD\u001aS WEBSITE, WWW.NYC.GOV\\HPD, SEARCH BED BUGS.",
+          "currentstatus": "VIOLATION DISMISSED"
+        },
+        {
+          "violationid": "15539964",
+          "inspectiondate": "2022-11-15T00:00:00.000",
+          "novdescription": "\u00a727-2107 ADM CODE OWNER FAILED TO FILE A VALID REGISTRATION STATEMENT WITH THE DEPARTMENT AS REQUIRED BY ADM CODE \u00a727-2097 AND IS THEREFORE SUBJECT TO CIVIL PENALTIES, PROHIBITED FROM CERTIFYING VIOLATIONS, AND DENIED THE RIGHT TO RECOVER POSSESSION OF PREMISES FOR NONPAYMENT OF RENT UNTIL A VALID REGISTRATION STATEMENT IS FILED.",
+          "currentstatus": "VIOLATION DISMISSED"
+        }
+      ]
+    },
+    "dob_violations": {
+      "count": 7,
+      "sample_records": [
+        {
+          "violation_number": "18123",
+          "issue_date": "20111213",
+          "violation_type": "LBLVIO-LOW PRESSURE BOILER                                             BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "18124",
+          "issue_date": "20111213",
+          "violation_type": "LBLVIO-LOW PRESSURE BOILER                                             BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "04018",
+          "issue_date": "20190405",
+          "violation_type": "EVCAT1-ELEVATOR ANNUAL INSPECTION / TEST                               ELEVATORREQUIRED"
+        },
+        {
+          "violation_number": "25302",
+          "issue_date": "20230620",
+          "violation_type": "LBLVIO-LOW PRESSURE BOILER                                             BOILER  REQUIRED"
+        },
+        {
+          "violation_number": "44383",
+          "issue_date": "20230620",
+          "violation_type": "LBLVIO-LOW PRESSURE BOILER                                             BOILER  REQUIRED"
+        }
+      ]
+    },
+    "boiler_inspections": {
+      "count": 0
+    },
+    "elevator_inspections": {
+      "count": 1,
+      "sample_records": [
+        {
+          "device_number": "4W11305",
+          "device_type": "Accessibility Lift",
+          "device_status": "Active",
+          "status_date": "2014-10-10T00:00:00.000"
+        }
+      ]
+    },
+    "complaints_311": {
+      "count": 0
+    },
+    "fdny_violations": {
+      "count": 0
+    }
+  },
+  "generated_at": "2025-07-19 18:38:41"
+}
