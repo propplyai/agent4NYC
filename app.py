@@ -119,49 +119,39 @@ def analyze_property():
                 'data_sources': record.data_sources
             }
             
-            # Provide basic AI analysis to avoid 502 timeout errors
-            # TODO: Implement async AI analysis in background
-            ai_analysis = {
-                "property_analysis": {
-                    "address": compliance_data.get('address', 'Property Address'),
-                    "overall_risk_assessment": {
-                        "risk_level": "HIGH" if record.overall_compliance_score < 60 else "MODERATE" if record.overall_compliance_score < 80 else "LOW",
-                        "risk_score": str(int(record.overall_compliance_score)),
-                        "primary_risk_factors": [
-                            f"{record.hpd_violations_active} active HPD violations" if record.hpd_violations_active > 0 else "No active HPD violations",
-                            f"{record.dob_violations_active} active DOB violations" if record.dob_violations_active > 0 else "No active DOB violations",
-                            f"{record.elevator_devices_active} active elevator devices" if record.elevator_devices_active > 0 else "No elevator compliance issues",
-                            f"{record.electrical_permits_active} active electrical permits" if record.electrical_permits_active > 0 else "No active electrical permits"
-                        ],
-                        "risk_summary": f"Property compliance score: {record.overall_compliance_score:.1f}/100. " + 
-                                      ("Critical attention needed for multiple active violations." if record.overall_compliance_score < 60 else
-                                       "Moderate compliance with some areas requiring attention." if record.overall_compliance_score < 80 else
-                                       "Good compliance with minimal issues.")
-                    },
-                    "priority_actions": [
-                        {
-                            "priority": "HIGH" if record.hpd_violations_active > 0 else "MEDIUM",
-                            "category": "HPD Violations",
-                            "action": f"Address {record.hpd_violations_active} active HPD violations" if record.hpd_violations_active > 0 else "Continue maintaining HPD compliance",
-                            "reason": "Active violations can lead to fines and legal issues" if record.hpd_violations_active > 0 else "Preventive maintenance",
-                            "estimated_cost": "$5,000 - $15,000" if record.hpd_violations_active > 0 else "$1,000 - $3,000",
-                            "timeline": "Within 30 days" if record.hpd_violations_active > 0 else "Ongoing"
-                        },
-                        {
-                            "priority": "HIGH" if record.dob_violations_active > 0 else "LOW", 
-                            "category": "DOB Violations",
-                            "action": f"Resolve {record.dob_violations_active} active DOB violations" if record.dob_violations_active > 0 else "Maintain DOB compliance",
-                            "reason": "DOB violations require prompt attention" if record.dob_violations_active > 0 else "Regulatory compliance",
-                            "estimated_cost": "$3,000 - $10,000" if record.dob_violations_active > 0 else "$500 - $2,000",
-                            "timeline": "Within 45 days" if record.dob_violations_active > 0 else "Annual review"
-                        }
-                    ]
-                },
-                "ai_confidence": "HIGH",
-                "analysis_timestamp": datetime.now().isoformat(),
-                "note": "Basic analysis generated to ensure fast response. Full AI analysis available on request."
-            }
-            print("✅ Generated comprehensive basic AI analysis to avoid timeouts")
+            # Send to AI agent for REAL analysis - your actual AI response
+            ai_analysis = None
+            try:
+                print("🤖 Sending compliance data to AI agent for REAL analysis...")
+                raw_ai_response = webhook_service.send_compliance_data(compliance_data)
+                print(f"✅ Raw AI response received: {type(raw_ai_response)}")
+                
+                if raw_ai_response:
+                    print("🎯 Processing REAL AI analysis response")
+                    
+                    # Handle your exact response format: [{"output": {...}}]
+                    if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
+                        first_item = raw_ai_response[0]
+                        if isinstance(first_item, dict) and 'output' in first_item:
+                            ai_analysis = first_item['output']
+                            print("✅ Successfully extracted REAL AI analysis from response")
+                        else:
+                            print("⚠️ Unexpected list format, using first item")
+                            ai_analysis = first_item
+                    elif isinstance(raw_ai_response, dict):
+                        if 'output' in raw_ai_response:
+                            ai_analysis = raw_ai_response['output']
+                        else:
+                            ai_analysis = raw_ai_response
+                    else:
+                        print("⚠️ Unexpected response format")
+                        ai_analysis = None
+                else:
+                    print("❌ No AI analysis received from webhook")
+            except Exception as e:
+                print(f"❌ REAL AI analysis failed: {e}")
+                ai_analysis = None
+                # Continue with response even if AI fails
             
             # Get vendor recommendations based on violations
             vendor_recommendations = None

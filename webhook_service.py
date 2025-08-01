@@ -65,7 +65,7 @@ class ComplianceWebhookService:
             response = self.session.post(
                 self.webhook_url,
                 json=webhook_payload,
-                timeout=45  # 45 seconds to allow for AI processing time
+                timeout=25  # Reduced to fit within Render's 30-second limit
             )
             
             # Check response status
