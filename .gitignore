@@ -1,0 +1,88 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+flask.log
+ngrok.log
+
+# Generated reports and data
+compliance_report_*.json
+comprehensive_compliance_report_*.json
+property_report_*.json
+ai_analysis_*.json
+static/*.json
+
+# Test files
+test_*.py
+*_test.py
+
+# Development files
+debug_*.py
+investigate_*.py
+explore_*.py
+demo_*.py
+quick_*.py
+generate_*.py
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# Docker
+.dockerignore
+
+# Railway
+.railway/
+
+# Local development
+local_config.py
+.env.local
