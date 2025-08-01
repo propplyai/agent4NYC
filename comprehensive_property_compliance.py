@@ -19,7 +19,7 @@ import sys
 import json
 import asyncio
 import requests
-import pandas as pd
+# import pandas as pd  # Removed for deployment compatibility
 import math
 from datetime import datetime
 from typing import Dict, List, Optional, Any, Tuple
@@ -669,13 +669,7 @@ class ComprehensivePropertyComplianceSystem:
             cleaned_item = {}
             for key, value in item.items():
                 # Handle various types of NaN/null values
-                if value is None:
-                    cleaned_item[key] = None
-                elif isinstance(value, float) and math.isnan(value):
-                    cleaned_item[key] = None
-                elif pd.isna(value):
-                    cleaned_item[key] = None
-                elif str(value).lower() == 'nan':
+                if value is None or (isinstance(value, float) and math.isnan(value)) or str(value).lower() == 'nan':
                     cleaned_item[key] = None
                 else:
                     cleaned_item[key] = value
