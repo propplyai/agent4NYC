@@ -248,10 +248,10 @@ class ComprehensivePropertyComplianceSystem:
                 limit=1
             )
             
-            print(f"   HPD search returned: {type(data)}, empty: {data.empty if data is not None else 'None'}")
+            print(f"   HPD search returned: {type(data)}, empty: {len(data) == 0 if data is not None else 'None'}")
             
-            if data is not None and not data.empty:
-                match = data.iloc[0].to_dict()
+            if data is not None and len(data) > 0:
+                match = data[0] if data else {}
                 
                 identifiers = PropertyIdentifiers(
                     address=f"{match.get('housenumber', '')} {match.get('streetname', '')}".strip(),
@@ -325,7 +325,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=1000
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['hpd_violations'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (BIN search)")
                     return
@@ -344,7 +344,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=1000
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['hpd_violations'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (block/lot search)")
                     return
@@ -364,7 +364,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=1000
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['hpd_violations'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (address search)")
                     return
@@ -390,7 +390,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=1000
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['dob_violations'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (BIN search)")
                     return
@@ -409,7 +409,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=1000
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['dob_violations'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (block/lot search)")
                     return
@@ -429,7 +429,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=1000
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['dob_violations'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (address search)")
                     return
@@ -454,7 +454,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=100
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['elevator_inspections'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (BIN search)")
                     return
@@ -469,7 +469,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=100
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['elevator_inspections'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (block/lot search)")
                     return
@@ -491,7 +491,7 @@ class ComprehensivePropertyComplianceSystem:
                             limit=100
                         )
                         
-                        if data is not None and not data.empty:
+                        if data is not None and len(data) > 0:
                             compliance_data['elevator_inspections'] = data.to_dict('records')
                             print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (address search)")
                             return
@@ -528,7 +528,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=100
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['boiler_inspections'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['boiler_inspections'])} boiler records")
                     
@@ -568,7 +568,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=100
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['electrical_permits'] = data.to_dict('records')
                     
                     # Show summary of electrical permits
@@ -598,7 +598,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=100
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['electrical_permits'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['electrical_permits'])} electrical permits (block search)")
                     return
@@ -624,7 +624,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=50
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['certificate_of_occupancy'] = data.to_dict('records')
                     
                     # Show summary of C of O status
@@ -647,7 +647,7 @@ class ComprehensivePropertyComplianceSystem:
                     limit=50
                 )
                 
-                if data is not None and not data.empty:
+                if data is not None and len(data) > 0:
                     compliance_data['certificate_of_occupancy'] = data.to_dict('records')
                     print(f"   ✅ Found {len(compliance_data['certificate_of_occupancy'])} C of O records (block/lot search)")
                     
