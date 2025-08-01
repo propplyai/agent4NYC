@@ -310,20 +310,28 @@ class ComprehensivePropertyComplianceSystem:
         return compliance_data
     
     async def gather_hpd_violations(self, identifiers: PropertyIdentifiers, compliance_data: Dict):
-        """Gather HPD violations data using multiple search strategies"""
+        """Gather HPD violations data using multiple search strategies with timeout handling"""
         print("🏠 Gathering HPD violations...")
         
         try:
-            # Strategy 1: Search by BIN
+            # Strategy 1: Search by BIN with timeout
             if identifiers.bin:
                 print(f"   🔍 Searching by BIN: {identifiers.bin}")
-                data = self.nyc_client.get_data(
-                    'hpd_violations',
-                    where=f"buildingid = '{identifiers.bin}'",
-                    select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing",
-                    order="approveddate DESC",
-                    limit=1000
-                )
+                try:
+                    data = await asyncio.wait_for(
+                        asyncio.to_thread(
+                            self.nyc_client.get_data,
+                            'hpd_violations',
+                            where=f"buildingid = '{identifiers.bin}'",
+                            select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing",
+                            order="approveddate DESC",
+                            limit=500  # Reduced limit for faster response
+                        ),
+                        timeout=20  # 20 second timeout
+                    )
+                except asyncio.TimeoutError:
+                    print(f"   ⏰ HPD BIN search timed out, trying fallback...")
+                    data = None
                 
                 if data is not None and len(data) > 0:
                     compliance_data['hpd_violations'] = data
