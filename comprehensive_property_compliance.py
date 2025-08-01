@@ -326,7 +326,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['hpd_violations'] = data.to_dict('records')
+                    compliance_data['hpd_violations'] = data
                     print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (BIN search)")
                     return
             
@@ -345,7 +345,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['hpd_violations'] = data.to_dict('records')
+                    compliance_data['hpd_violations'] = data
                     print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (block/lot search)")
                     return
             
@@ -365,7 +365,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['hpd_violations'] = data.to_dict('records')
+                    compliance_data['hpd_violations'] = data
                     print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (address search)")
                     return
             
@@ -391,7 +391,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['dob_violations'] = data.to_dict('records')
+                    compliance_data['dob_violations'] = data
                     print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (BIN search)")
                     return
             
@@ -410,7 +410,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['dob_violations'] = data.to_dict('records')
+                    compliance_data['dob_violations'] = data
                     print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (block/lot search)")
                     return
             
@@ -430,7 +430,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['dob_violations'] = data.to_dict('records')
+                    compliance_data['dob_violations'] = data
                     print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (address search)")
                     return
             
@@ -455,7 +455,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['elevator_inspections'] = data.to_dict('records')
+                    compliance_data['elevator_inspections'] = data
                     print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (BIN search)")
                     return
             
@@ -470,7 +470,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['elevator_inspections'] = data.to_dict('records')
+                    compliance_data['elevator_inspections'] = data
                     print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (block/lot search)")
                     return
             
@@ -492,7 +492,7 @@ class ComprehensivePropertyComplianceSystem:
                         )
                         
                         if data is not None and len(data) > 0:
-                            compliance_data['elevator_inspections'] = data.to_dict('records')
+                            compliance_data['elevator_inspections'] = data
                             print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (address search)")
                             return
                     except:
@@ -529,15 +529,15 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['boiler_inspections'] = data.to_dict('records')
+                    compliance_data['boiler_inspections'] = data
                     print(f"   ✅ Found {len(compliance_data['boiler_inspections'])} boiler records")
                     
                     # Show summary of findings
-                    latest_inspection = data.iloc[0]
-                    active_boilers = len(data[data['report_status'] == 'Accepted'])
-                    defective_boilers = len(data[data['defects_exist'] == 'Yes'])
+                    latest_inspection = data[0]
+                    active_boilers = len([item for item in data if item.get('report_status') == 'Accepted'])
+                    defective_boilers = len([item for item in data if item.get('defects_exist') == 'Yes'])
                     
-                    print(f"   📊 Latest inspection: {latest_inspection['inspection_date']}")
+                    print(f"   📊 Latest inspection: {latest_inspection.get('inspection_date')}")
                     print(f"   📊 Active boilers: {active_boilers}, With defects: {defective_boilers}")
                     return
                 else:
@@ -569,18 +569,19 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['electrical_permits'] = data.to_dict('records')
+                    compliance_data['electrical_permits'] = data
                     
                     # Show summary of electrical permits
-                    latest_permit = data.iloc[0]
-                    active_permits = len(data[data['filing_status'].isin(['Approved', 'Job in Process', 'Active'])])
+                    latest_permit = data[0]
+                    active_statuses = ['Approved', 'Job in Process', 'Active']
+                    active_permits = len([item for item in data if item.get('filing_status') in active_statuses])
                     
                     print(f"   ✅ Found {len(compliance_data['electrical_permits'])} electrical permit records")
-                    print(f"   📊 Latest permit: {latest_permit['filing_number']} - Status: {latest_permit['filing_status']} ({latest_permit['filing_date']})")
+                    print(f"   📊 Latest permit: {latest_permit.get('filing_number')} - Status: {latest_permit.get('filing_status')} ({latest_permit.get('filing_date')})")
                     print(f"   📊 Job description: {latest_permit.get('job_description', 'N/A')}")
                     print(f"   📊 Active permits: {active_permits}")
                     if latest_permit.get('completion_date'):
-                        print(f"   📊 Completion date: {latest_permit['completion_date']}")
+                        print(f"   📊 Completion date: {latest_permit.get('completion_date')}")
                     return
             
             # Strategy 2: Search by block/lot as fallback
@@ -599,7 +600,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['electrical_permits'] = data.to_dict('records')
+                    compliance_data['electrical_permits'] = data
                     print(f"   ✅ Found {len(compliance_data['electrical_permits'])} electrical permits (block search)")
                     return
             
@@ -625,10 +626,10 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['certificate_of_occupancy'] = data.to_dict('records')
+                    compliance_data['certificate_of_occupancy'] = data
                     
                     # Show summary of C of O status
-                    latest_co = data.iloc[0]
+                    latest_co = data[0]
                     active_cos = len(data[data['c_of_o_status'].isin(['Issued', 'Active', 'Current'])])
                     
                     print(f"   ✅ Found {len(compliance_data['certificate_of_occupancy'])} Certificate of Occupancy records")
@@ -648,11 +649,11 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['certificate_of_occupancy'] = data.to_dict('records')
+                    compliance_data['certificate_of_occupancy'] = data
                     print(f"   ✅ Found {len(compliance_data['certificate_of_occupancy'])} C of O records (block/lot search)")
                     
                     # Show latest record
-                    latest_co = data.iloc[0]
+                    latest_co = data[0]
                     print(f"   📊 Latest C of O: {latest_co['c_of_o_filing_type']} - Status: {latest_co['c_of_o_status']}")
                     return
             
