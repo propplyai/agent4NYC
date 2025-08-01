@@ -1,0 +1,86 @@
+# Docker ignore file for Propply AI
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Local development files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+ngrok.log
+flask.log
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Jupyter notebooks
+.ipynb_checkpoints
+
+# Documentation
+docs/_build/
+
+# Test files
+test_*.py
+*_test.py
+tests/
+
+# Static analysis
+.mypy_cache/
+.bandit
+.pylint.d/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Large data files
+*.json
+!requirements*.json
+compliance_report_*.json
+comprehensive_compliance_report_*.json
+property_report_*.json
+*.pdf
+fdny_pdfs/
+fdny_comprehensive/
+
+# Render specific files
+render.yaml
