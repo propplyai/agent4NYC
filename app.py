@@ -122,114 +122,30 @@ def analyze_property():
             # Send to AI agent for enhanced analysis
             ai_analysis = None
             try:
-                print("Skipping AI analysis to prevent worker crashes...")
-                # Temporarily disable AI analysis to fix frontend
-                raw_ai_response = None
-                ai_analysis = {
-                    "property_analysis": {
-                        "address": compliance_data.get('address', 'Property Address'),
-                        "overall_risk_assessment": {
-                            "risk_level": "MODERATE",
-                            "risk_score": str(int(compliance_data.get('overall_compliance_score', 80))),
-                            "primary_risk_factors": [
-                                f"{compliance_data.get('hpd_violations_active', 0)} active HPD violations",
-                                f"{compliance_data.get('dob_violations_active', 0)} active DOB violations"
-                            ],
-                            "risk_summary": f"Property compliance score: {compliance_data.get('overall_compliance_score', 80)}/100"
-                        },
-                        "priority_actions": [
-                            {
-                                "priority": "MEDIUM",
-                                "category": "General Maintenance",
-                                "action": "Review compliance status and address any active violations",
-                                "reason": "Maintain regulatory compliance",
-                                "estimated_cost": "$2,000 - $5,000",
-                                "timeline": "Within 60 days"
-                            }
-                        ]
-                    },
-                    "ai_confidence": "HIGH",
-                    "analysis_timestamp": datetime.now().isoformat()
-                }
-                print("✅ Using basic AI analysis to prevent crashes")
+                print("Sending compliance data to AI agent for analysis...")
+                raw_ai_response = webhook_service.send_compliance_data(compliance_data)
+                print(f"Raw AI response received: {type(raw_ai_response)}")
                 
-                if False:  # Skip the webhook processing
-                    print("Received AI analysis response")
-                    print(f"Raw response structure: {raw_ai_response}")
+                if raw_ai_response:
+                    print("✅ Received AI analysis response")
                     
-                    # Handle the new response format: array with output wrapper
+                    # Handle the specific response format: [{"output": {...}}]
                     if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
-                        print(f"Processing list response with {len(raw_ai_response)} items")
                         first_item = raw_ai_response[0]
-                        print(f"First item keys: {first_item.keys() if isinstance(first_item, dict) else 'Not a dict'}")
-                        
                         if isinstance(first_item, dict) and 'output' in first_item:
                             ai_analysis = first_item['output']
-                            print("Extracted AI analysis from output wrapper")
-                            print(f"AI analysis keys: {ai_analysis.keys() if isinstance(ai_analysis, dict) else 'Not a dict'}")
+                            print("✅ Successfully extracted AI analysis from response")
                         else:
+                            print("⚠️ Unexpected list format, using first item")
                             ai_analysis = first_item
-                            print("Using first item directly")
                     elif isinstance(raw_ai_response, dict):
-                        print("Processing dict response")
-                        print(f"Dict keys: {raw_ai_response.keys()}")
                         if 'output' in raw_ai_response:
                             ai_analysis = raw_ai_response['output']
-                            print("Extracted from output key")
                         else:
                             ai_analysis = raw_ai_response
-                            print("Using dict directly")
                     else:
-                        ai_analysis = raw_ai_response
-                        print("Using raw response directly")
-                    
-                    print(f"Final AI analysis structure: {type(ai_analysis)}")
-                    if isinstance(ai_analysis, dict) and 'property_analysis' in ai_analysis:
-                        print("✅ AI analysis has property_analysis key")
-                    else:
-                        print("❌ AI analysis missing property_analysis key")
-                        print(f"Available keys: {ai_analysis.keys() if isinstance(ai_analysis, dict) else 'Not a dict'}")
-                        
-                        # Check if this is the n8n test response
-                        if isinstance(ai_analysis, dict) and 'myField' in ai_analysis:
-                            print("⚠️ Received n8n test response format - creating mock AI response for demo")
-                            # Create mock response based on your AI agent's expected format
-                            ai_analysis = {
-                                "property_analysis": {
-                                    "address": compliance_data.get('address', 'Unknown Address'),
-                                    "overall_risk_assessment": {
-                                        "risk_level": "HIGH" if compliance_data.get('hpd_violations_active', 0) > 1 else "MODERATE",
-                                        "risk_score": str(compliance_data.get('overall_compliance_score', 80)),
-                                        "primary_risk_factors": [
-                                            f"{compliance_data.get('hpd_violations_active', 0)} active HPD violations requiring attention",
-                                            f"Elevator compliance at {compliance_data.get('elevator_compliance_score', 75)}%",
-                                            f"{compliance_data.get('dob_violations_active', 0)} active DOB violations"
-                                        ],
-                                        "risk_summary": f"Property shows {compliance_data.get('overall_compliance_score', 80)}/100 compliance score with specific areas requiring attention."
-                                    },
-                                    "priority_actions": [
-                                        {
-                                            "priority": "HIGH",
-                                            "category": "HPD Violations", 
-                                            "action": "Address active HPD violations immediately",
-                                            "reason": "Active violations can lead to fines and legal issues",
-                                            "estimated_cost": "$2,000 - $5,000",
-                                            "timeline": "Within 30 days"
-                                        },
-                                        {
-                                            "priority": "MEDIUM",
-                                            "category": "Preventive Maintenance",
-                                            "action": "Schedule routine inspections for all building systems",
-                                            "reason": "Prevent future violations and maintain compliance",
-                                            "estimated_cost": "$1,000 - $3,000",
-                                            "timeline": "Within 90 days"
-                                        }
-                                    ]
-                                },
-                                "ai_confidence": "HIGH",
-                                "analysis_timestamp": datetime.now().isoformat()
-                            }
-                            print("✅ Created mock AI analysis for demo purposes")
+                        print("⚠️ Unexpected response format")
+                        ai_analysis = None
                 else:
                     print("❌ No AI analysis received from webhook")
             except Exception as e:
