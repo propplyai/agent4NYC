@@ -150,8 +150,6 @@ def analyze_property():
                     print("❌ No AI analysis received from webhook")
             except Exception as e:
                 print(f"❌ AI analysis failed: {e}")
-                import traceback
-                traceback.print_exc()
                 ai_analysis = None
                 # Continue with the response even if AI analysis fails
             
