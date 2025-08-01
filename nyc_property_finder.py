@@ -35,13 +35,28 @@ def search_property_by_address(client, address, zip_code=None):
         print(f"ZIP Code: {zip_code}")
     print("-" * 60)
     
-    # Normalize address for search
+    # Normalize address for search and clean up
     address = address.upper().strip()
+    
+    # Remove common suffixes that interfere with search
+    address = address.replace(', NEW YORK, NY', '').replace(', NEW YORK', '').replace(', NY', '')
+    address = address.replace(' NEW YORK', '').replace(' NY', '')
+    
+    # Extract ZIP code if present in address
+    import re
+    zip_match = re.search(r'\b(\d{5})\b', address)
+    if zip_match and not zip_code:
+        zip_code = zip_match.group(1)
+        address = address.replace(zip_code, '').strip()
     
     # Prepare search components
     address_parts = address.split(' ')
     street_number = address_parts[0] if address_parts else ""
     street_name = ' '.join(address_parts[1:]) if len(address_parts) > 1 else ""
+    
+    print(f"Cleaned search: {street_number} {street_name}")
+    if zip_code:
+        print(f"ZIP Code: {zip_code}")
     
     # Datasets to search in priority order
     datasets = [

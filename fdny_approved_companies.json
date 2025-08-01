@@ -1,0 +1,3700 @@
+{
+  "metadata": {
+    "source": "FDNY Official Approved Companies List",
+    "parsed_at": "2025-07-20T22:18:46.353400",
+    "total_companies": 194,
+    "categories": [
+      "fire_alarm_inspection",
+      "fire_alarm_testing",
+      "smoke_detector_maintenance"
+    ]
+  },
+  "fdny_approved_companies": [
+    {
+      "name": "AAA FIRE & SECURITY INC.",
+      "license_number": "198S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/25/2026",
+      "company_name": "AAA FIRE & SECURITY INC.",
+      "address": "67 WEST STREET STE 321, Brooklyn, NY 11222",
+      "phone": "718-349-5950",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "NAPHTALI LICHTENSTEIN",
+      "insurance_expiry": "12/13/2025"
+    },
+    {
+      "name": "ABLE FIRE PREVENTION CORP.",
+      "license_number": "268S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/15/2026",
+      "company_name": "ABLE FIRE PREVENTION CORP.",
+      "address": "250 WEST 26TH STREET 4TH FLOOR, New York, NY 10001",
+      "phone": "212-675-7777",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BRIAN EDWARDS",
+      "insurance_expiry": "9/22/2025"
+    },
+    {
+      "name": "ABWAY SECURITY SYSTEMS",
+      "license_number": "218S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "7/26/2025",
+      "company_name": "ABWAY SECURITY SYSTEMS",
+      "address": "301 MCLEAN AVENUE, Yonkers, NY 10705",
+      "phone": "914-968-3880",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MARK STERNEFELD",
+      "insurance_expiry": "2/3/2026"
+    },
+    {
+      "name": "ACE ELECTRICAL CONSTRUCTION",
+      "license_number": "267S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "7/25/2025",
+      "company_name": "ACE ELECTRICAL CONSTRUCTION",
+      "address": "130-17 23RD AVENUE, College Point, NY 11356",
+      "phone": "917-882-8818",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JEFFREY SOCOL",
+      "insurance_expiry": "1/13/2026"
+    },
+    {
+      "name": "ACME FIRE ALARM CO IINC",
+      "license_number": "404S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/20/2025",
+      "company_name": "ACME FIRE ALARM CO IINC",
+      "address": "3611 169 STREET, Flushing, NY 11358",
+      "phone": "718-939-3939",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JEFFREY SCHNELLER",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "ACME FIRE PROTECTION INC",
+      "license_number": "310S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/20/2025",
+      "company_name": "ACME FIRE PROTECTION INC",
+      "address": "3611 169 STREET, Flushing, NY 11358",
+      "phone": "718-939-3939",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JEFFREY SCHNELLER",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "AFA PROTECTIVE SYSTEMS, INC",
+      "license_number": "110S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/25/2025",
+      "company_name": "AFA PROTECTIVE SYSTEMS, INC",
+      "address": "155 MICHAEL DRIVE, Syosset, NY 11791",
+      "phone": "516-496-2322",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MARK LABUA",
+      "insurance_expiry": "3/15/2026"
+    },
+    {
+      "name": "AFEC GUARDIAN FIRE PROTECTION INC.",
+      "license_number": "182S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/10/2026",
+      "company_name": "AFEC GUARDIAN FIRE PROTECTION INC.",
+      "address": "131 HENRY STREET, Freeport, NY 11520",
+      "phone": "516-605-0423",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANTHONY AUGELLO",
+      "insurance_expiry": "5/1/2026"
+    },
+    {
+      "name": "ALARM SPECIALISTS INC",
+      "license_number": "308S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/22/2026",
+      "company_name": "ALARM SPECIALISTS INC",
+      "address": "333 OLD TARRYTOWN ROAD, White Plains, NY 10603",
+      "phone": "914-946-1998",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DAVID LEVEY",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "ALARMS R US",
+      "license_number": "257S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/20/2025",
+      "company_name": "ALARMS R US",
+      "address": "1809 STILLWELL AVENUE, Brooklyn, NY 11223",
+      "phone": "718-996-6900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "THOMAS A SANSONE",
+      "insurance_expiry": "7/12/2025"
+    },
+    {
+      "name": "ALARMTRONIX INC.",
+      "license_number": "172S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/31/2025",
+      "company_name": "ALARMTRONIX INC.",
+      "address": "307 WEST 38TH STREET SUITE 1647, New York, NY 10018",
+      "phone": "347-439-2150",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BASEM SADEK",
+      "insurance_expiry": "11/20/2025"
+    },
+    {
+      "name": "ALBURDAN ELECTRIC CO INC",
+      "license_number": "122S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/11/2026",
+      "company_name": "ALBURDAN ELECTRIC CO INC",
+      "address": "61-12 FLUSHING AVENUE, Maspeth, NY 11378",
+      "phone": "718-894-4373",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RICHARD W. BOLL",
+      "insurance_expiry": "10/26/2025"
+    },
+    {
+      "name": "ALDONA FIRE PROTECTION, INC.",
+      "license_number": "215S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/6/2026",
+      "company_name": "ALDONA FIRE PROTECTION, INC.",
+      "address": "44-25 54TH DRIVE, Maspeth, NY 11378",
+      "phone": "718-380-0000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BRYAN MACARTHUR",
+      "insurance_expiry": "6/30/2025"
+    },
+    {
+      "name": "ALEX SOLUTIONS INC",
+      "license_number": "196S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/26/2026",
+      "company_name": "ALEX SOLUTIONS INC",
+      "address": "2147 E 17TH STREET APT 3C, Brooklyn, NY 11229",
+      "phone": "347-951-4258",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALEXANDER KATSAP",
+      "insurance_expiry": "3/14/2026"
+    },
+    {
+      "name": "ALLIED FIRE CONTROL SVCS LLC",
+      "license_number": "407S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/24/2025",
+      "company_name": "ALLIED FIRE CONTROL SVCS LLC",
+      "address": "54-59 43RD STREET, Maspeth, NY 11378",
+      "phone": "718-433-3880",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MARIO P GATT",
+      "insurance_expiry": "4/29/2026"
+    },
+    {
+      "name": "ALLSTATE SPRINKLER, LLC",
+      "license_number": "387S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/5/2025",
+      "company_name": "ALLSTATE SPRINKLER, LLC",
+      "address": "1869 WHITE PLAINS ROAD, Bronx, NY 10462",
+      "phone": "718-597-4060",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "WAYDE GILSTON",
+      "insurance_expiry": "12/15/2025"
+    },
+    {
+      "name": "ALLTEK SYSTEMS, INC.",
+      "license_number": "371S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/22/2026",
+      "company_name": "ALLTEK SYSTEMS, INC.",
+      "address": "177 W WESTFIELD AVE, Roselle Park, NJ 07204",
+      "phone": "908-445-8185",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "HELDER VASQUEZ",
+      "insurance_expiry": "3/12/2026"
+    },
+    {
+      "name": "ALPHA FIRE AND SECURITY",
+      "license_number": "106S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/3/2026",
+      "company_name": "ALPHA FIRE AND SECURITY",
+      "address": "90 QUENTIN ROAD, Brooklyn, NY 11223",
+      "phone": "718-946-5499",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROMAN MISOSHNIK",
+      "insurance_expiry": "8/3/2025"
+    },
+    {
+      "name": "AMERITECH SYSTEMS CORP",
+      "license_number": "103S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/28/2026",
+      "company_name": "AMERITECH SYSTEMS CORP",
+      "address": "131-35 31ST AVENUE 2ND FL, Flushing, NY 11354",
+      "phone": "718-353-0477",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "STEVEN LEE",
+      "insurance_expiry": "4/18/2026"
+    },
+    {
+      "name": "AMP SYSTEMS CO INC.",
+      "license_number": "418S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/14/2026",
+      "company_name": "AMP SYSTEMS CO INC.",
+      "address": "24631 VAN ZANDT AVE, Little Neck, NY 11362",
+      "phone": "917-346-1268",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "XINQUAN ZHANG",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "ARCO PROTECTION SYSTEMS, INC.",
+      "license_number": "295S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/4/2026",
+      "company_name": "ARCO PROTECTION SYSTEMS, INC.",
+      "address": "532 MAIN STREET, Poughkeepsie, NY 12601",
+      "phone": "845-463-6900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CRAIG A. ARCO",
+      "insurance_expiry": "6/19/2026"
+    },
+    {
+      "name": "ARLINGTON, LLC",
+      "license_number": "138S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/20/2025",
+      "company_name": "ARLINGTON, LLC",
+      "address": "307 WEST 38TH ST SUITE 2101, New York, NY 10018",
+      "phone": "212-947-1010",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "EVAN KARATHANASIS",
+      "insurance_expiry": "7/2/2026"
+    },
+    {
+      "name": "ASM SECURITY INC",
+      "license_number": "236S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/28/2026",
+      "company_name": "ASM SECURITY INC",
+      "address": "8003 MYRTLE AVE, Glendale, NY 11385",
+      "phone": "718-839-6000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "SIMON RUDERMAN",
+      "insurance_expiry": "7/10/2026"
+    },
+    {
+      "name": "ASSET PROTECTION ASSOCIATES LTD",
+      "license_number": "235S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/18/2025",
+      "company_name": "ASSET PROTECTION ASSOCIATES LTD",
+      "address": "1594 OLD MILL ROAD, Wantagh, NY 11793",
+      "phone": "516-783-9020",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JAMES M. MUNDY",
+      "insurance_expiry": "9/1/2025"
+    },
+    {
+      "name": "ASSOCIATED FIRE PROTECTION, INC",
+      "license_number": "213S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/22/2026",
+      "company_name": "ASSOCIATED FIRE PROTECTION, INC",
+      "address": "100 JACKSON STREET, Paterson, NJ 07501",
+      "phone": "973-684-7250",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL PIGNA",
+      "insurance_expiry": "4/1/2026"
+    },
+    {
+      "name": "AVELLINO & WATSON FIRE CONTROLS, INC.",
+      "license_number": "125S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/6/2026",
+      "company_name": "AVELLINO & WATSON FIRE CONTROLS, INC.",
+      "address": "600 SYLVAN AVENUE, 3RD FL EAST STE 309, Englewood Cliffs, NJ 07632",
+      "phone": "201-569-3473",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANTHONY K WATSON",
+      "insurance_expiry": "4/16/2026"
+    },
+    {
+      "name": "AXL TECHNOLOGIES CORP.",
+      "license_number": "378S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/27/2026",
+      "company_name": "AXL TECHNOLOGIES CORP.",
+      "address": "775 PARK AVE STE 255, Huntington, NY 11743",
+      "phone": "516-750-3070",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PETER R. AXELSEN",
+      "insurance_expiry": "1/31/2026"
+    },
+    {
+      "name": "B.P. ELECTRIC CORP",
+      "license_number": "373S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/19/2026",
+      "company_name": "B.P. ELECTRIC CORP",
+      "address": "1425 37TH ST, Brooklyn, NY 11218",
+      "phone": "718-853-4949",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JACOB ROTH",
+      "insurance_expiry": "6/2/2026"
+    },
+    {
+      "name": "BALCO ALARM SERVICES CORP",
+      "license_number": "195S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/11/2026",
+      "company_name": "BALCO ALARM SERVICES CORP",
+      "address": "276 FIFTH AVENUE, New York, NY 10001",
+      "phone": "212-732-4848",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "FRANK SCOTTI",
+      "insurance_expiry": "10/15/2025"
+    },
+    {
+      "name": "BAY ELECTRICAL INC",
+      "license_number": "402S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/12/2025",
+      "company_name": "BAY ELECTRICAL INC",
+      "address": "240 KENT AVE UNIT KB/29A, Brooklyn, NY 11249",
+      "phone": "917-624-0355",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "NODIR AHMEDOV",
+      "insurance_expiry": "10/17/2025"
+    },
+    {
+      "name": "BBC LOCK AND SECURITY",
+      "license_number": "254S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/4/2026",
+      "company_name": "BBC LOCK AND SECURITY",
+      "address": "401 MCLEAN AVENUE, Yonkers, NY 10705",
+      "phone": "914-969-4000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANGELO RINALDI",
+      "insurance_expiry": "9/2/2025"
+    },
+    {
+      "name": "BEACON PROTECTION GROUP",
+      "license_number": "363S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/4/2025",
+      "company_name": "BEACON PROTECTION GROUP",
+      "address": "41 VREELAND AVENUE, Totowa, NJ 07512",
+      "phone": "800-700-6400",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHRISTOPHER FAURE",
+      "insurance_expiry": "12/27/2025"
+    },
+    {
+      "name": "BERGEN PROTECTIVE SYSTEMS, INC.",
+      "license_number": "408S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/10/2026",
+      "company_name": "BERGEN PROTECTIVE SYSTEMS, INC.",
+      "address": "325 SYLVAN AVE, Englewood Cliffs, NJ 07632",
+      "phone": "877-947-3114",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN CIOFFI",
+      "insurance_expiry": "8/11/2025"
+    },
+    {
+      "name": "BEST SYSTEM SALES, INC",
+      "license_number": "364S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/17/2025",
+      "company_name": "BEST SYSTEM SALES, INC",
+      "address": "18-20 130TH STREET, College Point, NY 11356",
+      "phone": "917-938-0920",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GLENN IANNELLO",
+      "insurance_expiry": "7/25/2025"
+    },
+    {
+      "name": "BLUE SEAGULL ELECTRICAL CORP",
+      "license_number": "419S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/14/2026",
+      "company_name": "BLUE SEAGULL ELECTRICAL CORP",
+      "address": "2652 CONEY ISLAND AVE, Brooklyn, NY 11223",
+      "phone": "718-616-2300",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "VALERY TSIRULNIK",
+      "insurance_expiry": "5/6/2026"
+    },
+    {
+      "name": "BRISCOE PROTECTIVE LLC",
+      "license_number": "149S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/5/2026",
+      "company_name": "BRISCOE PROTECTIVE LLC",
+      "address": "99 MARK TREE ROAD, Centereach, NY 11720",
+      "phone": "631-864-8666",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL THOMAS PETRONE",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "BROAD SHIELD SECURITY INC.",
+      "license_number": "293S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/2/2026",
+      "company_name": "BROAD SHIELD SECURITY INC.",
+      "address": "45 SOUTH BROADWAY, Yonkers, NY 10701",
+      "phone": "914-888-7857",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "LISCARL YOUNG",
+      "insurance_expiry": "5/24/2026"
+    },
+    {
+      "name": "BUDD-MORGAN CENTRAL STATION ALARM C",
+      "license_number": "414S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/26/2026",
+      "company_name": "BUDD-MORGAN CENTRAL STATION ALARM C",
+      "address": "2050 BELLMORE AVE, Bellmore, NY 11710",
+      "phone": "516-221-0440",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JUSTIN MORGAN",
+      "insurance_expiry": "11/1/2025"
+    },
+    {
+      "name": "CADENCE COMMUNICATIONS",
+      "license_number": "264S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/17/2025",
+      "company_name": "CADENCE COMMUNICATIONS",
+      "address": "3280 SUNRISE HWY, Wantagh, NY 11793",
+      "phone": "80-653-0883",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALEX DIMITRIU",
+      "insurance_expiry": "8/21/2025"
+    },
+    {
+      "name": "CAPITAL FIRE PROTECTION, LLP",
+      "license_number": "350S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/20/2026",
+      "company_name": "CAPITAL FIRE PROTECTION, LLP",
+      "address": "710 RIDGE ROAD, Lyndhurst, NJ 07071",
+      "phone": "908-688-0131",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GEORGE H SAMOUHOS",
+      "insurance_expiry": "1/11/2026"
+    },
+    {
+      "name": "CAPTAIN FIRE PROTECTION",
+      "license_number": "276S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/3/2026",
+      "company_name": "CAPTAIN FIRE PROTECTION",
+      "address": "874 MIDWOOD DRIVE, North Bellmore, NY 11710",
+      "phone": "516-514-6235",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ASIF KHOKHAR",
+      "insurance_expiry": "3/7/2026"
+    },
+    {
+      "name": "CASEY FIRE SYSTEMS, INC",
+      "license_number": "129S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/6/2026",
+      "company_name": "CASEY FIRE SYSTEMS, INC",
+      "address": "39-27 59TH STREET, Woodside, NY 11377",
+      "phone": "212-564-3960",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JUAN TOCABENS",
+      "insurance_expiry": "3/15/2026"
+    },
+    {
+      "name": "CERTIFIED ALARM TECH SYSTEMS, INC",
+      "license_number": "359S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/25/2025",
+      "company_name": "CERTIFIED ALARM TECH SYSTEMS, INC",
+      "address": "1260 WATERS PLACE, Bronx, NY 10461",
+      "phone": "718-231-5957",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHRISTOPHER BRADFORD",
+      "insurance_expiry": "12/3/2025"
+    },
+    {
+      "name": "CHAMPION ALARM SYSTEMS LTD",
+      "license_number": "134S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/10/2026",
+      "company_name": "CHAMPION ALARM SYSTEMS LTD",
+      "address": "30 ROME ST, Farmingdale, NY 11735",
+      "phone": "631-392-1101",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "FREDERICK LOCK",
+      "insurance_expiry": "4/9/2026"
+    },
+    {
+      "name": "CITY WIDE ELECTRICAL CONTRACTORS INC",
+      "license_number": "217S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/17/2025",
+      "company_name": "CITY WIDE ELECTRICAL CONTRACTORS INC",
+      "address": "338 FLUSHING AVE, Brooklyn, NY 11205",
+      "phone": "718-506-2287",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YUDA FURTH",
+      "insurance_expiry": "2/18/2026"
+    },
+    {
+      "name": "CLASSIC DESIGNED SYSTEMS INC",
+      "license_number": "313S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/23/2025",
+      "company_name": "CLASSIC DESIGNED SYSTEMS INC",
+      "address": "86 GARDEN STREET, Westbury, NY 11590",
+      "phone": "516-997-9100",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RONALD K. SCHAAL",
+      "insurance_expiry": "4/29/2026"
+    },
+    {
+      "name": "CMY ELECTRICAL CORP",
+      "license_number": "256S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/17/2025",
+      "company_name": "CMY ELECTRICAL CORP",
+      "address": "3379 SHORE PKWY, Brooklyn, NY 11235",
+      "phone": "347-992-7359",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MIKHAIL UMANSKIY",
+      "insurance_expiry": "4/24/2026"
+    },
+    {
+      "name": "CODE ONE FIRE SERVICES LLC",
+      "license_number": "239S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/22/2026",
+      "company_name": "CODE ONE FIRE SERVICES LLC",
+      "address": "8 PROSPERITY DR, Suffern, NY 10901",
+      "phone": "718-853-1318",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "AARON WORCH",
+      "insurance_expiry": "6/18/2025"
+    },
+    {
+      "name": "COMMUNICATION AND SECURITY SYSTEMS I",
+      "license_number": "200S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/8/2026",
+      "company_name": "COMMUNICATION AND SECURITY SYSTEMS I",
+      "address": "42 BROOKLYN AVENUE, Massapequa, NY 11758",
+      "phone": "516-785-8900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RAYMOND CHIN",
+      "insurance_expiry": "10/17/2025"
+    },
+    {
+      "name": "COUNTY FIRE INC.",
+      "license_number": "296S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/19/2026",
+      "company_name": "COUNTY FIRE INC.",
+      "address": "75 SEABRING STREET, Brooklyn, NY 11231",
+      "phone": "718-964-6080",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MAYER WEBER",
+      "insurance_expiry": "12/26/2025"
+    },
+    {
+      "name": "CRONOS FIRE AND ELECTRICAL CORP.",
+      "license_number": "284S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/22/2026",
+      "company_name": "CRONOS FIRE AND ELECTRICAL CORP.",
+      "address": "240 KENT AVE, Brooklyn, NY 11249",
+      "phone": "646-601-6110",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GRZEGORZ T. WIACEK",
+      "insurance_expiry": "1/19/2026"
+    },
+    {
+      "name": "CROSS FIRE & SECURITY CO, INC",
+      "license_number": "181S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/7/2026",
+      "company_name": "CROSS FIRE & SECURITY CO, INC",
+      "address": "24-40 49TH STREET, Astoria, NY 11103",
+      "phone": "718-234-8600",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHRISTOPHER PRITCHARD",
+      "insurance_expiry": "10/1/2025"
+    },
+    {
+      "name": "D&W CENTRAL STATION FIRE ALARM CO.",
+      "license_number": "147S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/23/2026",
+      "company_name": "D&W CENTRAL STATION FIRE ALARM CO.",
+      "address": "4818 VAN DAM STREET UNIT 2A, Long Island City, NY 11101",
+      "phone": "718-729-6200",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "WARREN DAVIS",
+      "insurance_expiry": "5/13/2026"
+    },
+    {
+      "name": "DAKOM SERVICE INC",
+      "license_number": "154S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/22/2026",
+      "company_name": "DAKOM SERVICE INC",
+      "address": "31 SOUTH STREET, SUITE 4S-3, Mount Vernon, NY 10550",
+      "phone": "718-585-7733",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOSEPH MCGIRL",
+      "insurance_expiry": "4/1/2026"
+    },
+    {
+      "name": "DAVIS TECHNOLOGIES GROUP, LLC",
+      "license_number": "307S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/10/2026",
+      "company_name": "DAVIS TECHNOLOGIES GROUP, LLC",
+      "address": "67 N MAIN STREET, New City, NY 10956",
+      "phone": "845-352-3901",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DESMOND H DAVIS",
+      "insurance_expiry": "11/21/2025"
+    },
+    {
+      "name": "DGA SECURITY SYSTEMS INC.",
+      "license_number": "220S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/4/2025",
+      "company_name": "DGA SECURITY SYSTEMS INC.",
+      "address": "429 WEST 53RD STREET, New York, NY 10019",
+      "phone": "800-221-2300",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DANIEL TORPEY",
+      "insurance_expiry": "8/31/2025"
+    },
+    {
+      "name": "DTS DIGITAL FIRE ALARM SERVICE INC",
+      "license_number": "174S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/11/2026",
+      "company_name": "DTS DIGITAL FIRE ALARM SERVICE INC",
+      "address": "129-09 26 AVE SUITE 103, Flushing, NY 11354",
+      "phone": "866-863-4448",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YOUNGUK HUH",
+      "insurance_expiry": "8/15/2025"
+    },
+    {
+      "name": "DVM INDUSTRIES",
+      "license_number": "425S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/30/2026",
+      "company_name": "DVM INDUSTRIES",
+      "address": "19-65 STEINWAY STREET, Long Island City, NY 11105",
+      "phone": "212-739-7846",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RANDY ZORNBERG",
+      "insurance_expiry": "2/20/2026"
+    },
+    {
+      "name": "DYNAMIC ELECTRICAL CONTRACTORS",
+      "license_number": "128S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/3/2026",
+      "company_name": "DYNAMIC ELECTRICAL CONTRACTORS",
+      "address": "1046 WINTHROP STREET, Brooklyn, NY 11212",
+      "phone": "718-498-7476",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "SAMUEL PALACE",
+      "insurance_expiry": "6/18/2026"
+    },
+    {
+      "name": "DYNAMIC PROTECTION SYSTEMS",
+      "license_number": "262S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/3/2026",
+      "company_name": "DYNAMIC PROTECTION SYSTEMS",
+      "address": "333 CEDAR AVENUE, SUITE 2, Middlesex, NJ 08846",
+      "phone": "732-805-3000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "LEONARD DERASMO",
+      "insurance_expiry": "12/1/2025"
+    },
+    {
+      "name": "ELECTRONIX SYSTEMS CENTRAL STATION A",
+      "license_number": "124S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/21/2026",
+      "company_name": "ELECTRONIX SYSTEMS CENTRAL STATION A",
+      "address": "1555 NEW YORK AVENUE, Huntington Station, NY 11746",
+      "phone": "631-271-4000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "LARRY HUFF",
+      "insurance_expiry": "6/1/2026"
+    },
+    {
+      "name": "ELITE ELECTRIC INDUSTRIES INC",
+      "license_number": "126S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/18/2026",
+      "company_name": "ELITE ELECTRIC INDUSTRIES INC",
+      "address": "888-C 8TH AVE, New York, NY 10019",
+      "phone": "212-537-6100",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "KENNETH ALEXANDER",
+      "insurance_expiry": "4/26/2026"
+    },
+    {
+      "name": "EMPIRE FIRE ALARM SPECIALIST CO., INC",
+      "license_number": "375S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/11/2026",
+      "company_name": "EMPIRE FIRE ALARM SPECIALIST CO., INC",
+      "address": "45-12 46TH STREET, Sunnyside, NY 11104",
+      "phone": "212-203-4071",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALAN DOORLY",
+      "insurance_expiry": "10/31/2025"
+    },
+    {
+      "name": "EMPIRE FIRE SYSTEMS, LLC",
+      "license_number": "338S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/11/2025",
+      "company_name": "EMPIRE FIRE SYSTEMS, LLC",
+      "address": "98-19 103RD STREET, Ozone Park, NY 11417",
+      "phone": "516-499-7464",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "SALVATORE FILOTEO",
+      "insurance_expiry": "6/8/2026"
+    },
+    {
+      "name": "ENCORE FIRE PROTECTION SERVICES, INC",
+      "license_number": "381S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/25/2026",
+      "company_name": "ENCORE FIRE PROTECTION SERVICES, INC",
+      "address": "80 BROAD ST, New York, NY 10004",
+      "phone": "631-249-1127",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DEREK SPLENDORIO",
+      "insurance_expiry": "9/30/2025"
+    },
+    {
+      "name": "EQUAL ELECTRICAL CONTRACTOR INC",
+      "license_number": "190S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/4/2026",
+      "company_name": "EQUAL ELECTRICAL CONTRACTOR INC",
+      "address": "338 FLUSHING AVENUE, Brooklyn, NY 11205",
+      "phone": "917-468-0265",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MORDECHAI LUNGER",
+      "insurance_expiry": "1/14/2026"
+    },
+    {
+      "name": "EVANS ELECTRICAL SERVICES INC",
+      "license_number": "389S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/5/2026",
+      "company_name": "EVANS ELECTRICAL SERVICES INC",
+      "address": "2861 BRUCKNER BLVD STE 3, Bronx, NY 10465",
+      "phone": "732-619-1460",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BROWNETTE COOKE",
+      "insurance_expiry": "12/19/2025"
+    },
+    {
+      "name": "EXECUTIVE ELECTRICAL SERVICES INC",
+      "license_number": "228S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/7/2025",
+      "company_name": "EXECUTIVE ELECTRICAL SERVICES INC",
+      "address": "2568 EAST 17TH STREET STE 101, Brooklyn, NY 11235",
+      "phone": "718-344-0750",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL WEBER",
+      "insurance_expiry": "6/28/2025"
+    },
+    {
+      "name": "FACES SOLUTION SYSTEMS INC",
+      "license_number": "131S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/4/2026",
+      "company_name": "FACES SOLUTION SYSTEMS INC",
+      "address": "775 50TH STREET, Brooklyn, NY 11220",
+      "phone": "718-333-5166",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALEX WU",
+      "insurance_expiry": "4/5/2026"
+    },
+    {
+      "name": "FALCON ELECTRICAL CONTRACTING CORP",
+      "license_number": "385S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/14/2026",
+      "company_name": "FALCON ELECTRICAL CONTRACTING CORP",
+      "address": "159 20TH STREET SUITE 4A, Brooklyn, NY 11232",
+      "phone": "718-840-2800",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "NAUM VAYNERMAN",
+      "insurance_expiry": "4/3/2026"
+    },
+    {
+      "name": "FALCON ENGINEERED SECURITY SOLUTIONS",
+      "license_number": "331S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/4/2026",
+      "company_name": "FALCON ENGINEERED SECURITY SOLUTIONS",
+      "address": "92 MAIN STREET SUITE 317, Yonkers, NY 10701",
+      "phone": "718-618-7160",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "EMIL KRSLOVIC",
+      "insurance_expiry": "12/2/2025"
+    },
+    {
+      "name": "FALCON FIRE AND SECURITY",
+      "license_number": "137S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/1/2026",
+      "company_name": "FALCON FIRE AND SECURITY",
+      "address": "13-07 37TH AVENUE, Long Island City, NY 11101",
+      "phone": "718-440-8377",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ERWIN CHARLES",
+      "insurance_expiry": "1/28/2026"
+    },
+    {
+      "name": "FCS METRO, LLC",
+      "license_number": "117S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/3/2026",
+      "company_name": "FCS METRO, LLC",
+      "address": "121 NEWARK AVE, Jersey City, NJ 07302",
+      "phone": "212-777-7707",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "TIM DERBIQUE",
+      "insurance_expiry": "8/31/2025"
+    },
+    {
+      "name": "FIRE RESPONSE INC",
+      "license_number": "150S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/12/2026",
+      "company_name": "FIRE RESPONSE INC",
+      "address": "135-36 130TH STREET, Jamaica, NY 11420",
+      "phone": "212-532-1101",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "SWADESH GOPAUL",
+      "insurance_expiry": "8/28/2025"
+    },
+    {
+      "name": "FIRE SAFETY ALARMS INC",
+      "license_number": "116S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/12/2026",
+      "company_name": "FIRE SAFETY ALARMS INC",
+      "address": "555 SUMMIT AVENUE, Jersey City, NJ 07306",
+      "phone": "201-963-4030",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL F. JENNINGS",
+      "insurance_expiry": "12/23/2025"
+    },
+    {
+      "name": "FIRECOM INC.",
+      "license_number": "162S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/18/2026",
+      "company_name": "FIRECOM INC.",
+      "address": "39-27 59TH STREET, Woodside, NY 11377",
+      "phone": "718-899-6100",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "STEVEN MONARQUE",
+      "insurance_expiry": "3/15/2026"
+    },
+    {
+      "name": "FIRECRAFT OF NEW YORK INC",
+      "license_number": "396S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/15/2025",
+      "company_name": "FIRECRAFT OF NEW YORK INC",
+      "address": "45 W JEFRYN BLVD, Deer Park, NY 11729",
+      "phone": "516-256-2700",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DAVID VILLANO",
+      "insurance_expiry": "2/15/2026"
+    },
+    {
+      "name": "FIREDYNE SYSTEMS CORPORATION",
+      "license_number": "339S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/19/2025",
+      "company_name": "FIREDYNE SYSTEMS CORPORATION",
+      "address": "347 5TH AVE, New York, NY 10016",
+      "phone": "347-694-4084",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "THEODORE E KWIATKOWSKI",
+      "insurance_expiry": "1/23/2026"
+    },
+    {
+      "name": "FIREMAXX SYSTEMS CORP",
+      "license_number": "112S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/9/2026",
+      "company_name": "FIREMAXX SYSTEMS CORP",
+      "address": "307 7TH AVENUE SUITE 301, New York, NY 10001",
+      "phone": "212-645-7414",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GUY MONTANTE",
+      "insurance_expiry": "4/15/2026"
+    },
+    {
+      "name": "FIREPRO SYSTEMS LLC",
+      "license_number": "223S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/10/2026",
+      "company_name": "FIREPRO SYSTEMS LLC",
+      "address": "32-17 COLLEGE POINT BLVD SUITE 201, Flushing, NY 11354",
+      "phone": "718-376-6631",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "LEE BRANDON MIAO",
+      "insurance_expiry": "12/13/2025"
+    },
+    {
+      "name": "FIRETRONICS INC",
+      "license_number": "374S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/26/2026",
+      "company_name": "FIRETRONICS INC",
+      "address": "20 WOOD AVENUE, Secaucus, NJ 07094",
+      "phone": "800-284-9112",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BASEM SADEK",
+      "insurance_expiry": "5/19/2026"
+    },
+    {
+      "name": "FQE ELECTRIC LLC",
+      "license_number": "201S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/28/2025",
+      "company_name": "FQE ELECTRIC LLC",
+      "address": "75 HUNTINGTON ST, Brooklyn, NY 11231",
+      "phone": "718-437-7007",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MOSES ROSENBERGER",
+      "insurance_expiry": "6/24/2025"
+    },
+    {
+      "name": "GARLAND FIRE SYSTEMS INC",
+      "license_number": "109S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/2/2026",
+      "company_name": "GARLAND FIRE SYSTEMS INC",
+      "address": "33 TEC STREET, Hicksville, NY 11801",
+      "phone": "516-223-3189",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN P GARLAND",
+      "insurance_expiry": "8/4/2025"
+    },
+    {
+      "name": "GEM FIRE AND SECURITY LLC",
+      "license_number": "155S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/27/2025",
+      "company_name": "GEM FIRE AND SECURITY LLC",
+      "address": "445 PARK AVENUE, Brooklyn, NY 11205",
+      "phone": "212-944-8922",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YOEL WEISSMAN",
+      "insurance_expiry": "5/3/2026"
+    },
+    {
+      "name": "GENERAL SECURITY",
+      "license_number": "250S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/18/2026",
+      "company_name": "GENERAL SECURITY",
+      "address": "100 FAIRCHILD AVENUE, Plainview, NY 11803",
+      "phone": "516-997-6464",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALEXANDER MINICOZZI",
+      "insurance_expiry": "11/20/2025"
+    },
+    {
+      "name": "GFS FIRE PROTECTION INC",
+      "license_number": "400S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/1/2025",
+      "company_name": "GFS FIRE PROTECTION INC",
+      "address": "104 CHARLOTTE AVE, Hicksville, NY 11801",
+      "phone": "516-875-5455",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "KWOK L LI",
+      "insurance_expiry": "7/1/2026"
+    },
+    {
+      "name": "GOLDRING PROTECTION",
+      "license_number": "113S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/18/2026",
+      "company_name": "GOLDRING PROTECTION",
+      "address": "131 LIONS COURT, Freehold, NJ 07728",
+      "phone": "833-446-5374",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PETER GOLDRING",
+      "insurance_expiry": "7/1/2025"
+    },
+    {
+      "name": "GUARDIAN FIRE & SECURITY LLC",
+      "license_number": "180S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/10/2025",
+      "company_name": "GUARDIAN FIRE & SECURITY LLC",
+      "address": "589 8TH AVENUE 2ND FLOOR, New York, NY 10018",
+      "phone": "646-448-3558",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BRIAN BRYNOLFSON",
+      "insurance_expiry": "8/20/2025"
+    },
+    {
+      "name": "GUNZER ELECTRIC",
+      "license_number": "143S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/25/2025",
+      "company_name": "GUNZER ELECTRIC",
+      "address": "38-36 CRESCENT STREET, Long Island City, NY 11101",
+      "phone": "718-392-2219",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL GUNZER",
+      "insurance_expiry": "4/25/2026"
+    },
+    {
+      "name": "GVAC FIRE LLC",
+      "license_number": "395S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/15/2026",
+      "company_name": "GVAC FIRE LLC",
+      "address": "366 WOODBRIDGE LN, Jericho, NY 11753",
+      "phone": "516-413-4992",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "VITTORIO MONTANTE",
+      "insurance_expiry": "9/7/2025"
+    },
+    {
+      "name": "HIGH RISE FIRE AND SECURITY",
+      "license_number": "164S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/29/2026",
+      "company_name": "HIGH RISE FIRE AND SECURITY",
+      "address": "144 21ST STREET, Brooklyn, NY 11232",
+      "phone": "718-369-3434",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROBERT AIELLO",
+      "insurance_expiry": "6/1/2026"
+    },
+    {
+      "name": "HONEYWELL BLDG SOLUTIONS",
+      "license_number": "139S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/4/2026",
+      "company_name": "HONEYWELL BLDG SOLUTIONS",
+      "address": "127 WEST 30TH STREET SUITE 912, New York, NY 10001",
+      "phone": "516-302-9400",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JAMES WASELUS",
+      "insurance_expiry": "4/1/2026"
+    },
+    {
+      "name": "HOTZONE FIRE SECURITY PROTECTION",
+      "license_number": "265S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "7/22/2025",
+      "company_name": "HOTZONE FIRE SECURITY PROTECTION",
+      "address": "900 EAST 92ND STREET, Brooklyn, NY 11236",
+      "phone": "718-649-6565",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CARLTON ASPINALL",
+      "insurance_expiry": "1/5/2026"
+    },
+    {
+      "name": "HUGH O'KANE ELECTRIC COMPANY INC",
+      "license_number": "345S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/8/2026",
+      "company_name": "HUGH O'KANE ELECTRIC COMPANY INC",
+      "address": "30-40 48TH AVENUE, Long Island City, NY 11101",
+      "phone": "212-431-6007",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN O",
+      "insurance_expiry": "3/21/2026"
+    },
+    {
+      "name": "IG FIRECOM CONTROLLS LLC",
+      "license_number": "415S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/21/2026",
+      "company_name": "IG FIRECOM CONTROLLS LLC",
+      "address": "201 GREELEY AVE, Staten Island, NY 10306",
+      "phone": "718-877-7034",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GENCI CULLHAJ",
+      "insurance_expiry": "2/28/2026"
+    },
+    {
+      "name": "IMPERIAL FIRE PROTECTION SYSTEMS INC",
+      "license_number": "118S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/10/2025",
+      "company_name": "IMPERIAL FIRE PROTECTION SYSTEMS INC",
+      "address": "50-14 39TH ST, Long Island City, NY 11104",
+      "phone": "718-784-3400",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ARMEN MKHITARIAN",
+      "insurance_expiry": "5/15/2026"
+    },
+    {
+      "name": "INLIGHT ELECTRICAL CORP",
+      "license_number": "422S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/4/2026",
+      "company_name": "INLIGHT ELECTRICAL CORP",
+      "address": "1688 UTICA AVENUE 2ND FL, Brooklyn, NY 11234",
+      "phone": "718-484-1182",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CARLTON REID",
+      "insurance_expiry": "10/21/2025"
+    },
+    {
+      "name": "INNOVATIVE FIRE TECHNOLOGIES LLC",
+      "license_number": "212S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/18/2026",
+      "company_name": "INNOVATIVE FIRE TECHNOLOGIES LLC",
+      "address": "262 W 38 ST SUITE 1202, New York, NY 10018",
+      "phone": "800-974-4081",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALVIS A REYES",
+      "insurance_expiry": "8/24/2025"
+    },
+    {
+      "name": "INTEGRITY FIRE SOLUTIONS INC.",
+      "license_number": "349S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/6/2026",
+      "company_name": "INTEGRITY FIRE SOLUTIONS INC.",
+      "address": "225 MONTAUK HIGHWAY SUITE 219, Moriches, NY 11955",
+      "phone": "888-746-0020",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DAVID JOLLY",
+      "insurance_expiry": "10/12/2025"
+    },
+    {
+      "name": "INTELLI-TEC SECURITY SERVICES",
+      "license_number": "259S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/19/2025",
+      "company_name": "INTELLI-TEC SECURITY SERVICES",
+      "address": "150 EILEEN WAY UNIT 2, Syosset, NY 11791",
+      "phone": "516-876-2000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PHILIP J. ALBANESI",
+      "insurance_expiry": "7/1/2026"
+    },
+    {
+      "name": "INTRINSIC SYSTEMS",
+      "license_number": "309S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/8/2026",
+      "company_name": "INTRINSIC SYSTEMS",
+      "address": "1 HEWITT SQUARE #212, East Northport, NY 11731",
+      "phone": "631-530-0770",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROBERT PARK",
+      "insurance_expiry": "3/22/2026"
+    },
+    {
+      "name": "IRL SYSTEMS, INC.",
+      "license_number": "120S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/29/2026",
+      "company_name": "IRL SYSTEMS, INC.",
+      "address": "1650 BATH AVENUE, Brooklyn, NY 11214",
+      "phone": "718-491-0642",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BRENDAN LALLY",
+      "insurance_expiry": "9/18/2025"
+    },
+    {
+      "name": "JCL SYSTEMS INC",
+      "license_number": "142S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/9/2025",
+      "company_name": "JCL SYSTEMS INC",
+      "address": "38-36 CRESCENT STREET, Long Island City, NY 11101",
+      "phone": "718-937-5900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL GUNZER",
+      "insurance_expiry": "4/25/2026"
+    },
+    {
+      "name": "JOHNSON CONTROLS FIRE PROTECTION LP",
+      "license_number": "160S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/12/2026",
+      "company_name": "JOHNSON CONTROLS FIRE PROTECTION LP",
+      "address": "60 E 42ND STREET, New York, NY 10165",
+      "phone": "888-447-4027",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PAUL BARROS",
+      "insurance_expiry": "10/1/2025"
+    },
+    {
+      "name": "JOHNSON CONTROLS INC",
+      "license_number": "234S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/30/2026",
+      "company_name": "JOHNSON CONTROLS INC",
+      "address": "60 EAST 42ND STREET 29 FL, New York, NY 10165",
+      "phone": "646-596-2190",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "VITO DISPIGNA",
+      "insurance_expiry": "10/1/2025"
+    },
+    {
+      "name": "JOHNSON CONTROLS SECURITY SOLUTIONS",
+      "license_number": "189S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/4/2026",
+      "company_name": "JOHNSON CONTROLS SECURITY SOLUTIONS",
+      "address": "264 FERNWOOD AVE, Edison, NJ 08837",
+      "phone": "732-623-0647",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DANIEL KANE",
+      "insurance_expiry": "10/1/2025"
+    },
+    {
+      "name": "KEV SECURITY, INC.",
+      "license_number": "279S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/22/2026",
+      "company_name": "KEV SECURITY, INC.",
+      "address": "264 COLFAX AVENUE, Clifton, NJ 07013",
+      "phone": "973-773-1397",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JUSTIN GRUZAS",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "KISKA FIRE SYSTEMS",
+      "license_number": "269S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "7/24/2025",
+      "company_name": "KISKA FIRE SYSTEMS",
+      "address": "28-24 120TH STREET SUITE 200, Flushing, NY 11354",
+      "phone": "718-767-1911",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANTHONY S. VIDULICH",
+      "insurance_expiry": "4/23/2026"
+    },
+    {
+      "name": "LEGION FIRE INC",
+      "license_number": "230S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/25/2025",
+      "company_name": "LEGION FIRE INC",
+      "address": "153 JEFFERSON AVE, Staten Island, NY 10306",
+      "phone": "718-755-6638",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GENCI TOZAJ",
+      "insurance_expiry": "8/3/2025"
+    },
+    {
+      "name": "LIFE SPOT FIRE & SECURITY",
+      "license_number": "401S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/21/2026",
+      "company_name": "LIFE SPOT FIRE & SECURITY",
+      "address": "946 PENINSULA BLVD, Woodmere, NY 11598",
+      "phone": "347-779-1045",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "AHARON ALTHEOM",
+      "insurance_expiry": "9/3/2025"
+    },
+    {
+      "name": "LIGHTFORCE ELECTRICAL CONTRACTOR INC",
+      "license_number": "192S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "7/22/2025",
+      "company_name": "LIGHTFORCE ELECTRICAL CONTRACTOR INC",
+      "address": "5215 NEW UTRECHT AVE, Brooklyn, NY 11219",
+      "phone": "718-812-2240",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YOEL TAUBER",
+      "insurance_expiry": "3/15/2026"
+    },
+    {
+      "name": "LINKAGE FIRE AND SECURITY CORP",
+      "license_number": "365S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/4/2026",
+      "company_name": "LINKAGE FIRE AND SECURITY CORP",
+      "address": "7 SKYLINE DRIVE SUITE 350, Hawthorne, NY 10532",
+      "phone": "914-339-0997",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DAVID MERCADO",
+      "insurance_expiry": "3/15/2026"
+    },
+    {
+      "name": "LND ELECTRIC LLC",
+      "license_number": "238S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/22/2026",
+      "company_name": "LND ELECTRIC LLC",
+      "address": "1006 CONEY ISLAND AVE, Brooklyn, NY 11230",
+      "phone": "718-421-2000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YITZCHOK LEONOROVITZ",
+      "insurance_expiry": "8/14/2025"
+    },
+    {
+      "name": "LOVOLTA LLC",
+      "license_number": "397S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/19/2025",
+      "company_name": "LOVOLTA LLC",
+      "address": "62 TRENT ST, Staten Island, NY 10308",
+      "phone": "347-631-9489",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DMITRI SAMUYLOV",
+      "insurance_expiry": "1/24/2026"
+    },
+    {
+      "name": "LOW VOLTAGE ELECTRICAL SYSTEMS, INC.",
+      "license_number": "320S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/23/2026",
+      "company_name": "LOW VOLTAGE ELECTRICAL SYSTEMS, INC.",
+      "address": "31 FOREST CT, Bridgeport, CT 06604",
+      "phone": "914-433-3926",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "IAN BERNARD",
+      "insurance_expiry": "12/15/2025"
+    },
+    {
+      "name": "LOWITT ALARMS & SECURITY SYSTEMS INC",
+      "license_number": "105S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/28/2026",
+      "company_name": "LOWITT ALARMS & SECURITY SYSTEMS INC",
+      "address": "25 BETHPAGE ROAD, Hicksville, NY 11801",
+      "phone": "516-433-6960",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "WILLIAM BROWN",
+      "insurance_expiry": "11/1/2025"
+    },
+    {
+      "name": "LPC, INCORPORATED",
+      "license_number": "261S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/4/2025",
+      "company_name": "LPC, INCORPORATED",
+      "address": "7100 NEW HORIZONS BLVD, North Amityville, NY 11701",
+      "phone": "631-321-7600",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JAMES T. GIORGIO JR.",
+      "insurance_expiry": "9/1/2025"
+    },
+    {
+      "name": "LTC FIRE ALARM CORP",
+      "license_number": "244S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/16/2026",
+      "company_name": "LTC FIRE ALARM CORP",
+      "address": "93-09 71 AVE, Forest Hills, NY 11375",
+      "phone": "718-353-4636",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANTONIO KIM",
+      "insurance_expiry": "7/19/2025"
+    },
+    {
+      "name": "LTI FIRE PROTECTION & CONTROL SYSTEMS",
+      "license_number": "322S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/22/2026",
+      "company_name": "LTI FIRE PROTECTION & CONTROL SYSTEMS",
+      "address": "20 WEST 36TH STREET 10TH FL, New York, NY 10018",
+      "phone": "212-685-8585",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROBERT LOGOZIO",
+      "insurance_expiry": "4/1/2026"
+    },
+    {
+      "name": "LUMOS ELECTRIC",
+      "license_number": "403S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "11/12/2025",
+      "company_name": "LUMOS ELECTRIC",
+      "address": "162-20 77TH ROAD, Flushing, NY 11366",
+      "phone": "929-329-0001",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JEFFREY BURDIER",
+      "insurance_expiry": "11/30/2025"
+    },
+    {
+      "name": "LUND FIRE PRODUCTS CO., INC.",
+      "license_number": "159S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/18/2025",
+      "company_name": "LUND FIRE PRODUCTS CO., INC.",
+      "address": "40-33 215TH PLACE, Bayside, NY 11361",
+      "phone": "718-423-1900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RICHARD F. ALEXANDER",
+      "insurance_expiry": "9/1/2025"
+    },
+    {
+      "name": "MAN POWER ELECTRIC INC.",
+      "license_number": "252S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/22/2026",
+      "company_name": "MAN POWER ELECTRIC INC.",
+      "address": "791 KENT AVE, Brooklyn, NY 11205",
+      "phone": "718-989-2047",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "HERSHEL ELBAUM",
+      "insurance_expiry": "12/5/2025"
+    },
+    {
+      "name": "MANHATTAN FIRE & SECURITY ELECTRICAL",
+      "license_number": "108S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/21/2026",
+      "company_name": "MANHATTAN FIRE & SECURITY ELECTRICAL",
+      "address": "158 BERGEN TURNPIKE, Ridgefield Park, NJ 07660",
+      "phone": "929-900-6637",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YOEL LEONOROVITZ",
+      "insurance_expiry": "3/18/2026"
+    },
+    {
+      "name": "MAXIMUM SECURITY SYSTEMS INC",
+      "license_number": "146S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/11/2026",
+      "company_name": "MAXIMUM SECURITY SYSTEMS INC",
+      "address": "229 54TH STREET, Brooklyn, NY 11220",
+      "phone": "718-492-1000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROBERT PAMPINELLA",
+      "insurance_expiry": "4/27/2026"
+    },
+    {
+      "name": "MECO ELECTRIC CO., INC.",
+      "license_number": "329S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/6/2026",
+      "company_name": "MECO ELECTRIC CO., INC.",
+      "address": "56 WEST STREET, Staten Island, NY 10310",
+      "phone": "718-273-3900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JAWED SIDDIQUI",
+      "insurance_expiry": "4/10/2026"
+    },
+    {
+      "name": "MEGAMAX VOICE & DATA INC",
+      "license_number": "156S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/19/2026",
+      "company_name": "MEGAMAX VOICE & DATA INC",
+      "address": "2906 SHELL ROAD, Brooklyn, NY 11224",
+      "phone": "718-266-0552",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOSE M. ROJAS",
+      "insurance_expiry": "9/2/2025"
+    },
+    {
+      "name": "METRIC ELECTRICAL CONTROLS CORP.",
+      "license_number": "351S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/15/2026",
+      "company_name": "METRIC ELECTRICAL CONTROLS CORP.",
+      "address": "307 7TH AVENUE, SUITE 301, New York, NY 10001",
+      "phone": "212-645-5528",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "KRZYSZTOF WASILEWSKI",
+      "insurance_expiry": "12/18/2025"
+    },
+    {
+      "name": "MORGAN SECURITY INC.",
+      "license_number": "411S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/18/2026",
+      "company_name": "MORGAN SECURITY INC.",
+      "address": "9103 BEECH TREE LANE, Plainview, NY 11803",
+      "phone": "516-698-2801",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JONATHAN MORGAN",
+      "insurance_expiry": "1/29/2026"
+    },
+    {
+      "name": "MULTIPLEX ELECTRICAL SERVICES INC",
+      "license_number": "130S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/6/2026",
+      "company_name": "MULTIPLEX ELECTRICAL SERVICES INC",
+      "address": "39-27 59TH STREET, Woodside, NY 11377",
+      "phone": "212-677-3700",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JUAN TOCABENS",
+      "insurance_expiry": "3/15/2026"
+    },
+    {
+      "name": "MULTIPLEX ELECTRONICS CO LLC",
+      "license_number": "121S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/4/2025",
+      "company_name": "MULTIPLEX ELECTRONICS CO LLC",
+      "address": "5550 FIELDSTON ROAD SUITE 5E, Bronx, NY 10471",
+      "phone": "914-854-3473",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PATRICK J. BURKE",
+      "insurance_expiry": "10/1/2025"
+    },
+    {
+      "name": "MUTUAL SECURITY SERVICES",
+      "license_number": "184S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/21/2026",
+      "company_name": "MUTUAL SECURITY SERVICES",
+      "address": "10 WEST 46TH STREET, New York, NY 10036",
+      "phone": "212-768-0808",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "BOGDAN GRABOWSKI",
+      "insurance_expiry": "9/1/2025"
+    },
+    {
+      "name": "N.Z. PILGRIM ELECTRIC INC",
+      "license_number": "394S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/7/2025",
+      "company_name": "N.Z. PILGRIM ELECTRIC INC",
+      "address": "1770 E TREMONT AVE, Bronx, NY 10460",
+      "phone": "718-823-1156",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DENNIS HEAVEN",
+      "insurance_expiry": "9/28/2025"
+    },
+    {
+      "name": "NATIONAL POWER ELECTRIC LLC",
+      "license_number": "424S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/30/2026",
+      "company_name": "NATIONAL POWER ELECTRIC LLC",
+      "address": "199 LEE AVE SUITE 822, Brooklyn, NY 11211",
+      "phone": "929-383-0344",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ISSAAC KRITZLER",
+      "insurance_expiry": "1/20/2026"
+    },
+    {
+      "name": "NEW YORK CITY ALARM CORP",
+      "license_number": "186S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/28/2026",
+      "company_name": "NEW YORK CITY ALARM CORP",
+      "address": "160-32 WILLETS POINT BLVD, Whitestone, NY 11357",
+      "phone": "718-352-2800",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PETER PIZZO",
+      "insurance_expiry": "11/12/2025"
+    },
+    {
+      "name": "NEW YORK FIRE DETECTION, INC",
+      "license_number": "233S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/3/2026",
+      "company_name": "NEW YORK FIRE DETECTION, INC",
+      "address": "1230 PORT WASHINGTON BLVD, Port Washington, NY 11050",
+      "phone": "516-883-3900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RONALD SAVASTANO",
+      "insurance_expiry": "8/1/2025"
+    },
+    {
+      "name": "NEW YORK FIRE SERVICE, INC",
+      "license_number": "241S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/3/2026",
+      "company_name": "NEW YORK FIRE SERVICE, INC",
+      "address": "1230 PORT WASHINGTON BLVD, Port Washington, NY 11050",
+      "phone": "516-883-3900",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RONALD SAVASTANO",
+      "insurance_expiry": "8/1/2025"
+    },
+    {
+      "name": "NORCON ELECTRONICS INC",
+      "license_number": "151S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/25/2026",
+      "company_name": "NORCON ELECTRONICS INC",
+      "address": "510 BURNSIDE AVENUE, Inwood, NY 11096",
+      "phone": "516-239-0300",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "GERRY SCHEER",
+      "insurance_expiry": "7/16/2026"
+    },
+    {
+      "name": "NORTEK PROTECTION SYSTEMS CORP",
+      "license_number": "377S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/20/2026",
+      "company_name": "NORTEK PROTECTION SYSTEMS CORP",
+      "address": "4 NANCY COURT SUITE 4, Wappingers Falls, NY 12590",
+      "phone": "845-859-0600",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JAMES HOFFMAN",
+      "insurance_expiry": "2/7/2026"
+    },
+    {
+      "name": "NYC HOUSING AUTHORITY - OFFICE OF FIRE",
+      "license_number": "417S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/9/2026",
+      "company_name": "NYC HOUSING AUTHORITY - OFFICE OF FIRE",
+      "address": "24-02 49TH AVE, Long Island City, NY 11101",
+      "phone": "718-707-5456",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALEXIS CHANIS",
+      "insurance_expiry": "5/9/2026"
+    },
+    {
+      "name": "OPEN SYSTEMS METRO NY INC",
+      "license_number": "224S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/14/2026",
+      "company_name": "OPEN SYSTEMS METRO NY INC",
+      "address": "258 ROUTE 117 BY PASS ROAD, Bedford Hills, NY 10507",
+      "phone": "914-241-0057",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN COBB",
+      "insurance_expiry": "3/31/2026"
+    },
+    {
+      "name": "ORR PROTECTION SYSTEMS, INC",
+      "license_number": "119S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/6/2026",
+      "company_name": "ORR PROTECTION SYSTEMS, INC",
+      "address": "1345 AVENUE OF THE AMERICAS 2ND FLOOR, New York, NY 10019",
+      "phone": "908-353-8256",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN J. PURCELL",
+      "insurance_expiry": "7/1/2026"
+    },
+    {
+      "name": "PARKSIDE FIRE & SECURITY",
+      "license_number": "152S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/8/2026",
+      "company_name": "PARKSIDE FIRE & SECURITY",
+      "address": "305 CAYUGA ROAD, SUITE 140, Buffalo, NY 14225",
+      "phone": "716-348-3800",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROBERT VEZINA JR",
+      "insurance_expiry": "4/16/2026"
+    },
+    {
+      "name": "PHOENIX FIRE AND SECURITY SOLUTIONS LL",
+      "license_number": "102S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/22/2026",
+      "company_name": "PHOENIX FIRE AND SECURITY SOLUTIONS LL",
+      "address": "555 ROUTE 1 SOUTH, SUITE 200, Iselin, NJ 08830",
+      "phone": "844-256-9753",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "VAL SHERER",
+      "insurance_expiry": "11/26/2025"
+    },
+    {
+      "name": "POWER ELECTRIC CONTRACTING INC",
+      "license_number": "406S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/4/2025",
+      "company_name": "POWER ELECTRIC CONTRACTING INC",
+      "address": "150-30 HILLSIDE AVENUE, Jamaica, NY 11432",
+      "phone": "347-750-3936",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN TSAHAS",
+      "insurance_expiry": "12/10/2025"
+    },
+    {
+      "name": "POWERWIRE LLC",
+      "license_number": "410S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/3/2026",
+      "company_name": "POWERWIRE LLC",
+      "address": "2248 BROADWAY #1727, New York, NY 10024",
+      "phone": "929-483-6677",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MARTIN ROSAMILIA",
+      "insurance_expiry": "12/7/2025"
+    },
+    {
+      "name": "PRIME ALARMS INC",
+      "license_number": "221S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/16/2025",
+      "company_name": "PRIME ALARMS INC",
+      "address": "85-27 PARSONS BLVD, Queens, NY 11432",
+      "phone": "718-713-8004",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ALTIN KOKA",
+      "insurance_expiry": "1/24/2026"
+    },
+    {
+      "name": "PROGRESSIVE ALARM COMPANY INC",
+      "license_number": "115S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/19/2026",
+      "company_name": "PROGRESSIVE ALARM COMPANY INC",
+      "address": "154 AVENUE U 2ND FLOOR, Brooklyn, NY 11223",
+      "phone": "347-307-1502",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROMAN PERSHIN",
+      "insurance_expiry": "9/1/2025"
+    },
+    {
+      "name": "PYROSIGNAL & SUPPRESSION, INC",
+      "license_number": "178S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/3/2026",
+      "company_name": "PYROSIGNAL & SUPPRESSION, INC",
+      "address": "214-25 42 AVE, Bayside, NY 11361",
+      "phone": "718-279-3473",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RICHARD ALEXANDER",
+      "insurance_expiry": "4/20/2026"
+    },
+    {
+      "name": "QUEENSBORO ELECTRICAL CONTRACTING C",
+      "license_number": "299S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/4/2026",
+      "company_name": "QUEENSBORO ELECTRICAL CONTRACTING C",
+      "address": "104-17 44TH AVENUE, Corona, NY 11368",
+      "phone": "718-803-0200",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RUBEN A. LOPEZ",
+      "insurance_expiry": "4/18/2026"
+    },
+    {
+      "name": "RAEL FIRE ALARM",
+      "license_number": "169S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/9/2025",
+      "company_name": "RAEL FIRE ALARM",
+      "address": "1750 PLAZA AVENUE, New Hyde Park, NY 11040",
+      "phone": "516-293-2000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DAVID A. WEINER",
+      "insurance_expiry": "12/15/2025"
+    },
+    {
+      "name": "RELIANCE FIRE SYSTEMS INC.",
+      "license_number": "247S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/29/2026",
+      "company_name": "RELIANCE FIRE SYSTEMS INC.",
+      "address": "18 ORCHARD ST, New York, NY 10002",
+      "phone": "212-608-8168",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ERIC AU",
+      "insurance_expiry": "5/9/2026"
+    },
+    {
+      "name": "S&R FIRE LLC",
+      "license_number": "321S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/28/2026",
+      "company_name": "S&R FIRE LLC",
+      "address": "712 PARKSIDE AVE, Brooklyn, NY 11226",
+      "phone": "718-400-9021",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YOSEF BLAU",
+      "insurance_expiry": "8/13/2025"
+    },
+    {
+      "name": "SAFE TECH USA LTD",
+      "license_number": "114S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/22/2026",
+      "company_name": "SAFE TECH USA LTD",
+      "address": "532 BROADHOLLOW ROAD, SUITE 112, Melville, NY 11747",
+      "phone": "347-732-4361",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "SILVIU RUSU",
+      "insurance_expiry": "9/17/2025"
+    },
+    {
+      "name": "SAFELITE FIRE & SECURITY INC",
+      "license_number": "227S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/25/2026",
+      "company_name": "SAFELITE FIRE & SECURITY INC",
+      "address": "2467 EAST 15TH STREET, Brooklyn, NY 11235",
+      "phone": "646-881-1005",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JIA S LI",
+      "insurance_expiry": "4/11/2026"
+    },
+    {
+      "name": "SCARSDALE SECURITY SYSTMES, INC",
+      "license_number": "207S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/15/2026",
+      "company_name": "SCARSDALE SECURITY SYSTMES, INC",
+      "address": "132 MONTGOMERY AVENUE, Scarsdale, NY 10583",
+      "phone": "914-722-2200",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DAVID RAIZEN",
+      "insurance_expiry": "3/2/2026"
+    },
+    {
+      "name": "SECURITAS TECHNOLOGY CORPORATION",
+      "license_number": "290S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "2/23/2026",
+      "company_name": "SECURITAS TECHNOLOGY CORPORATION",
+      "address": "10-09 49TH AVENUE, Long Island City, NY 11101",
+      "phone": "765-987-5398",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHRISTOPHER JOHNSON",
+      "insurance_expiry": "1/1/2026"
+    },
+    {
+      "name": "SECURITY ZONE INC",
+      "license_number": "316S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/31/2025",
+      "company_name": "SECURITY ZONE INC",
+      "address": "40 FRANCE STREET, Norwalk, CT 06851",
+      "phone": "718-645-2185",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "LAURENCE ROBIN",
+      "insurance_expiry": "3/25/2026"
+    },
+    {
+      "name": "SHERLOCK SECURITY SYSTEMS",
+      "license_number": "166S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/26/2026",
+      "company_name": "SHERLOCK SECURITY SYSTEMS",
+      "address": "212 MINNA ST, Brooklyn, NY 11218",
+      "phone": "718-435-2675",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MOSHE POTCHIN",
+      "insurance_expiry": "1/12/2026"
+    },
+    {
+      "name": "SIEMENS INDUSTRY INC",
+      "license_number": "104S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/18/2025",
+      "company_name": "SIEMENS INDUSTRY INC",
+      "address": "50 ORVILLE DRIVE, Bohemia, NY 11716",
+      "phone": "631-218-1000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PATRICK A. JACQUES",
+      "insurance_expiry": "10/1/2025"
+    },
+    {
+      "name": "SIGNATURE BUILDING SYSTEMS INC",
+      "license_number": "167S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/7/2025",
+      "company_name": "SIGNATURE BUILDING SYSTEMS INC",
+      "address": "375 5TH AVE, New York, NY 10016",
+      "phone": "212-764-8891",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN SANTANA",
+      "insurance_expiry": "3/25/2026"
+    },
+    {
+      "name": "SIGNATURE CONSULTANT INC POWERS CON",
+      "license_number": "383S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/9/2026",
+      "company_name": "SIGNATURE CONSULTANT INC POWERS CON",
+      "address": "73 CEDAR STREET, Garfield, NJ 07026",
+      "phone": "347-728-8548",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL O. CARTER",
+      "insurance_expiry": "3/7/2026"
+    },
+    {
+      "name": "SIRINA PROTECTION SYSTEMS CORP.",
+      "license_number": "140S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "8/24/2025",
+      "company_name": "SIRINA PROTECTION SYSTEMS CORP.",
+      "address": "450 SEVENTH AVE SUITE 506, New York, NY 10123",
+      "phone": "212-929-6800",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOSEPH E CASSONE",
+      "insurance_expiry": "1/16/2026"
+    },
+    {
+      "name": "SMART SECURE",
+      "license_number": "391S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/18/2026",
+      "company_name": "SMART SECURE",
+      "address": "29 LITTLE NASSSAU STREET SUITE 120, Brooklyn, NY 11205",
+      "phone": "718-865-3131",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MAYER FRIEDMAN",
+      "insurance_expiry": "4/12/2026"
+    },
+    {
+      "name": "SOUND SOLUTIONS, INC.",
+      "license_number": "286S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/15/2026",
+      "company_name": "SOUND SOLUTIONS, INC.",
+      "address": "2417 JERICHO TPK, Garden City Park, NY 11040",
+      "phone": "516-510-5718",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "KEVIN WOOD",
+      "insurance_expiry": "3/28/2026"
+    },
+    {
+      "name": "SPECIALIZED FIRE & SECURITY, INC.",
+      "license_number": "270S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/9/2025",
+      "company_name": "SPECIALIZED FIRE & SECURITY, INC.",
+      "address": "576 FIFTH AVENUE, SUITE 903, New York, NY 10036",
+      "phone": "973-616-8771",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "STEPHEN DIRENZO",
+      "insurance_expiry": "1/15/2026"
+    },
+    {
+      "name": "STAT ELECTRIC AND MAINTENANCE",
+      "license_number": "416S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/6/2026",
+      "company_name": "STAT ELECTRIC AND MAINTENANCE",
+      "address": "1573 CONEY ISLAND AVENUE, Brooklyn, NY 11230",
+      "phone": "917-533-6887",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "YITZCHOK LANDSBERG",
+      "insurance_expiry": "10/15/2025"
+    },
+    {
+      "name": "STELLMANN ELECTRICAL CORP",
+      "license_number": "171S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/10/2026",
+      "company_name": "STELLMANN ELECTRICAL CORP",
+      "address": "149-17 CROSS ISLAND PKWY, Whitestone, NY 11357",
+      "phone": "718-767-9600",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL STELLMANN",
+      "insurance_expiry": "12/4/2025"
+    },
+    {
+      "name": "STERLING SYSTEMS CORP.",
+      "license_number": "148S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/10/2026",
+      "company_name": "STERLING SYSTEMS CORP.",
+      "address": "445 BROADHOLLOW ROAD, STE 25, Melville, NY 11747",
+      "phone": "347-790-0000",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ARKADIUSZ PRZYBYLA",
+      "insurance_expiry": "7/8/2026"
+    },
+    {
+      "name": "STRATEGIC FIRE CORP.",
+      "license_number": "127S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/19/2026",
+      "company_name": "STRATEGIC FIRE CORP.",
+      "address": "798 ROUTE 9, Fishkill, NY 12524",
+      "phone": "845-896-2220",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "RAYMOND A. LUNA",
+      "insurance_expiry": "9/24/2025"
+    },
+    {
+      "name": "SUPERIOR PROTECTION SERVICES",
+      "license_number": "107S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/14/2026",
+      "company_name": "SUPERIOR PROTECTION SERVICES",
+      "address": "94 D CHERRY VALLEY AVENUE, West Hempstead, NY 11552",
+      "phone": "516-486-4848",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "STUART GILBERT",
+      "insurance_expiry": "6/22/2026"
+    },
+    {
+      "name": "SYSTEM DESIGN ASSOCIATES",
+      "license_number": "273S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/17/2026",
+      "company_name": "SYSTEM DESIGN ASSOCIATES",
+      "address": "11 BROADWAY, SUITE 2, Clark, NJ 07066",
+      "phone": "973-812-9797",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "KURT N. DAHLQUIST",
+      "insurance_expiry": "12/22/2025"
+    },
+    {
+      "name": "TELGIAN CORPORATION",
+      "license_number": "347S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/18/2026",
+      "company_name": "TELGIAN CORPORATION",
+      "address": "10230 S 50TH PL STE 100, Phoenix, AZ 85044",
+      "phone": "480-597-5427",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "THOMAS J. PARRISH",
+      "insurance_expiry": "12/31/2025"
+    },
+    {
+      "name": "TESCO FIRE SERVICES INC.",
+      "license_number": "153S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/25/2026",
+      "company_name": "TESCO FIRE SERVICES INC.",
+      "address": "51-05 FLUSHING AVE SUITE 208, Maspeth, NY 11378",
+      "phone": "917-705-9658",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "MICHAEL BENEDICKS",
+      "insurance_expiry": "10/28/2025"
+    },
+    {
+      "name": "TFP1 INC.",
+      "license_number": "226S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/15/2026",
+      "company_name": "TFP1 INC.",
+      "address": "35-03 BRADLEY AVENUE, Long Island City, NY 11101",
+      "phone": "718-951-7200",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DONALD J. COOK",
+      "insurance_expiry": "8/31/2025"
+    },
+    {
+      "name": "TIKVA SECURITY",
+      "license_number": "157S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/28/2026",
+      "company_name": "TIKVA SECURITY",
+      "address": "163 BOULEVARD, Passaic, NJ 07055",
+      "phone": "973-283-5313",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHAIM DAHAN",
+      "insurance_expiry": "4/19/2026"
+    },
+    {
+      "name": "TREYCOM TECHNOLOGIES INC.",
+      "license_number": "255S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/27/2026",
+      "company_name": "TREYCOM TECHNOLOGIES INC.",
+      "address": "93 ALLEN BOULEVARD, Farmingdale, NY 11735",
+      "phone": "631-773-3550",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "WILSON LUNA",
+      "insurance_expiry": "1/29/2026"
+    },
+    {
+      "name": "TRIFECTA FIRE AND SECURITY INC",
+      "license_number": "216S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/18/2026",
+      "company_name": "TRIFECTA FIRE AND SECURITY INC",
+      "address": "347 5TH AVENUE, SUITE 1402, New York, NY 10016",
+      "phone": "212-465-2533",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANDY WRAY",
+      "insurance_expiry": "5/14/2026"
+    },
+    {
+      "name": "TRIPLE D ELECTRIC INC",
+      "license_number": "399S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/25/2025",
+      "company_name": "TRIPLE D ELECTRIC INC",
+      "address": "1343 E GUNHILL RD STE #5, Bronx, NY 10469",
+      "phone": "718-676-0530",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DENZIL DELROY DAVIS",
+      "insurance_expiry": "5/1/2026"
+    },
+    {
+      "name": "TRI-STAR ALARM SERVICES, INC.",
+      "license_number": "311S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/25/2026",
+      "company_name": "TRI-STAR ALARM SERVICES, INC.",
+      "address": "710 RIDGE ROAD, Lyndhurst, NJ 07071",
+      "phone": "908-757-8537",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANDREW LLVADITIS",
+      "insurance_expiry": "11/2/2025"
+    },
+    {
+      "name": "TRI-STATE SIGNAL, INC",
+      "license_number": "386S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/17/2026",
+      "company_name": "TRI-STATE SIGNAL, INC",
+      "address": "89-03 101ST AVENUE, Ozone Park, NY 11416",
+      "phone": "718-322-4672",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANTHONY MAROTTA",
+      "insurance_expiry": "9/27/2025"
+    },
+    {
+      "name": "TSS INTEGRATED SYSTEMS, INC.",
+      "license_number": "211S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/5/2026",
+      "company_name": "TSS INTEGRATED SYSTEMS, INC.",
+      "address": "132 W BROADWAY, New York, NY 10013",
+      "phone": "212-233-8505",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOHN BONANNO",
+      "insurance_expiry": "3/31/2026"
+    },
+    {
+      "name": "UNITED FIRE PROTECTION CORPORATION",
+      "license_number": "133S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/6/2026",
+      "company_name": "UNITED FIRE PROTECTION CORPORATION",
+      "address": "1 MARK ROAD, Kenilworth, NJ 07033",
+      "phone": "908-688-0300",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "FRANK SAVINO",
+      "insurance_expiry": "4/25/2026"
+    },
+    {
+      "name": "UNITED SECURITY & FIRE ALARM, INC.",
+      "license_number": "280S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/28/2026",
+      "company_name": "UNITED SECURITY & FIRE ALARM, INC.",
+      "address": "100 SMITH STREET, Farmingdale, NY 11735",
+      "phone": "631-465-9300",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ANTHONY RAINERI",
+      "insurance_expiry": "8/13/2025"
+    },
+    {
+      "name": "UNITED STATES MERCHANTS PROTECTIVE C",
+      "license_number": "185S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/19/2026",
+      "company_name": "UNITED STATES MERCHANTS PROTECTIVE C",
+      "address": "75 W MERRICK RD, Freeport, NY 11520",
+      "phone": "855-637-5400",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "AARON WAHRSAGER",
+      "insurance_expiry": "11/15/2025"
+    },
+    {
+      "name": "URBAN ELECTRICAL CORP",
+      "license_number": "423S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/4/2026",
+      "company_name": "URBAN ELECTRICAL CORP",
+      "address": "130-08 LIBERTY AVENUE, FLOOR 2, South Richmond Hill, NY 11419",
+      "phone": "718-322-2053",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "DEREK MOHAN",
+      "insurance_expiry": "8/1/2025"
+    },
+    {
+      "name": "USA FIRE & SECURITY CORP",
+      "license_number": "367S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "1/28/2026",
+      "company_name": "USA FIRE & SECURITY CORP",
+      "address": "29 OLD NYACK TURNPIKE, SUITE 201, Monsey, NY 10952",
+      "phone": "718-635-0436",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "SAMUEL REICH",
+      "insurance_expiry": "5/11/2026"
+    },
+    {
+      "name": "VAN SECURITY SERVICES INC",
+      "license_number": "314S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "3/18/2026",
+      "company_name": "VAN SECURITY SERVICES INC",
+      "address": "566 LONG ISLAND AVENUE, Medford, NY 11763",
+      "phone": "631-422-6482",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "PETER CAMPISI",
+      "insurance_expiry": "1/25/2026"
+    },
+    {
+      "name": "VINOLEO SOLUTION & SERVICES CORPORATI",
+      "license_number": "405S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "12/11/2025",
+      "company_name": "VINOLEO SOLUTION & SERVICES CORPORATI",
+      "address": "20115 33RD AVE, Bayside, NY 11361",
+      "phone": "929-690-0816",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JIAN DU",
+      "insurance_expiry": "3/27/2026"
+    },
+    {
+      "name": "W 8 ELECTRIC CORPORATION",
+      "license_number": "194S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/19/2026",
+      "company_name": "W 8 ELECTRIC CORPORATION",
+      "address": "853 61ST STREET, Brooklyn, NY 11220",
+      "phone": "917-886-6663",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ROY Z CHEN",
+      "insurance_expiry": "8/11/2025"
+    },
+    {
+      "name": "W R ELECTRICAL MAINTENANCE",
+      "license_number": "384S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "5/9/2026",
+      "company_name": "W R ELECTRICAL MAINTENANCE",
+      "address": "3922 NEW UTRECHT AVE, Brooklyn, NY 11219",
+      "phone": "347-765-4490",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "ABRAHAM RUTNER",
+      "insurance_expiry": "4/5/2026"
+    },
+    {
+      "name": "W&M SPRINKLER NYC LLC",
+      "license_number": "326S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "6/10/2026",
+      "company_name": "W&M SPRINKLER NYC LLC",
+      "address": "1433 BASSETT AVENUE, Bronx, NY 10461",
+      "phone": "718-409-5616",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHRISTINE AVOLA",
+      "insurance_expiry": "12/31/2025"
+    },
+    {
+      "name": "WMV FIRE & SECURITY",
+      "license_number": "225S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "4/22/2026",
+      "company_name": "WMV FIRE & SECURITY",
+      "address": "1003 MERRICK ROAD 2ND FL, Baldwin, NY 11510",
+      "phone": "844-968-3473",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "CHRISTOPHER VETELL",
+      "insurance_expiry": "1/5/2026"
+    },
+    {
+      "name": "WTG ELECTRIC, INC.",
+      "license_number": "281S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "9/10/2025",
+      "company_name": "WTG ELECTRIC, INC.",
+      "address": "115-14 BEACH CHANNEL DRIVE, Rockaway Park, NY 11694",
+      "phone": "718-393-5580",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "LEONID ARLYUK",
+      "insurance_expiry": "12/9/2025"
+    },
+    {
+      "name": "XTECH SYSTEMS INC",
+      "license_number": "294S",
+      "license_type": "FDNY_FIRE_ALARM",
+      "license_status": "ACTIVE",
+      "license_expiry": "10/17/2025",
+      "company_name": "XTECH SYSTEMS INC",
+      "address": "171 BROOK STREET FL2, Scarsdale, NY 10583",
+      "phone": "718-543-1222",
+      "specializations": [
+        "fire_alarm_inspection",
+        "fire_alarm_testing",
+        "smoke_detector_maintenance"
+      ],
+      "certification_date": null,
+      "violations": [],
+      "principal_name": "JOSHUA E. PETERS",
+      "insurance_expiry": "5/11/2026"
+    }
+  ]
+}

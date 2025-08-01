@@ -2,7 +2,22 @@
   "permissions": {
     "allow": [
       "Bash(python:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "WebFetch(domain:api.nyc.gov)",
+      "WebFetch(domain:maps.nyc.gov)",
+      "WebFetch(domain:atcoordinates.info)",
+      "WebFetch(domain:data.cityofnewyork.us)",
+      "Bash(curl:*)",
+      "Bash(pip install:*)",
+      "Bash(lsof:*)",
+      "Bash(pkill:*)",
+      "Bash(ngrok:*)",
+      "Bash(git push:*)",
+      "Bash(gh repo create:*)",
+      "Bash(gh auth:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

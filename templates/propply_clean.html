@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propply AI - Property Compliance Intelligence</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .analyze-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .property-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f0f0f0;
+        }
+
+        .property-address {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .property-details {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .overall-score {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 15px;
+        }
+
+        .score-number { font-size: 2.5rem; }
+        .score-suffix { font-size: 1rem; margin-top: -5px; }
+
+        .score-excellent { background: linear-gradient(135deg, #4CAF50, #45a049); }
+        .score-good { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .score-warning { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .score-critical { background: linear-gradient(135deg, #f44336, #d32f2f); }
+
+        .score-label {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .compliance-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid;
+        }
+
+        .compliance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .compliance-card.hpd { border-top-color: #4CAF50; }
+        .compliance-card.dob { border-top-color: #2196F3; }
+        .compliance-card.elevator { border-top-color: #FF9800; }
+        .compliance-card.boiler { border-top-color: #f44336; }
+        .compliance-card.electrical { border-top-color: #9C27B0; }
+
+        .compliance-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .compliance-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .compliance-score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .compliance-details {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .summary-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .summary-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .summary-value {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            border-left: 4px solid #c62828;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .search-form { flex-direction: column; }
+            .compliance-grid { grid-template-columns: 1fr; }
+            .score-circle { width: 120px; height: 120px; font-size: 2rem; }
+            .property-address { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-robot"></i> Propply AI</h1>
+            <p class="tagline">Comprehensive Property Compliance Analysis for NYC</p>
+        </div>
+
+        <div class="search-section">
+            <form class="search-form" id="analysisForm">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="addressInput" 
+                    placeholder="Enter NYC property address (e.g., 140 West 28 Street, Manhattan)"
+                    required
+                />
+                <button type="submit" class="analyze-btn" id="analyzeBtn">
+                    <i class="fas fa-chart-line"></i>
+                    Analyze Property
+                </button>
+            </form>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="loading" id="loadingDiv">
+                <div class="spinner"></div>
+                <p><strong>Analyzing comprehensive property compliance...</strong></p>
+                <p>Gathering data from HPD, DOB, Elevator, Boiler, and Electrical datasets</p>
+            </div>
+
+            <div id="resultsContent" style="display: none;">
+                <div class="property-header">
+                    <div class="property-address" id="propertyAddress"></div>
+                    <div class="property-details" id="propertyDetails"></div>
+                </div>
+
+                <div class="overall-score">
+                    <div class="score-circle" id="overallScoreCircle">
+                        <div class="score-number" id="overallScore">0</div>
+                        <div class="score-suffix">/100</div>
+                    </div>
+                    <div class="score-label">Overall Compliance Score</div>
+                </div>
+
+                <div class="compliance-grid">
+                    <div class="compliance-card hpd">
+                        <div class="compliance-icon" style="color: #4CAF50;">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="compliance-title">HPD Violations</div>
+                        <div class="compliance-score" style="color: #4CAF50;" id="hpdScore">0</div>
+                        <div class="compliance-details" id="hpdDetails">0 total, 0 active</div>
+                    </div>
+
+                    <div class="compliance-card dob">
+                        <div class="compliance-icon" style="color: #2196F3;">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="compliance-title">DOB Violations</div>
+                        <div class="compliance-score" style="color: #2196F3;" id="dobScore">0</div>
+                        <div class="compliance-details" id="dobDetails">0 total, 0 active</div>
+                    </div>
+
+                    <div class="compliance-card elevator">
+                        <div class="compliance-icon" style="color: #FF9800;">
+                            <i class="fas fa-elevator"></i>
+                        </div>
+                        <div class="compliance-title">Elevators</div>
+                        <div class="compliance-score" style="color: #FF9800;" id="elevatorScore">0</div>
+                        <div class="compliance-details" id="elevatorDetails">0 total, 0 active</div>
+                    </div>
+
+                    <div class="compliance-card boiler">
+                        <div class="compliance-icon" style="color: #f44336;">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="compliance-title">Boilers</div>
+                        <div class="compliance-score" style="color: #f44336;" id="boilerCount">0</div>
+                        <div class="compliance-details">Total boiler devices</div>
+                    </div>
+
+                    <div class="compliance-card electrical">
+                        <div class="compliance-icon" style="color: #9C27B0;">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="compliance-title">Electrical</div>
+                        <div class="compliance-score" style="color: #9C27B0;" id="electricalScore">0</div>
+                        <div class="compliance-details" id="electricalDetails">0 permits, 0 active</div>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <div class="summary-title">
+                        <i class="fas fa-info-circle"></i> Property Details
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-label">Building Identification</div>
+                            <div class="summary-value" id="summaryBIN">BIN: Loading...</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Borough Block Lot</div>
+                            <div class="summary-value" id="summaryBBL">BBL: Loading...</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Location</div>
+                            <div class="summary-value" id="summaryLocation">Borough: Loading...</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Analysis Date</div>
+                            <div class="summary-value" id="summaryDate">Processing...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('analysisForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const address = document.getElementById('addressInput').value.trim();
+            if (!address) return;
+            
+            // Show results section and loading
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('loadingDiv').style.display = 'block';
+            document.getElementById('resultsContent').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Disable form
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            
+            try {
+                const response = await fetch('/api/analyze-property', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ address: address })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    showError(data.error || 'Analysis failed');
+                }
+                
+            } catch (error) {
+                showError('Network error: ' + error.message);
+            } finally {
+                // Re-enable form
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-chart-line"></i> Analyze Property';
+                document.getElementById('loadingDiv').style.display = 'none';
+            }
+        });
+        
+        function displayResults(data) {
+            document.getElementById('resultsContent').style.display = 'block';
+            
+            // Property info
+            document.getElementById('propertyAddress').textContent = data.property.address;
+            document.getElementById('propertyDetails').textContent = 
+                `${data.property.borough} • ${data.property.zip_code}`;
+            
+            // Overall score
+            const overallScore = data.compliance_scores.overall;
+            document.getElementById('overallScore').textContent = overallScore;
+            
+            const scoreCircle = document.getElementById('overallScoreCircle');
+            scoreCircle.className = 'score-circle ' + getScoreClass(overallScore);
+            
+            // Compliance metrics
+            document.getElementById('hpdScore').textContent = data.compliance_scores.hpd;
+            document.getElementById('hpdDetails').textContent = 
+                `${data.violations.hpd_total} total, ${data.violations.hpd_active} active`;
+            
+            document.getElementById('dobScore').textContent = data.compliance_scores.dob;
+            document.getElementById('dobDetails').textContent = 
+                `${data.violations.dob_total} total, ${data.violations.dob_active} active`;
+            
+            document.getElementById('elevatorScore').textContent = data.compliance_scores.elevator;
+            document.getElementById('elevatorDetails').textContent = 
+                `${data.equipment.elevator_total} total, ${data.equipment.elevator_active} active`;
+            
+            document.getElementById('boilerCount').textContent = data.equipment.boiler_total;
+            
+            document.getElementById('electricalScore').textContent = data.compliance_scores.electrical;
+            document.getElementById('electricalDetails').textContent = 
+                `${data.equipment.electrical_permits_total} permits, ${data.equipment.electrical_permits_active} active`;
+            
+            // Summary details
+            document.getElementById('summaryBIN').textContent = `BIN: ${data.property.bin}`;
+            document.getElementById('summaryBBL').textContent = `BBL: ${data.property.bbl}`;
+            document.getElementById('summaryLocation').textContent = `${data.property.borough} • Block: ${data.property.block}, Lot: ${data.property.lot}`;
+            document.getElementById('summaryDate').textContent = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        function getScoreClass(score) {
+            if (score >= 95) return 'score-excellent';
+            if (score >= 85) return 'score-good';
+            if (score >= 70) return 'score-warning';
+            return 'score-critical';
+        }
+        
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

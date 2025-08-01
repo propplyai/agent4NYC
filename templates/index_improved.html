@@ -12,12 +12,41 @@
 </head>
 <body>
     <div class="main-container">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary position-relative" style="z-index: 1000;">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <i class="fas fa-building me-2"></i>
+                    NYC Compliance Tracker
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/"><i class="fas fa-search me-1"></i>Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/add-property"><i class="fas fa-plus me-1"></i>Add Property</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard"><i class="fas fa-brain me-1"></i>AI Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/classic"><i class="fas fa-list me-1"></i>Classic</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <!-- Header -->
         <header class="app-header">
             <div class="container">
                 <h1 class="app-title">
-                    <i class="fas fa-building me-3"></i>
-                    NYC Property Compliance Dashboard
+                    <i class="fas fa-search me-3"></i>
+                    Property Search & Analysis
                 </h1>
                 <p class="app-subtitle mb-0">
                     Comprehensive property inspection tracking and compliance monitoring across New York City

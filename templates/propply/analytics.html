@@ -1,0 +1,815 @@
+{% extends "propply/base.html" %}
+
+{% block title %}Analytics - Propply AI{% endblock %}
+{% block page_title %}Analytics & Insights{% endblock %}
+{% block page_subtitle %}Data-driven insights for your property portfolio{% endblock %}
+
+{% block content %}
+<!-- Key Metrics Overview -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="overview-card">
+            <div class="card-icon bg-primary">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-value">94.2%</div>
+                <div class="card-label">Compliance Score</div>
+                <div class="card-change positive">
+                    <i class="fas fa-arrow-up"></i> 3.2% vs last month
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="overview-card">
+            <div class="card-icon bg-success">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-value">$12,450</div>
+                <div class="card-label">Cost Savings</div>
+                <div class="card-change positive">
+                    <i class="fas fa-arrow-up"></i> $2,100 this quarter
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="overview-card">
+            <div class="card-icon bg-info">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-value">2.3 days</div>
+                <div class="card-label">Avg Response Time</div>
+                <div class="card-change positive">
+                    <i class="fas fa-arrow-down"></i> 0.5 days improvement
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="overview-card">
+            <div class="card-icon bg-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-value">7</div>
+                <div class="card-label">Risk Alerts</div>
+                <div class="card-change neutral">
+                    <i class="fas fa-minus"></i> No change
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <div class="col-lg-8 mb-4">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-area me-2"></i>
+                    Compliance Trends
+                </h3>
+                <div class="card-actions">
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-primary active" data-period="6m">6M</button>
+                        <button class="btn btn-sm btn-outline-primary" data-period="1y">1Y</button>
+                        <button class="btn btn-sm btn-outline-primary" data-period="all">All</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="complianceTrendsChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 mb-4">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-pie-chart me-2"></i>
+                    Inspection Types
+                </h3>
+            </div>
+            <div class="card-body">
+                <canvas id="inspectionTypesChart" height="300"></canvas>
+                <div class="chart-legend mt-3">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #3b82f6;"></div>
+                        <span>Fire Safety (35%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #10b981;"></div>
+                        <span>Boiler (28%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f59e0b;"></div>
+                        <span>Elevator (22%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ef4444;"></div>
+                        <span>HVAC (15%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance Metrics -->
+<div class="row mb-4">
+    <div class="col-lg-6 mb-4">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-building me-2"></i>
+                    Property Performance
+                </h3>
+                <div class="card-actions">
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>All Properties</option>
+                        <option>Manhattan</option>
+                        <option>Brooklyn</option>
+                        <option>Queens</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="performance-list">
+                    <div class="performance-item">
+                        <div class="property-info">
+                            <div class="property-name">123 Main Street</div>
+                            <div class="property-location">Brooklyn, NY</div>
+                        </div>
+                        <div class="performance-score">
+                            <div class="score-value excellent">98%</div>
+                            <div class="score-label">Compliance</div>
+                        </div>
+                        <div class="performance-trend">
+                            <i class="fas fa-arrow-up text-success"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-item">
+                        <div class="property-info">
+                            <div class="property-name">456 Oak Avenue</div>
+                            <div class="property-location">Manhattan, NY</div>
+                        </div>
+                        <div class="performance-score">
+                            <div class="score-value good">92%</div>
+                            <div class="score-label">Compliance</div>
+                        </div>
+                        <div class="performance-trend">
+                            <i class="fas fa-arrow-up text-success"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-item">
+                        <div class="property-info">
+                            <div class="property-name">789 Pine Street</div>
+                            <div class="property-location">Queens, NY</div>
+                        </div>
+                        <div class="performance-score">
+                            <div class="score-value warning">78%</div>
+                            <div class="score-label">Compliance</div>
+                        </div>
+                        <div class="performance-trend">
+                            <i class="fas fa-arrow-down text-danger"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-item">
+                        <div class="property-info">
+                            <div class="property-name">321 Elm Drive</div>
+                            <div class="property-location">Bronx, NY</div>
+                        </div>
+                        <div class="performance-score">
+                            <div class="score-value good">89%</div>
+                            <div class="score-label">Compliance</div>
+                        </div>
+                        <div class="performance-trend">
+                            <i class="fas fa-minus text-muted"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 mb-4">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Cost Analysis
+                </h3>
+                <div class="card-actions">
+                    <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="costAnalysisChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Insights and Recommendations -->
+<div class="row mb-4">
+    <div class="col-lg-8 mb-4">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-robot me-2"></i>
+                    AI Insights & Recommendations
+                </h3>
+                <div class="card-actions">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fas fa-sync"></i>
+                        Refresh Insights
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="insights-list">
+                    <div class="insight-item high-priority">
+                        <div class="insight-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-title">Critical: Fire Safety Inspection Overdue</div>
+                            <div class="insight-description">789 Pine Street has an overdue fire safety inspection. Schedule immediately to avoid penalties.</div>
+                            <div class="insight-impact">Potential fine: $2,500 - $5,000</div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="btn btn-sm btn-danger">Take Action</button>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item medium-priority">
+                        <div class="insight-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-title">Optimization: Bundle Inspections</div>
+                            <div class="insight-description">Schedule boiler and elevator inspections together at 456 Oak Avenue to save 15% on service costs.</div>
+                            <div class="insight-impact">Potential savings: $350</div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="btn btn-sm btn-primary">Schedule</button>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item low-priority">
+                        <div class="insight-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="insight-content">
+                            <div class="insight-title">Trend: Improved Compliance</div>
+                            <div class="insight-description">Overall portfolio compliance has improved by 5% this quarter. Continue current maintenance schedule.</div>
+                            <div class="insight-impact">Cost avoidance: $1,200</div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="btn btn-sm btn-outline-success">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 mb-4">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    Upcoming Deadlines
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="deadline-list">
+                    <div class="deadline-item urgent">
+                        <div class="deadline-date">
+                            <div class="date-day">28</div>
+                            <div class="date-month">Feb</div>
+                        </div>
+                        <div class="deadline-info">
+                            <div class="deadline-title">Boiler Inspection</div>
+                            <div class="deadline-property">123 Main Street</div>
+                            <div class="deadline-status">2 days remaining</div>
+                        </div>
+                    </div>
+                    
+                    <div class="deadline-item warning">
+                        <div class="deadline-date">
+                            <div class="date-day">05</div>
+                            <div class="date-month">Mar</div>
+                        </div>
+                        <div class="deadline-info">
+                            <div class="deadline-title">Elevator Certificate</div>
+                            <div class="deadline-property">456 Oak Avenue</div>
+                            <div class="deadline-status">7 days remaining</div>
+                        </div>
+                    </div>
+                    
+                    <div class="deadline-item normal">
+                        <div class="deadline-date">
+                            <div class="date-day">12</div>
+                            <div class="date-month">Mar</div>
+                        </div>
+                        <div class="deadline-info">
+                            <div class="deadline-title">HVAC Maintenance</div>
+                            <div class="deadline-property">321 Elm Drive</div>
+                            <div class="deadline-status">14 days remaining</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reports and Export -->
+<div class="dashboard-card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-file-alt me-2"></i>
+            Reports & Export
+        </h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="report-info">
+                        <div class="report-title">Compliance Summary</div>
+                        <div class="report-description">Monthly compliance overview</div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary">Generate</button>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="report-info">
+                        <div class="report-title">Cost Analysis</div>
+                        <div class="report-description">Detailed cost breakdown</div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary">Generate</button>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="report-info">
+                        <div class="report-title">Risk Assessment</div>
+                        <div class="report-description">Portfolio risk analysis</div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary">Generate</button>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="report-info">
+                        <div class="report-title">Schedule Report</div>
+                        <div class="report-description">Upcoming inspections</div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.performance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.performance-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.performance-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.property-info {
+    flex: 1;
+}
+
+.property-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.property-location {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.performance-score {
+    text-align: center;
+    margin: 0 1rem;
+}
+
+.score-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.score-value.excellent {
+    color: var(--success-color);
+}
+
+.score-value.good {
+    color: var(--info-color);
+}
+
+.score-value.warning {
+    color: var(--warning-color);
+}
+
+.score-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.performance-trend {
+    font-size: 1.25rem;
+}
+
+.insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.insight-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--border-color);
+}
+
+.insight-item.high-priority {
+    border-left-color: var(--danger-color);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.insight-item.medium-priority {
+    border-left-color: var(--warning-color);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.insight-item.low-priority {
+    border-left-color: var(--success-color);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.insight-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.insight-item.high-priority .insight-icon {
+    background: var(--danger-color);
+    color: white;
+}
+
+.insight-item.medium-priority .insight-icon {
+    background: var(--warning-color);
+    color: white;
+}
+
+.insight-item.low-priority .insight-icon {
+    background: var(--success-color);
+    color: white;
+}
+
+.insight-content {
+    flex: 1;
+}
+
+.insight-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.insight-description {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.insight-impact {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.insight-actions {
+    margin-left: 1rem;
+}
+
+.deadline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.deadline-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--border-color);
+}
+
+.deadline-item.urgent {
+    border-left-color: var(--danger-color);
+}
+
+.deadline-item.warning {
+    border-left-color: var(--warning-color);
+}
+
+.deadline-item.normal {
+    border-left-color: var(--info-color);
+}
+
+.deadline-date {
+    text-align: center;
+    margin-right: 1rem;
+    min-width: 3rem;
+}
+
+.date-day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.date-month {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.deadline-info {
+    flex: 1;
+}
+
+.deadline-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.deadline-property {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 0.125rem;
+}
+
+.deadline-status {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.report-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    height: 100%;
+    transition: all 0.2s ease;
+}
+
+.report-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.report-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.report-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.report-description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.legend-color {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 2px;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAnalyticsCharts();
+});
+
+function initializeAnalyticsCharts() {
+    // Compliance Trends Chart
+    const complianceTrendsCtx = document.getElementById('complianceTrendsChart').getContext('2d');
+    new Chart(complianceTrendsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Compliance Score',
+                data: [85, 87, 89, 91, 93, 94.2],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Industry Average',
+                data: [82, 83, 84, 85, 86, 87],
+                borderColor: '#94a3b8',
+                backgroundColor: 'transparent',
+                borderDash: [5, 5]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 75,
+                    max: 100
+                }
+            }
+        }
+    });
+
+    // Inspection Types Chart
+    const inspectionTypesCtx = document.getElementById('inspectionTypesChart').getContext('2d');
+    new Chart(inspectionTypesCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Fire Safety', 'Boiler', 'Elevator', 'HVAC'],
+            datasets: [{
+                data: [35, 28, 22, 15],
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Cost Analysis Chart
+    const costAnalysisCtx = document.getElementById('costAnalysisChart').getContext('2d');
+    new Chart(costAnalysisCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Inspection Costs',
+                data: [4200, 3800, 4500, 3900, 4100, 3700],
+                backgroundColor: '#3b82f6'
+            }, {
+                label: 'Maintenance Costs',
+                data: [2800, 3200, 2900, 3400, 2700, 3100],
+                backgroundColor: '#10b981'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    });
+
+    // Period filter buttons
+    const periodButtons = document.querySelectorAll('[data-period]');
+    periodButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            periodButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            const period = this.getAttribute('data-period');
+            updateComplianceTrends(period);
+        });
+    });
+}
+
+function updateComplianceTrends(period) {
+    showInfo(`Updating compliance trends for period: ${period}`);
+    // Implementation for updating chart data based on period
+}
+</script>
+{% endblock %}

@@ -1,0 +1,376 @@
+{% extends "propply/base.html" %}
+
+{% block title %}Vendor Marketplace - Propply AI{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-0">🏪 Vendor Marketplace</h1>
+                    <p class="text-muted">Find verified, licensed contractors and inspectors</p>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary" onclick="refreshVendorData()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">🔍 Search Verified Vendors</h5>
+                </div>
+                <div class="card-body">
+                    <form id="vendorSearchForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="propertyAddress" class="form-label">Property Address</label>
+                                <input type="text" class="form-control" id="propertyAddress" 
+                                       placeholder="123 Main St, Brooklyn, NY" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="serviceType" class="form-label">Service Type</label>
+                                <select class="form-select" id="serviceType" required>
+                                    <option value="">Select Service</option>
+                                    <option value="elevator">Elevator Inspection</option>
+                                    <option value="fire_safety">Fire Safety</option>
+                                    <option value="hvac">HVAC/Boiler</option>
+                                    <option value="plumbing">Plumbing/Backflow</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="structural">Structural/Facade</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="complianceRequirements" class="form-label">Compliance Category</label>
+                                <select class="form-select" id="complianceRequirements">
+                                    <option value="">Optional</option>
+                                    <option value="elevator_inspections">Elevator Inspections</option>
+                                    <option value="fire_safety_inspections">Fire Safety Inspections</option>
+                                    <option value="boiler_inspections">Boiler Inspections</option>
+                                    <option value="backflow_prevention">Backflow Prevention</option>
+                                    <option value="electrical_inspections">Electrical Inspections</option>
+                                    <option value="facade_inspections">Facade Inspections</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="row mb-4" style="display: none;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Searching verified vendors and checking certifications...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div id="searchResults" class="row" style="display: none;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">📋 Search Results</h5>
+                </div>
+                <div class="card-body" id="resultsContainer">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access: Compliance Categories -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">⚡ Quick Access: Find Vendors by Compliance Category</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-primary w-100" onclick="searchByCompliance('elevator_inspections')">
+                                <i class="fas fa-elevator"></i><br>
+                                Elevator Inspections
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-danger w-100" onclick="searchByCompliance('fire_safety_inspections')">
+                                <i class="fas fa-fire-extinguisher"></i><br>
+                                Fire Safety
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-info w-100" onclick="searchByCompliance('boiler_inspections')">
+                                <i class="fas fa-thermometer-half"></i><br>
+                                Boiler Inspections
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-success w-100" onclick="searchByCompliance('electrical_inspections')">
+                                <i class="fas fa-bolt"></i><br>
+                                Electrical
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certification Summary -->
+    <div id="certificationSummary" class="row mb-4" style="display: none;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">📊 Certification Summary</h5>
+                </div>
+                <div class="card-body" id="certificationContainer">
+                    <!-- Certification data will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle vendor search form submission
+    document.getElementById('vendorSearchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        searchVendors();
+    });
+});
+
+async function searchVendors() {
+    const propertyAddress = document.getElementById('propertyAddress').value;
+    const serviceType = document.getElementById('serviceType').value;
+    const complianceRequirements = document.getElementById('complianceRequirements').value;
+    
+    if (!propertyAddress || !serviceType) {
+        alert('Please enter property address and select service type');
+        return;
+    }
+    
+    // Show loading indicator
+    document.getElementById('loadingIndicator').style.display = 'block';
+    document.getElementById('searchResults').style.display = 'none';
+    document.getElementById('certificationSummary').style.display = 'none';
+    
+    try {
+        const response = await fetch('/api/vendors/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                property_address: propertyAddress,
+                service_type: serviceType,
+                compliance_requirements: complianceRequirements ? [complianceRequirements] : []
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            displaySearchResults(data);
+        } else {
+            alert('Search failed: ' + (data.error || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Search error:', error);
+        alert('Search failed: ' + error.message);
+    } finally {
+        document.getElementById('loadingIndicator').style.display = 'none';
+    }
+}
+
+function displaySearchResults(data) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    const certificationContainer = document.getElementById('certificationContainer');
+    
+    if (data.error) {
+        resultsContainer.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+        document.getElementById('searchResults').style.display = 'block';
+        return;
+    }
+    
+    // Display vendor results
+    let resultsHtml = '';
+    
+    if (data.total_vendors_found === 0) {
+        resultsHtml = '<div class="alert alert-info">No verified vendors found for this search.</div>';
+    } else {
+        resultsHtml = `<div class="alert alert-success">Found ${data.total_vendors_found} verified vendors</div>`;
+        
+        data.verified_vendors.forEach((vendor, index) => {
+            const scoreColor = vendor.overall_score >= 80 ? 'success' : 
+                              vendor.overall_score >= 60 ? 'warning' : 'danger';
+            
+            resultsHtml += `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="card-title">${vendor.vendor_name}</h5>
+                                <p class="card-text">
+                                    <span class="badge bg-${scoreColor}">${vendor.overall_score}/100 Verification Score</span>
+                                    <span class="badge bg-secondary ms-2">${vendor.license_status}</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Certifications:</strong> ${vendor.certifications.length} found<br>
+                                    <strong>Review Data:</strong> ${vendor.review_data.rating || 'N/A'}★ 
+                                    (${vendor.review_data.total_reviews || 0} reviews)
+                                </p>
+                                ${vendor.risk_factors.length > 0 ? 
+                                    `<p class="text-danger"><strong>Risk Factors:</strong> ${vendor.risk_factors.join(', ')}</p>` : ''}
+                                ${vendor.recommendations.length > 0 ? 
+                                    `<p class="text-info"><strong>Recommendations:</strong> ${vendor.recommendations.join(', ')}</p>` : ''}
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button class="btn btn-primary btn-sm mb-2" onclick="viewVendorDetails('${vendor.vendor_name}')">
+                                    View Details
+                                </button><br>
+                                <button class="btn btn-outline-success btn-sm" onclick="contactVendor('${vendor.vendor_name}')">
+                                    Contact Vendor
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    resultsContainer.innerHTML = resultsHtml;
+    document.getElementById('searchResults').style.display = 'block';
+    
+    // Display certification summary
+    if (data.certification_summary) {
+        const summary = data.certification_summary;
+        let certHtml = `
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <h4 class="text-primary">${summary.total_certified_inspectors}</h4>
+                        <p class="mb-0">Total Certified</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <h4 class="text-success">${summary.active_licenses}</h4>
+                        <p class="mb-0">Active Licenses</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h6>License Types:</h6>
+                    <ul class="list-unstyled">
+        `;
+        
+        Object.entries(summary.license_types || {}).forEach(([type, count]) => {
+            certHtml += `<li><span class="badge bg-secondary me-2">${count}</span>${type}</li>`;
+        });
+        
+        certHtml += '</ul></div></div>';
+        
+        certificationContainer.innerHTML = certHtml;
+        document.getElementById('certificationSummary').style.display = 'block';
+    }
+}
+
+async function searchByCompliance(complianceCategory) {
+    // Show loading indicator
+    document.getElementById('loadingIndicator').style.display = 'block';
+    document.getElementById('searchResults').style.display = 'none';
+    
+    try {
+        const response = await fetch('/api/vendors/compliance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                compliance_categories: [complianceCategory]
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            displayComplianceResults(data, complianceCategory);
+        } else {
+            alert('Search failed: ' + (data.error || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Compliance search error:', error);
+        alert('Search failed: ' + error.message);
+    } finally {
+        document.getElementById('loadingIndicator').style.display = 'none';
+    }
+}
+
+function displayComplianceResults(data, category) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    
+    let resultsHtml = `<h6>Vendors for ${category.replace('_', ' ').toUpperCase()}</h6>`;
+    
+    const vendors = data.vendors_by_category[category] || [];
+    
+    if (vendors.length === 0) {
+        resultsHtml += '<div class="alert alert-info">No verified vendors found for this compliance category.</div>';
+    } else {
+        vendors.forEach(vendor => {
+            const scoreColor = vendor.overall_score >= 80 ? 'success' : 
+                              vendor.overall_score >= 60 ? 'warning' : 'danger';
+            
+            resultsHtml += `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h6 class="card-title">${vendor.vendor_name}</h6>
+                        <span class="badge bg-${scoreColor}">${vendor.overall_score}/100</span>
+                        <span class="badge bg-secondary ms-2">${vendor.license_status}</span>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    resultsContainer.innerHTML = resultsHtml;
+    document.getElementById('searchResults').style.display = 'block';
+}
+
+function viewVendorDetails(vendorName) {
+    alert(`Viewing details for: ${vendorName}\n\nThis would open a detailed vendor profile with:\n- Full certification history\n- Recent reviews\n- Contact information\n- Service areas\n- Pricing information`);
+}
+
+function contactVendor(vendorName) {
+    alert(`Contacting: ${vendorName}\n\nThis would:\n- Open contact form\n- Send inquiry\n- Schedule consultation\n- Request quote`);
+}
+
+function refreshVendorData() {
+    alert('Refreshing vendor data from:\n- NYC DOB License Database\n- FDNY Certified Companies\n- Review platforms\n\nThis would update all certification statuses and review data.');
+}
+</script>
+{% endblock %}

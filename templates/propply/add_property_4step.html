@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property - Propply AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #4a6cf7 0%, #667eea 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .form-step {
+            display: none;
+            padding: 2rem;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            font-weight: bold;
+            color: #6c757d;
+        }
+        
+        .step.active {
+            background: #4a6cf7;
+            color: white;
+        }
+        
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+        }
+        
+        .btn-primary {
+            background: #4a6cf7;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+        }
+        
+        .form-control:focus {
+            border-color: #4a6cf7;
+            box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.25);
+        }
+        
+        .compliance-category {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .compliance-category:hover {
+            border-color: #4a6cf7;
+            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .category-toggle {
+            margin-right: 1rem;
+            transform: scale(1.2);
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .fire-safety { background: #dc3545; }
+        .building-systems { background: #fd7e14; }
+        .water-systems { background: #0dcaf0; }
+        .environmental { background: #198754; }
+        .structural { background: #6f42c1; }
+        .energy { background: #ffc107; color: #000; }
+        
+        .compliance-items {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .compliance-items.show {
+            display: block;
+        }
+        
+        .compliance-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .compliance-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-description {
+            margin-left: 0.5rem;
+            flex: 1;
+        }
+        
+        .item-frequency {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+        
+        .progress-bar-container {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #4a6cf7, #667eea);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1><i class="fas fa-building"></i> Add Property</h1>
+            <p>Let's get your property set up with comprehensive compliance tracking</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 25%;"></div>
+            </div>
+        </div>
+        
+        <div class="step-indicator">
+            <div class="step active" id="stepIndicator1">1</div>
+            <div class="step" id="stepIndicator2">2</div>
+            <div class="step" id="stepIndicator3">3</div>
+            <div class="step" id="stepIndicator4">4</div>
+        </div>
+        
+        <form id="propertyForm">
+            <!-- Step 1: Basic Info -->
+            <div class="form-step active" id="formStep1">
+                <h3>Basic Property Information</h3>
+                <p class="text-muted">Start with the essential details about your property</p>
+                
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="address" class="form-label">Property Address *</label>
+                        <input type="text" class="form-control" id="address" name="address" 
+                               placeholder="123 Main Street, New York, NY 10001" required>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="propertyType" class="form-label">Property Type *</label>
+                        <select class="form-control" id="propertyType" name="property_type" required>
+                            <option value="">Select property type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="mixed-use">Mixed-Use</option>
+                            <option value="industrial">Industrial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="units" class="form-label">Number of Units</label>
+                        <input type="number" class="form-control" id="units" name="units" 
+                               placeholder="e.g., 24">
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <label for="contactPhone" class="form-label">Contact Phone *</label>
+                        <input type="tel" class="form-control" id="contactPhone" name="contact_phone" 
+                               placeholder="(555) 123-4567" required>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <div></div>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Property Details -->
+            <div class="form-step" id="formStep2">
+                <h3>Property Details</h3>
+                <p class="text-muted">Additional information to help us understand your property better</p>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="yearBuilt" class="form-label">Year Built</label>
+                        <input type="number" class="form-control" id="yearBuilt" name="year_built" 
+                               placeholder="e.g., 1985" min="1800" max="2024">
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="squareFootage" class="form-label">Square Footage</label>
+                        <input type="number" class="form-control" id="squareFootage" name="square_footage" 
+                               placeholder="e.g., 50000">
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="buildingHeight" class="form-label">Building Height (floors)</label>
+                        <input type="number" class="form-control" id="buildingHeight" name="building_height" 
+                               placeholder="e.g., 6">
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="occupancyClass" class="form-label">Occupancy Classification</label>
+                        <select class="form-control" id="occupancyClass" name="occupancy_class">
+                            <option value="">Select classification</option>
+                            <option value="R-1">R-1 (Hotels, motels)</option>
+                            <option value="R-2">R-2 (Apartments, condos)</option>
+                            <option value="R-3">R-3 (Single/two-family homes)</option>
+                            <option value="B">B (Business)</option>
+                            <option value="M">M (Mercantile)</option>
+                            <option value="I">I (Institutional)</option>
+                            <option value="A">A (Assembly)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <label for="managementCompany" class="form-label">Management Company</label>
+                        <input type="text" class="form-control" id="managementCompany" name="management_company" 
+                               placeholder="ABC Property Management LLC">
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Compliance Systems -->
+            <div class="form-step" id="formStep3">
+                <h3>Compliance Systems</h3>
+                <p class="text-muted">Select the compliance categories that apply to your property</p>
+                
+                <!-- Fire Safety & Emergency -->
+                <div class="compliance-category">
+                    <div class="category-header">
+                        <input type="checkbox" class="form-check-input category-toggle" id="fireSafetyToggle" 
+                               onchange="toggleCategory('fireSafety')">
+                        <div class="category-icon fire-safety">
+                            <i class="fas fa-fire-extinguisher"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Fire Safety & Emergency</h5>
+                            <small class="text-muted">Fire protection and emergency systems</small>
+                        </div>
+                    </div>
+                    <div class="compliance-items" id="fireSafetyItems">
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="fire_alarms">
+                            <div class="item-description">
+                                <strong>Fire Alarm Systems</strong>
+                                <div class="item-frequency">Annual testing and inspection required</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="sprinklers">
+                            <div class="item-description">
+                                <strong>Sprinkler Systems</strong>
+                                <div class="item-frequency">Quarterly inspections, annual testing</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="fire_extinguishers">
+                            <div class="item-description">
+                                <strong>Fire Extinguishers</strong>
+                                <div class="item-frequency">Monthly visual checks, annual maintenance</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="emergency_lighting">
+                            <div class="item-description">
+                                <strong>Emergency Lighting</strong>
+                                <div class="item-frequency">Monthly testing, annual battery replacement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Building Systems -->
+                <div class="compliance-category">
+                    <div class="category-header">
+                        <input type="checkbox" class="form-check-input category-toggle" id="buildingSystemsToggle" 
+                               onchange="toggleCategory('buildingSystems')">
+                        <div class="category-icon building-systems">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Building Systems</h5>
+                            <small class="text-muted">Mechanical and electrical systems</small>
+                        </div>
+                    </div>
+                    <div class="compliance-items" id="buildingSystemsItems">
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="elevators">
+                            <div class="item-description">
+                                <strong>Elevator Inspections</strong>
+                                <div class="item-frequency">Annual DOB inspections required</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="boilers">
+                            <div class="item-description">
+                                <strong>Boiler Inspections</strong>
+                                <div class="item-frequency">Annual DOB inspections and testing</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="cooling_towers">
+                            <div class="item-description">
+                                <strong>Cooling Tower Registration</strong>
+                                <div class="item-frequency">Annual registration and quarterly testing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Water & Plumbing -->
+                <div class="compliance-category">
+                    <div class="category-header">
+                        <input type="checkbox" class="form-check-input category-toggle" id="waterSystemsToggle" 
+                               onchange="toggleCategory('waterSystems')">
+                        <div class="category-icon water-systems">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Water & Plumbing</h5>
+                            <small class="text-muted">Water safety and plumbing systems</small>
+                        </div>
+                    </div>
+                    <div class="compliance-items" id="waterSystemsItems">
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="backflow_prevention">
+                            <div class="item-description">
+                                <strong>Backflow Prevention Testing</strong>
+                                <div class="item-frequency">Annual testing and certification</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="water_tank_inspections">
+                            <div class="item-description">
+                                <strong>Water Tank Inspections</strong>
+                                <div class="item-frequency">Annual inspections and cleaning</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Environmental & Health -->
+                <div class="compliance-category">
+                    <div class="category-header">
+                        <input type="checkbox" class="form-check-input category-toggle" id="environmentalToggle" 
+                               onchange="toggleCategory('environmental')">
+                        <div class="category-icon environmental">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Environmental & Health</h5>
+                            <small class="text-muted">Environmental safety and health compliance</small>
+                        </div>
+                    </div>
+                    <div class="compliance-items" id="environmentalItems">
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="asbestos">
+                            <div class="item-description">
+                                <strong>Asbestos Management</strong>
+                                <div class="item-frequency">Periodic inspections and abatement as needed</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="lead_paint">
+                            <div class="item-description">
+                                <strong>Lead Paint Compliance</strong>
+                                <div class="item-frequency">Required for pre-1978 buildings</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="mold_remediation">
+                            <div class="item-description">
+                                <strong>Mold Prevention & Remediation</strong>
+                                <div class="item-frequency">As needed based on conditions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Structural & Safety -->
+                <div class="compliance-category">
+                    <div class="category-header">
+                        <input type="checkbox" class="form-check-input category-toggle" id="structuralToggle" 
+                               onchange="toggleCategory('structural')">
+                        <div class="category-icon structural">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Structural & Safety</h5>
+                            <small class="text-muted">Building structure and safety inspections</small>
+                        </div>
+                    </div>
+                    <div class="compliance-items" id="structuralItems">
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="facade_inspections">
+                            <div class="item-description">
+                                <strong>Facade Inspections (FISP)</strong>
+                                <div class="item-frequency">Every 5 years for buildings over 6 stories</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="roof_inspections">
+                            <div class="item-description">
+                                <strong>Roof Inspections</strong>
+                                <div class="item-frequency">Annual inspections recommended</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Energy & Environmental -->
+                <div class="compliance-category">
+                    <div class="category-header">
+                        <input type="checkbox" class="form-check-input category-toggle" id="energyToggle" 
+                               onchange="toggleCategory('energy')">
+                        <div class="category-icon energy">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Energy & Environmental</h5>
+                            <small class="text-muted">Energy efficiency and environmental compliance</small>
+                        </div>
+                    </div>
+                    <div class="compliance-items" id="energyItems">
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="local_law_97">
+                            <div class="item-description">
+                                <strong>Local Law 97 Compliance</strong>
+                                <div class="item-frequency">Annual emissions reporting required</div>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <input type="checkbox" class="form-check-input" name="compliance[]" value="energy_audits">
+                            <div class="item-description">
+                                <strong>Energy Audits & Retro-commissioning</strong>
+                                <div class="item-frequency">Every 10 years for large buildings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Review & Complete -->
+            <div class="form-step" id="formStep4">
+                <h3>Review & Complete</h3>
+                <p class="text-muted">Review your property information and complete setup</p>
+                
+                <div id="reviewSummary">
+                    <!-- Summary will be populated by JavaScript -->
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="submitForm()">
+                        Add Property <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function updateStepIndicators() {
+            for (let i = 1; i <= totalSteps; i++) {
+                const indicator = document.getElementById(`stepIndicator${i}`);
+                indicator.classList.remove('active', 'completed');
+                
+                if (i < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (i === currentStep) {
+                    indicator.classList.add('active');
+                }
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Validate current step
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+                
+                document.getElementById(`formStep${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`formStep${currentStep}`).classList.add('active');
+                
+                if (currentStep === 4) {
+                    generateReviewSummary();
+                }
+                
+                updateProgress();
+                updateStepIndicators();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`formStep${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`formStep${currentStep}`).classList.add('active');
+                updateProgress();
+                updateStepIndicators();
+            }
+        }
+
+        function validateStep(step) {
+            const requiredFields = {
+                1: ['address', 'propertyType', 'contactPhone'],
+                2: [],
+                3: [],
+                4: []
+            };
+            
+            const fields = requiredFields[step] || [];
+            for (const fieldId of fields) {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.focus();
+                    alert(`Please fill in the ${field.previousElementSibling.textContent} field.`);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function toggleCategory(categoryName) {
+            const toggle = document.getElementById(categoryName + 'Toggle');
+            const items = document.getElementById(categoryName + 'Items');
+            const checkboxes = items.querySelectorAll('input[type="checkbox"]');
+            
+            if (toggle.checked) {
+                items.classList.add('show');
+                checkboxes.forEach(cb => cb.checked = true);
+            } else {
+                items.classList.remove('show');
+                checkboxes.forEach(cb => cb.checked = false);
+            }
+        }
+
+        function generateReviewSummary() {
+            const formData = new FormData(document.getElementById('propertyForm'));
+            const summary = document.getElementById('reviewSummary');
+            
+            let html = '<div class="card"><div class="card-body">';
+            
+            // Basic Info
+            html += '<h5><i class="fas fa-building"></i> Property Information</h5>';
+            html += `<p><strong>Address:</strong> ${formData.get('address') || 'Not specified'}</p>`;
+            html += `<p><strong>Type:</strong> ${formData.get('property_type') || 'Not specified'}</p>`;
+            html += `<p><strong>Units:</strong> ${formData.get('units') || 'Not specified'}</p>`;
+            html += `<p><strong>Contact:</strong> ${formData.get('contact_phone') || 'Not specified'}</p>`;
+            
+            // Property Details
+            if (formData.get('year_built') || formData.get('square_footage') || formData.get('management_company')) {
+                html += '<hr><h5><i class="fas fa-info-circle"></i> Property Details</h5>';
+                if (formData.get('year_built')) html += `<p><strong>Year Built:</strong> ${formData.get('year_built')}</p>`;
+                if (formData.get('square_footage')) html += `<p><strong>Square Footage:</strong> ${formData.get('square_footage')}</p>`;
+                if (formData.get('management_company')) html += `<p><strong>Management Company:</strong> ${formData.get('management_company')}</p>`;
+            }
+            
+            // Compliance Systems
+            const compliance = formData.getAll('compliance[]');
+            if (compliance.length > 0) {
+                html += '<hr><h5><i class="fas fa-shield-alt"></i> Selected Compliance Systems</h5>';
+                html += '<ul>';
+                compliance.forEach(item => {
+                    html += `<li>${item.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</li>`;
+                });
+                html += '</ul>';
+            }
+            
+            html += '</div></div>';
+            summary.innerHTML = html;
+        }
+
+        function submitForm() {
+            const formData = new FormData(document.getElementById('propertyForm'));
+            
+            // Convert FormData to JSON
+            const jsonData = {};
+            for (let [key, value] of formData.entries()) {
+                if (key === 'compliance[]') {
+                    if (!jsonData.compliance) jsonData.compliance = [];
+                    jsonData.compliance.push(value);
+                } else {
+                    jsonData[key] = value;
+                }
+            }
+            
+            // Submit to backend
+            fetch('/add_property', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Property added successfully! Property ID: ${data.property_id}`);
+                    window.location.href = '/portfolio';
+                } else {
+                    alert('Error adding property: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting form. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html>
