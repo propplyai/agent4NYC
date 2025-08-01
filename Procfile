@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT propply_app:app
+web: gunicorn --bind 0.0.0.0:$PORT --timeout 120 --workers 2 --worker-class sync app:app
