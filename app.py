@@ -46,6 +46,15 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
+@app.route('/api/test')
+def test_api():
+    """Simple test endpoint"""
+    return jsonify({
+        'success': True,
+        'message': 'API is working',
+        'timestamp': datetime.now().isoformat()
+    })
+
 # Additional API endpoints can be added here for Supabase integration
 # - Vendor marketplace data
 # - Compliance regulations data
@@ -202,6 +211,7 @@ def analyze_property():
                 import traceback
                 traceback.print_exc()
                 ai_analysis = None
+                # Continue with the response even if AI analysis fails
             
             # Get vendor recommendations based on violations
             vendor_recommendations = None
