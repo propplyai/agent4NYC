@@ -60,13 +60,16 @@ class ComplianceWebhookService:
             
             logger.info(f"Sending compliance data to webhook: {self.webhook_url}")
             logger.info(f"Property: {compliance_data.get('address', 'Unknown')}")
+            logger.info(f"Starting AI analysis request at {datetime.now().isoformat()}")
             
             # Send POST request to webhook
             response = self.session.post(
                 self.webhook_url,
                 json=webhook_payload,
-                timeout=25  # Reduced to fit within Render's 30-second limit
+                timeout=60  # Give AI sufficient time for comprehensive analysis
             )
+            
+            logger.info(f"AI analysis request completed at {datetime.now().isoformat()}")
             
             # Check response status
             response.raise_for_status()

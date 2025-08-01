@@ -125,6 +125,7 @@ def analyze_property():
                 print("🤖 Sending compliance data to AI agent for REAL analysis...")
                 raw_ai_response = webhook_service.send_compliance_data(compliance_data)
                 print(f"✅ Raw AI response received: {type(raw_ai_response)}")
+                print(f"🔍 Raw response content: {raw_ai_response}")
                 
                 if raw_ai_response:
                     print("🎯 Processing REAL AI analysis response")
@@ -132,17 +133,23 @@ def analyze_property():
                     # Handle your exact response format: [{"output": {...}}]
                     if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
                         first_item = raw_ai_response[0]
+                        print(f"🔍 First item type: {type(first_item)}")
+                        print(f"🔍 First item keys: {first_item.keys() if isinstance(first_item, dict) else 'Not a dict'}")
+                        
                         if isinstance(first_item, dict) and 'output' in first_item:
                             ai_analysis = first_item['output']
                             print("✅ Successfully extracted REAL AI analysis from response")
+                            print(f"🔍 AI analysis keys: {ai_analysis.keys() if isinstance(ai_analysis, dict) else 'Not a dict'}")
                         else:
                             print("⚠️ Unexpected list format, using first item")
                             ai_analysis = first_item
                     elif isinstance(raw_ai_response, dict):
                         if 'output' in raw_ai_response:
                             ai_analysis = raw_ai_response['output']
+                            print("✅ Successfully extracted AI analysis from dict response")
                         else:
                             ai_analysis = raw_ai_response
+                            print("✅ Using entire dict as AI analysis")
                     else:
                         print("⚠️ Unexpected response format")
                         ai_analysis = None
@@ -150,6 +157,8 @@ def analyze_property():
                     print("❌ No AI analysis received from webhook")
             except Exception as e:
                 print(f"❌ REAL AI analysis failed: {e}")
+                import traceback
+                traceback.print_exc()
                 ai_analysis = None
                 # Continue with response even if AI fails
             
