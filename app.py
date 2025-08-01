@@ -13,6 +13,7 @@ from flask_cors import CORS
 import json
 import os
 import sys
+import uuid
 import asyncio
 from datetime import datetime
 
@@ -59,6 +60,38 @@ def test_api():
 # - Vendor marketplace data
 # - Compliance regulations data
 # - User management
+
+@app.route('/api/ai-analysis/<analysis_id>', methods=['GET'])
+def get_ai_analysis(analysis_id):
+    """Fetch AI analysis results by analysis_id for polling"""
+    try:
+        if not hasattr(app, 'ai_analysis_results'):
+            app.ai_analysis_results = {}
+            
+        if analysis_id not in app.ai_analysis_results:
+            return jsonify({
+                'success': False,
+                'status': 'not_found',
+                'message': f'No analysis found with ID: {analysis_id}'
+            }), 404
+            
+        analysis_data = app.ai_analysis_results[analysis_id]
+        
+        return jsonify({
+            'success': True,
+            'status': analysis_data['status'],
+            'analysis': analysis_data.get('result'),
+            'error': analysis_data.get('error'),
+            'completed_at': analysis_data.get('completed_at')
+        })
+        
+    except Exception as e:
+        print(f"Error fetching AI analysis: {e}")
+        return jsonify({
+            'success': False,
+            'status': 'error',
+            'message': f'Error fetching analysis: {str(e)}'
+        }), 500
 
 @app.route('/api/analyze-property', methods=['POST'])
 def analyze_property():
@@ -119,48 +152,67 @@ def analyze_property():
                 'data_sources': record.data_sources
             }
             
-            # Send to AI agent for REAL analysis - your actual AI response
-            ai_analysis = None
-            try:
-                print("🤖 Sending compliance data to AI agent for REAL analysis...")
-                raw_ai_response = webhook_service.send_compliance_data(compliance_data)
-                print(f"✅ Raw AI response received: {type(raw_ai_response)}")
-                print(f"🔍 Raw response content: {raw_ai_response}")
-                
-                if raw_ai_response:
-                    print("🎯 Processing REAL AI analysis response")
+            # Generate analysis ID for async AI processing
+            analysis_id = str(uuid.uuid4())
+            
+            # Start AI analysis in background (non-blocking)
+            import threading
+            def background_ai_analysis():
+                try:
+                    print(f"🤖 [Background] Starting AI analysis for {analysis_id}...")
+                    raw_ai_response = webhook_service.send_compliance_data(compliance_data)
                     
-                    # Handle your exact response format: [{"output": {...}}]
-                    if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
-                        first_item = raw_ai_response[0]
-                        print(f"🔍 First item type: {type(first_item)}")
-                        print(f"🔍 First item keys: {first_item.keys() if isinstance(first_item, dict) else 'Not a dict'}")
-                        
-                        if isinstance(first_item, dict) and 'output' in first_item:
-                            ai_analysis = first_item['output']
-                            print("✅ Successfully extracted REAL AI analysis from response")
-                            print(f"🔍 AI analysis keys: {ai_analysis.keys() if isinstance(ai_analysis, dict) else 'Not a dict'}")
-                        else:
-                            print("⚠️ Unexpected list format, using first item")
-                            ai_analysis = first_item
-                    elif isinstance(raw_ai_response, dict):
-                        if 'output' in raw_ai_response:
-                            ai_analysis = raw_ai_response['output']
-                            print("✅ Successfully extracted AI analysis from dict response")
-                        else:
-                            ai_analysis = raw_ai_response
-                            print("✅ Using entire dict as AI analysis")
-                    else:
-                        print("⚠️ Unexpected response format")
-                        ai_analysis = None
-                else:
-                    print("❌ No AI analysis received from webhook")
-            except Exception as e:
-                print(f"❌ REAL AI analysis failed: {e}")
-                import traceback
-                traceback.print_exc()
-                ai_analysis = None
-                # Continue with response even if AI fails
+                    # Process the AI response
+                    processed_ai_analysis = None
+                    if raw_ai_response:
+                        if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
+                            first_item = raw_ai_response[0]
+                            if isinstance(first_item, dict) and 'output' in first_item:
+                                processed_ai_analysis = first_item['output']
+                            else:
+                                processed_ai_analysis = first_item
+                        elif isinstance(raw_ai_response, dict):
+                            if 'output' in raw_ai_response:
+                                processed_ai_analysis = raw_ai_response['output']
+                            else:
+                                processed_ai_analysis = raw_ai_response
+                    
+                    # Store result in memory (in production, use Redis/database)
+                    if not hasattr(app, 'ai_analysis_results'):
+                        app.ai_analysis_results = {}
+                    
+                    app.ai_analysis_results[analysis_id] = {
+                        'status': 'completed',
+                        'result': processed_ai_analysis,
+                        'completed_at': datetime.now().isoformat()
+                    }
+                    print(f"✅ [Background] AI analysis completed for {analysis_id}")
+                except Exception as e:
+                    print(f"❌ [Background] AI analysis failed for {analysis_id}: {e}")
+                    if not hasattr(app, 'ai_analysis_results'):
+                        app.ai_analysis_results = {}
+                    app.ai_analysis_results[analysis_id] = {
+                        'status': 'failed',
+                        'error': str(e),
+                        'completed_at': datetime.now().isoformat()
+                    }
+            
+            # Initialize analysis status
+            if not hasattr(app, 'ai_analysis_results'):
+                app.ai_analysis_results = {}
+            
+            app.ai_analysis_results[analysis_id] = {
+                'status': 'processing',
+                'started_at': datetime.now().isoformat()
+            }
+            
+            # Start background thread
+            thread = threading.Thread(target=background_ai_analysis)
+            thread.daemon = True
+            thread.start()
+            
+            print(f"🚀 AI analysis started in background with ID: {analysis_id}")
+            ai_analysis = None  # Will be fetched via polling
             
             # Get vendor recommendations based on violations
             vendor_recommendations = None
@@ -235,7 +287,9 @@ def analyze_property():
                 },
                 'analysis_metadata': {
                     'processed_at': record.processed_at,
-                    'data_sources': record.data_sources
+                    'data_sources': record.data_sources,
+                    'analysis_id': analysis_id,  # Add analysis_id for polling
+                    'ai_analysis_status': 'pending' if ai_analysis is None else 'completed'
                 },
                 'ai_analysis': ai_analysis,  # Add AI analysis to response
                 'vendor_recommendations': vendor_recommendations  # Add vendor recommendations

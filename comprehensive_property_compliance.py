@@ -318,14 +318,18 @@ class ComprehensivePropertyComplianceSystem:
             if identifiers.bin:
                 print(f"   🔍 Searching by BIN: {identifiers.bin}")
                 try:
+                    # Use run_in_executor instead of to_thread for better compatibility
+                    loop = asyncio.get_event_loop()
                     data = await asyncio.wait_for(
-                        asyncio.to_thread(
-                            self.nyc_client.get_data,
-                            'hpd_violations',
-                            where=f"buildingid = '{identifiers.bin}'",
-                            select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing",
-                            order="approveddate DESC",
-                            limit=500  # Reduced limit for faster response
+                        loop.run_in_executor(
+                            None,
+                            lambda: self.nyc_client.get_data(
+                                'hpd_violations',
+                                where=f"buildingid = '{identifiers.bin}'",
+                                select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing",
+                                order="approveddate DESC",
+                                limit=500  # Reduced limit for faster response
+                            )
                         ),
                         timeout=20  # 20 second timeout
                     )

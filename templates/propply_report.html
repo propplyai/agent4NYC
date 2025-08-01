@@ -1347,6 +1347,9 @@
                             <div class="risk-summary">
                                 Our AI agent is conducting a comprehensive analysis of your property's compliance data across all NYC datasets. This process typically takes 20-30 seconds and includes evaluation of HPD violations, DOB records, elevator systems, boiler inspections, and electrical permits.
                             </div>
+                            <div id="aiLoadingMessage" class="risk-summary" style="margin-top: 15px; font-style: italic; color: #666;">
+                                AI analysis in progress... This may take a minute or two.
+                            </div>
                         </div>
                     </div>
                     
@@ -1779,31 +1782,46 @@
                 displayAIAnalysisCompact(data.ai_analysis);
             } else {
                 console.log('No AI analysis data found or incomplete structure');
-                // Show error state instead of hiding section
-                document.getElementById('aiLoadingState').style.display = 'none';
-                document.getElementById('aiResultsState').style.display = 'block';
                 
-                // Show error message using correct element IDs
-                const riskBadge = document.getElementById('riskBadgeEnhanced');
-                const riskSummary = document.getElementById('riskSummaryEnhanced');
-                const actionsGrid = document.getElementById('actionsGrid');
+                // Check if we have an analysis_id for polling
+                const analysisId = data.analysis_metadata?.analysis_id;
+                const aiStatus = data.analysis_metadata?.ai_analysis_status;
                 
-                if (riskBadge) {
-                    riskBadge.textContent = 'ERROR';
-                    riskBadge.className = 'risk-badge-enhanced risk-critical';
-                }
-                
-                if (riskSummary) {
-                    riskSummary.textContent = 'AI analysis temporarily unavailable. Please try again later.';
-                }
-                
-                if (actionsGrid) {
-                    actionsGrid.innerHTML = `
-                        <div class="action-card-enhanced action-critical">
-                            <div class="action-title-enhanced">AI Analysis Unavailable</div>
-                            <div class="action-reason">Our AI agent is currently processing other requests. The compliance data above is still accurate.</div>
-                        </div>
-                    `;
+                if (analysisId && aiStatus === 'pending') {
+                    console.log(`Starting polling for AI analysis with ID: ${analysisId}`);
+                    // Show loading state
+                    document.getElementById('aiLoadingState').style.display = 'block';
+                    document.getElementById('aiResultsState').style.display = 'none';
+                    
+                    // Start polling for results
+                    startPollingForAIAnalysis(analysisId);
+                } else {
+                    // Show error state instead of hiding section
+                    document.getElementById('aiLoadingState').style.display = 'none';
+                    document.getElementById('aiResultsState').style.display = 'block';
+                    
+                    // Show error message using correct element IDs
+                    const riskBadge = document.getElementById('riskBadgeEnhanced');
+                    const riskSummary = document.getElementById('riskSummaryEnhanced');
+                    const actionsGrid = document.getElementById('actionsGrid');
+                    
+                    if (riskBadge) {
+                        riskBadge.textContent = 'ERROR';
+                        riskBadge.className = 'risk-badge-enhanced risk-critical';
+                    }
+                    
+                    if (riskSummary) {
+                        riskSummary.textContent = 'AI analysis temporarily unavailable. Please try again later.';
+                    }
+                    
+                    if (actionsGrid) {
+                        actionsGrid.innerHTML = `
+                            <div class="action-card-enhanced action-critical">
+                                <div class="action-title-enhanced">AI Analysis Unavailable</div>
+                                <div class="action-reason">Our AI agent is currently processing other requests. The compliance data above is still accurate.</div>
+                            </div>
+                        `;
+                    }
                 }
             }
             
@@ -2380,6 +2398,128 @@
             
             // Remove click outside handler
             modal.onclick = null;
+        }
+        
+        // AI Analysis Polling Function
+        let pollingTimer = null;
+        const MAX_POLLING_ATTEMPTS = 20; // Maximum number of polling attempts (10 minutes at 30s intervals)
+        const POLLING_INTERVAL = 30000; // 30 seconds between polling attempts
+        
+        async function startPollingForAIAnalysis(analysisId) {
+            let attempts = 0;
+            
+            // Clear any existing polling timer
+            if (pollingTimer) {
+                clearInterval(pollingTimer);
+            }
+            
+            // Update loading message
+            const loadingMessage = document.getElementById('aiLoadingMessage');
+            if (loadingMessage) {
+                loadingMessage.textContent = 'AI analysis in progress... This may take a minute or two.';
+            }
+            
+            // Define the polling function
+            async function pollForResults() {
+                attempts++;
+                console.log(`Polling for AI analysis results (attempt ${attempts}/${MAX_POLLING_ATTEMPTS})`);
+                
+                try {
+                    const response = await fetch(`/api/ai-analysis/${analysisId}`);
+                    const data = await response.json();
+                    
+                    console.log('Polling response:', data);
+                    
+                    if (data.success) {
+                        if (data.status === 'completed' && data.analysis) {
+                            // We have results! Stop polling and display them
+                            clearInterval(pollingTimer);
+                            pollingTimer = null;
+                            
+                            console.log('AI analysis completed, displaying results');
+                            displayAIAnalysisCompact(data.analysis);
+                        } else if (data.status === 'failed') {
+                            // Analysis failed, stop polling and show error
+                            clearInterval(pollingTimer);
+                            pollingTimer = null;
+                            
+                            console.error('AI analysis failed:', data.error);
+                            showAIAnalysisError('Analysis failed: ' + (data.error || 'Unknown error'));
+                        }
+                        // If status is still 'pending', continue polling
+                    } else {
+                        // API error
+                        console.error('Error polling for AI analysis:', data.message);
+                        
+                        // If we've reached max attempts, stop polling and show error
+                        if (attempts >= MAX_POLLING_ATTEMPTS) {
+                            clearInterval(pollingTimer);
+                            pollingTimer = null;
+                            showAIAnalysisError('Analysis timed out. Please try again later.');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Network error while polling:', error);
+                    
+                    // If we've reached max attempts, stop polling and show error
+                    if (attempts >= MAX_POLLING_ATTEMPTS) {
+                        clearInterval(pollingTimer);
+                        pollingTimer = null;
+                        showAIAnalysisError('Network error while retrieving analysis results.');
+                    }
+                }
+                
+                // Update loading message with attempt count
+                if (loadingMessage && pollingTimer) {
+                    loadingMessage.textContent = `AI analysis in progress... (${attempts}/${MAX_POLLING_ATTEMPTS})`;
+                }
+            }
+            
+            // Start polling immediately
+            await pollForResults();
+            
+            // Then set up interval for continued polling
+            pollingTimer = setInterval(pollForResults, POLLING_INTERVAL);
+        }
+        
+        function showAIAnalysisError(errorMessage) {
+            // Show error state
+            document.getElementById('aiLoadingState').style.display = 'none';
+            document.getElementById('aiResultsState').style.display = 'block';
+            
+            // Update header to show error
+            const confidenceBadge = document.getElementById('aiConfidenceBadge');
+            if (confidenceBadge) {
+                confidenceBadge.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+                confidenceBadge.style.background = 'rgba(220, 38, 38, 0.2)';
+            }
+            
+            // Show error in risk assessment
+            const riskContainer = document.getElementById('riskAssessmentContainer');
+            if (riskContainer) {
+                riskContainer.className = 'risk-assessment-enhanced risk-critical-border';
+            }
+            
+            const riskBadge = document.getElementById('riskBadgeEnhanced');
+            if (riskBadge) {
+                riskBadge.textContent = 'ERROR';
+                riskBadge.className = 'risk-badge-enhanced risk-critical';
+            }
+            
+            const riskSummary = document.getElementById('riskSummaryEnhanced');
+            if (riskSummary) {
+                riskSummary.textContent = errorMessage || 'Unable to process AI analysis at this time.';
+            }
+            
+            const actionsGrid = document.getElementById('actionsGrid');
+            if (actionsGrid) {
+                actionsGrid.innerHTML = `
+                    <div class="action-card-enhanced action-critical">
+                        <div class="action-title-enhanced">AI Analysis Temporarily Unavailable</div>
+                        <div class="action-reason">Our AI service is currently experiencing issues. The compliance data shown above remains accurate and actionable.</div>
+                    </div>
+                `;
+            }
         }
     </script>
 </body>
