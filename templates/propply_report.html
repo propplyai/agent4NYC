@@ -174,10 +174,38 @@
             transform: rotate(180deg);
         }
         
-        .report-date-compact {
-            font-size: 0.85rem;
-            color: #6c757d;
+        .score-and-date {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             margin-left: 16px;
+        }
+        
+        .compliance-score-compact {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .score-number {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .score-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        
+        .report-date-compact {
+            font-size: 0.8rem;
+            color: #6c757d;
         }
         
         .property-details-dropdown {
@@ -238,20 +266,7 @@
             font-size: 1rem;
         }
 
-        .overall-score {
-            text-align: center;
-            margin: 10px 0;
-        }
 
-        .score-display {
-            display: inline-block;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
 
         .score-warning { background: linear-gradient(135deg, #FF9800, #F57C00); }
         .score-critical { background: linear-gradient(135deg, #f44336, #d32f2f); }
@@ -1393,8 +1408,14 @@
                                             <i class="fas fa-chevron-down expand-icon" id="propertyExpandIcon"></i>
                                         </div>
                                     </div>
-                                    <div class="report-date-compact">
-                                        <span id="reportDate">Loading...</span>
+                                    <div class="score-and-date">
+                                        <div class="compliance-score-compact">
+                                            <span class="score-number" id="overallScore">-</span>
+                                            <span class="score-label">Score</span>
+                                        </div>
+                                        <div class="report-date-compact">
+                                            <span id="reportDate">Loading...</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="property-details-dropdown" id="propertyDetailsDropdown" style="display: none;">
@@ -1431,14 +1452,7 @@
                     </div>
                 </div>
 
-                <!-- Simplified Overall Score -->
-                <div class="score-summary">
-                    <div class="score-circle-large" id="overallScoreCircle">
-                        <span id="overallScore">0</span>
-                    </div>
-                    <div class="score-title">Overall Compliance Score</div>
-                    <div class="score-subtitle" id="reportDate">Report generated on: Loading...</div>
-                </div>
+
 
                 <!-- Enhanced AI Insights -->
                 <div class="ai-insights" id="aiInsightsSection" style="display: block;">
@@ -1958,11 +1972,21 @@
             // Initialize Google Map
             initializePropertyMap(data.property.address);
             
-            // Overall score
+            // Overall score - now integrated in property card
             const overallScore = data.compliance_scores.overall;
             setTextContent('overallScore', overallScore);
-            const scoreCircle = document.getElementById('overallScoreCircle');
-            if (scoreCircle) scoreCircle.className = 'score-circle-large ' + getScoreClass(overallScore);
+            
+            // Update score background color based on score
+            const scoreElement = document.querySelector('.compliance-score-compact');
+            if (scoreElement) {
+                if (overallScore >= 80) {
+                    scoreElement.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                } else if (overallScore >= 60) {
+                    scoreElement.style.background = 'linear-gradient(135deg, #FF9800, #F57C00)';
+                } else {
+                    scoreElement.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+                }
+            }
             
             // HPD
             updateComplianceRow('hpd', `${data.violations.hpd_total} total, ${data.violations.hpd_active} active`);
