@@ -226,6 +226,121 @@
             font-weight: 500;
             font-size: 0.85rem;
         }
+        
+        /* Compact Service Providers Styles */
+        .service-providers-compact {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .providers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .providers-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #495057;
+        }
+        
+        .providers-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .service-category {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        
+        .service-category-header {
+            padding: 10px 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .service-category-header:hover {
+            background: #f8f9fa;
+        }
+        
+        .service-category-title {
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9rem;
+        }
+        
+        .service-category-count {
+            background: #6c757d;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-right: 8px;
+        }
+        
+        .service-providers-list {
+            display: none;
+            padding: 12px;
+            background: #fafafa;
+        }
+        
+        .service-provider {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .service-provider:last-child {
+            border-bottom: none;
+        }
+        
+        .provider-info {
+            flex: 1;
+        }
+        
+        .provider-name {
+            font-weight: 600;
+            color: #212529;
+            font-size: 0.85rem;
+        }
+        
+        .provider-details {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+        
+        .provider-contact {
+            font-size: 0.8rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .providers-footer {
+            margin-top: 12px;
+            font-size: 0.75rem;
+            color: #6c757d;
+            text-align: center;
+        }
 
         .meta-item {
             display: flex;
@@ -1523,34 +1638,7 @@
                     </div>
                 </div>
 
-                <!-- Vendor Marketplace Section -->
-                <div class="vendor-marketplace" id="vendorMarketplaceSection" style="display: none;">
-                    <div class="insights-header">
-                        <div class="insights-title">
-                            <i class="fas fa-users ai-icon"></i>
-                            Recommended Service Providers
-                        </div>
-                        <div class="marketplace-badge">
-                            <i class="fas fa-check-circle"></i> Verified & Licensed
-                        </div>
-                    </div>
-                    
-                    <div class="vendor-content">
-                        <div class="vendor-intro">
-                            <p>Based on your property's compliance needs, we've identified qualified contractors in your area:</p>
-                        </div>
-                        
-                        <div class="vendor-categories" id="vendorCategories">
-                            <!-- Vendor categories will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <div class="vendor-meta">
-                        <i class="fas fa-shield-alt"></i> All contractors verified through NYC licensing databases • 
-                        <i class="fas fa-map-marker-alt"></i> Sorted by proximity and ratings • 
-                        <i class="fas fa-clock"></i> Updated: <span id="vendorUpdateTime">--</span>
-                    </div>
-                </div>
+
 
                 <!-- Detailed Compliance Analysis -->
                 <div class="compliance-table">
@@ -1772,6 +1860,26 @@
 
 
                 </div>
+                
+                <!-- Compact Service Providers Section (After Compliance Analysis) -->
+                <div class="service-providers-compact" id="serviceProvidersSection" style="display: none;">
+                    <div class="providers-header">
+                        <h3><i class="fas fa-users"></i> Recommended Service Providers</h3>
+                        <div class="providers-badge">
+                            <i class="fas fa-check-circle"></i> Verified & Licensed
+                        </div>
+                    </div>
+                    
+                    <div class="service-categories" id="serviceCategories">
+                        <!-- Service categories with dropdowns will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="providers-footer">
+                        <span><i class="fas fa-shield-alt"></i> Licensed contractors</span> • 
+                        <span><i class="fas fa-map-marker-alt"></i> Local area</span> • 
+                        <span><i class="fas fa-star"></i> Rated providers</span>
+                    </div>
+                </div>
             </div>
             
             <div class="error-message" id="errorMessage" style="display: none;"></div>
@@ -1885,6 +1993,20 @@
             } else {
                 dropdown.style.display = 'none';
                 icon.classList.remove('rotated');
+            }
+        }
+        
+        // Function to toggle service category dropdown
+        function toggleServiceCategory(categoryId) {
+            const dropdown = document.getElementById(`providers-${categoryId}`);
+            const icon = document.querySelector(`[data-category="${categoryId}"] .expand-icon`);
+            
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+                if (icon) icon.classList.add('rotated');
+            } else {
+                dropdown.style.display = 'none';
+                if (icon) icon.classList.remove('rotated');
             }
         }
 
@@ -2212,11 +2334,11 @@
                     return;
                 }
                 
-                // Show the vendor marketplace section
-                document.getElementById('vendorMarketplaceSection').style.display = 'block';
+                // Show the compact service providers section
+                document.getElementById('serviceProvidersSection').style.display = 'block';
                 
-                const vendorCategories = document.getElementById('vendorCategories');
-                vendorCategories.innerHTML = '';
+                const serviceCategories = document.getElementById('serviceCategories');
+                serviceCategories.innerHTML = '';
                 
                 // Category display names and icons
                 const categoryInfo = {
@@ -2228,28 +2350,31 @@
                     'fire_safety': { name: 'Fire Safety & Alarms', icon: 'fas fa-shield-alt' }
                 };
                 
-                // Create vendor categories
+                // Create compact service categories with dropdowns
                 for (const [category, vendors] of Object.entries(vendorData)) {
                     if (!vendors || vendors.length === 0) continue;
                     
                     const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'vendor-category';
+                    categoryDiv.className = 'service-category';
                     
                     const categoryName = categoryInfo[category]?.name || category.toUpperCase();
                     const categoryIcon = categoryInfo[category]?.icon || 'fas fa-tools';
                     
                     categoryDiv.innerHTML = `
-                        <div class="vendor-category-header">
-                            <i class="${categoryIcon}"></i>
-                            ${categoryName}
-                            <span style="margin-left: auto; font-size: 0.9rem;">${vendors.length} providers</span>
+                        <div class="service-category-header" onclick="toggleServiceCategory('${category}')" data-category="${category}">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <i class="${categoryIcon}"></i>
+                                <span class="service-category-title">${categoryName}</span>
+                                <span class="service-category-count">${vendors.length}</span>
+                            </div>
+                            <i class="fas fa-chevron-down expand-icon"></i>
                         </div>
-                        <div class="vendor-list">
-                            ${vendors.map(vendor => createVendorCard(vendor)).join('')}
+                        <div class="service-providers-list" id="providers-${category}">
+                            ${vendors.map(vendor => createCompactVendorItem(vendor)).join('')}
                         </div>
                     `;
                     
-                    vendorCategories.appendChild(categoryDiv);
+                    serviceCategories.appendChild(categoryDiv);
                 }
                 
                 // Update timestamp
@@ -2261,6 +2386,33 @@
             } catch (error) {
                 console.error('Error displaying vendor recommendations:', error);
             }
+        }
+        
+        function createCompactVendorItem(vendor) {
+            const rating = vendor.rating || 0;
+            const ratingCount = vendor.rating_count || 0;
+            const distance = vendor.distance_miles || 'N/A';
+            const phone = vendor.phone || '';
+            const website = vendor.website || '';
+            
+            const contactInfo = [];
+            if (phone) contactInfo.push(`<a href="tel:${phone}" class="provider-contact">${phone}</a>`);
+            if (website) contactInfo.push(`<a href="${website}" target="_blank" class="provider-contact">Website</a>`);
+            
+            return `
+                <div class="service-provider">
+                    <div class="provider-info">
+                        <div class="provider-name">${vendor.name}</div>
+                        <div class="provider-details">
+                            ${rating > 0 ? `★ ${rating.toFixed(1)} (${ratingCount} reviews)` : 'No reviews'} • 
+                            ${distance !== 'N/A' ? `${distance} miles` : 'Local area'}
+                        </div>
+                    </div>
+                    <div class="provider-contacts">
+                        ${contactInfo.join(' • ')}
+                    </div>
+                </div>
+            `;
         }
         
         function createVendorCard(vendor) {
