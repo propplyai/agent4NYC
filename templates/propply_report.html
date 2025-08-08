@@ -174,38 +174,25 @@
             transform: rotate(180deg);
         }
         
-        .score-and-date {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-left: 16px;
+        .compliance-score-under-address {
+            margin-top: 4px;
+            font-size: 0.9rem;
         }
         
-        .compliance-score-compact {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+        .score-text {
+            color: #495057;
+            font-weight: 500;
         }
         
-        .score-number {
-            font-size: 1.1rem;
+        .score-text span {
             font-weight: 700;
+            color: #28a745;
         }
         
-        .score-label {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
-        
-        .report-date-compact {
+        .report-date-right {
             font-size: 0.8rem;
             color: #6c757d;
+            margin-left: 16px;
         }
         
         .property-details-dropdown {
@@ -1407,15 +1394,12 @@
                                             <span class="address-text" id="propertyAddress">Loading...</span>
                                             <i class="fas fa-chevron-down expand-icon" id="propertyExpandIcon"></i>
                                         </div>
+                                        <div class="compliance-score-under-address">
+                                            <span class="score-text">Compliance Score - <span id="overallScore">-</span></span>
+                                        </div>
                                     </div>
-                                    <div class="score-and-date">
-                                        <div class="compliance-score-compact">
-                                            <span class="score-number" id="overallScore">-</span>
-                                            <span class="score-label">Score</span>
-                                        </div>
-                                        <div class="report-date-compact">
-                                            <span id="reportDate">Loading...</span>
-                                        </div>
+                                    <div class="report-date-right">
+                                        <span id="reportDate">Loading...</span>
                                     </div>
                                 </div>
                                 <div class="property-details-dropdown" id="propertyDetailsDropdown" style="display: none;">
@@ -1972,19 +1956,19 @@
             // Initialize Google Map
             initializePropertyMap(data.property.address);
             
-            // Overall score - now integrated in property card
+            // Overall score - now under address
             const overallScore = data.compliance_scores.overall;
             setTextContent('overallScore', overallScore);
             
-            // Update score background color based on score
-            const scoreElement = document.querySelector('.compliance-score-compact');
-            if (scoreElement) {
+            // Update score color based on score
+            const scoreSpan = document.querySelector('#overallScore');
+            if (scoreSpan) {
                 if (overallScore >= 80) {
-                    scoreElement.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                    scoreSpan.style.color = '#28a745'; // Green
                 } else if (overallScore >= 60) {
-                    scoreElement.style.background = 'linear-gradient(135deg, #FF9800, #F57C00)';
+                    scoreSpan.style.color = '#ffc107'; // Orange
                 } else {
-                    scoreElement.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+                    scoreSpan.style.color = '#dc3545'; // Red
                 }
             }
             
