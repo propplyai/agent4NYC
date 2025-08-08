@@ -3,7 +3,7 @@
 Propply AI - Intelligent Property Compliance Platform
 ====================================================
 
-AI-powered compliance management platform for NYC commercial and multifamily properties.
+AI-powered compliance management platform for commercial and multifamily properties.
 Transforms reactive compliance management into proactive, automated workflows with
 integrated vendor marketplace for seamless service provider connections.
 """
@@ -247,16 +247,27 @@ def analyze_property():
                 print(f"❌ Vendor recommendations failed: {e}")
                 vendor_recommendations = {}
             
+            # Format address with City, State, Zip for better scalability
+            formatted_address = record.address
+            if record.zip_code:
+                # Add city and state info for better formatting
+                city = "New York" if record.borough in ['MANHATTAN', 'BROOKLYN', 'QUEENS', 'BRONX'] else "Staten Island"
+                state = "NY"
+                formatted_address = f"{record.address}, {city}, {state} {record.zip_code}"
+            
             result = {
                 'success': True,
                 'property': {
-                    'address': record.address,
+                    'address': formatted_address,
+                    'original_address': record.address,
                     'bin': record.bin,
                     'bbl': record.bbl,
                     'borough': record.borough,
                     'block': record.block,
                     'lot': record.lot,
-                    'zip_code': record.zip_code
+                    'zip_code': record.zip_code,
+                    'city': city if record.zip_code else None,
+                    'state': state if record.zip_code else None
                 },
                 'compliance_scores': {
                     'overall': round(record.overall_compliance_score, 1),

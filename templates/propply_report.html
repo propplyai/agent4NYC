@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Propply AI - Property Compliance Report</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4gSJ9LDVqQ9AVxw3zVoHSQQVr_9W2V54&libraries=places"></script>
     <style>
         * {
             margin: 0;
@@ -43,6 +44,26 @@
         .header .tagline {
             font-size: 1.1rem;
             opacity: 0.9;
+        }
+        
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .property-info {
+            flex: 1;
+        }
+        
+        .property-map {
+            width: 300px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .search-section {
@@ -1258,23 +1279,17 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-chart-line"></i> Propply AI</h1>
-            <p class="tagline">Comprehensive Property Compliance Intelligence</p>
+            <h1>🏢 Propply AI</h1>
+            <p class="tagline">Intelligent Property Compliance Analysis</p>
         </div>
 
         <div class="search-section">
-            <form class="search-form" id="analysisForm">
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    id="addressInput" 
-                    placeholder="Enter NYC property address (e.g., 140 West 28 Street, Manhattan)"
-                    required
-                />
-                <button type="submit" class="analyze-btn" id="analyzeBtn">
-                    <i class="fas fa-search"></i> Generate Report
+            <div class="search-form">
+                <input type="text" id="addressInput" class="search-input" placeholder="Enter property address (e.g., 123 Main Street, City, State ZIP)">
+                <button id="analyzeBtn" class="analyze-btn">
+                    <i class="fas fa-search"></i> Analyze Property
                 </button>
-            </form>
+            </div>
         </div>
 
         <div class="results-section" id="resultsSection">
@@ -1286,31 +1301,44 @@
 
             <div id="resultsContent" style="display: none;">
                 <div class="property-summary">
-                    <div class="property-title" id="propertyAddress"></div>
-                    <div class="property-meta">
-                        <div class="meta-item">
-                            <span class="meta-label">BIN:</span>
-                            <span class="meta-value" id="propertyBIN"></span>
+                    <div class="property-header">
+                        <div class="property-info">
+                            <h2 class="property-title" id="propertyTitle">Property Analysis Results</h2>
+                            <div class="property-meta" id="propertyMeta">
+                                <div class="meta-item">
+                                    <span class="meta-label">Address:</span>
+                                    <span class="meta-value" id="propertyAddress"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">BIN:</span>
+                                    <span class="meta-value" id="propertyBIN"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">BBL:</span>
+                                    <span class="meta-value" id="propertyBBL"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Borough:</span>
+                                    <span class="meta-value" id="propertyBorough"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Block/Lot:</span>
+                                    <span class="meta-value" id="propertyBlockLot"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">ZIP Code:</span>
+                                    <span class="meta-value" id="propertyZip"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Report Date:</span>
+                                    <span class="meta-value" id="reportDate"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="meta-item">
-                            <span class="meta-label">BBL:</span>
-                            <span class="meta-value" id="propertyBBL"></span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Borough:</span>
-                            <span class="meta-value" id="propertyBorough"></span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Block/Lot:</span>
-                            <span class="meta-value" id="propertyBlockLot"></span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">ZIP Code:</span>
-                            <span class="meta-value" id="propertyZip"></span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Report Date:</span>
-                            <span class="meta-value" id="reportDate"></span>
+                        <div class="property-map">
+                            <div id="propertyMap" style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666;">
+                                <i class="fas fa-map-marker-alt"></i> Map will load here
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1321,7 +1349,7 @@
                         <span id="overallScore">0</span>
                     </div>
                     <div class="score-title">Overall Compliance Score</div>
-                    <div class="score-subtitle">Comprehensive NYC Property Analysis</div>
+                    <div class="score-subtitle" id="reportDate">Report generated on: Loading...</div>
                 </div>
 
                 <!-- Enhanced AI Insights -->
@@ -1438,11 +1466,138 @@
                     </div>
                 </div>
 
+                <!-- Detailed Compliance Analysis -->
                 <div class="compliance-table">
                     <div class="table-header">
-                        <i class="fas fa-list-ul"></i> Detailed Compliance Analysis
+                        <h3><i class="fas fa-clipboard-check"></i> Detailed Compliance Analysis</h3>
+                        <p>Click on any category to view detailed information</p>
                     </div>
-                    
+
+                    <!-- EQUIPMENT SECTIONS FIRST (as requested by client) -->
+                    <div class="compliance-row" onclick="toggleRow('elevator', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-elevator category-icon"></i>
+                                Elevator Equipment
+                            </div>
+                            <div class="status-summary" id="elevatorStatus">0 total, 0 active</div>
+                            <div class="status-summary">Elevator and conveyor device inspections</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Device Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Devices:</span>
+                                                <span class="detail-value" id="elevatorTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Active Devices:</span>
+                                                <span class="detail-value" id="elevatorActive">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="elevatorRecords">
+                                    <div class="records-header">
+                                        <div>Device Number</div>
+                                        <div>Type</div>
+                                        <div>Status</div>
+                                        <div>Last Updated</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-row" onclick="toggleRow('boiler', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-fire category-icon"></i>
+                                Boiler Equipment
+                            </div>
+                            <div class="status-summary" id="boilerStatus">0 devices</div>
+                            <div class="status-summary">Boiler safety and maintenance inspections</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Inspection Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Devices:</span>
+                                                <span class="detail-value" id="boilerTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Recent Inspections:</span>
+                                                <span class="detail-value" id="boilerRecent">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="boilerRecords">
+                                    <div class="records-header">
+                                        <div>Boiler ID</div>
+                                        <div>Inspection Date</div>
+                                        <div>Status</div>
+                                        <div>Defects</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliance-row" onclick="toggleRow('electrical', event)">
+                        <div class="row-summary">
+                            <div class="category-name">
+                                <i class="fas fa-bolt category-icon"></i>
+                                Electrical Permits
+                            </div>
+                            <div class="status-summary" id="electricalStatus">0 permits, 0 active</div>
+                            <div class="status-summary">Electrical work permits and inspections</div>
+                            <div class="expand-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="row-details" onclick="event.stopPropagation()">
+                            <div class="details-content">
+                                <div class="details-grid">
+                                    <div class="detail-section">
+                                        <div class="detail-title">Permit Summary</div>
+                                        <ul class="detail-list">
+                                            <li class="detail-item">
+                                                <span class="detail-label">Total Permits:</span>
+                                                <span class="detail-value" id="electricalTotal">0</span>
+                                            </li>
+                                            <li class="detail-item">
+                                                <span class="detail-label">Active Permits:</span>
+                                                <span class="detail-value" id="electricalActive">0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="records-table" id="electricalRecords">
+                                    <div class="records-header">
+                                        <div>Permit Number</div>
+                                        <div>Type</div>
+                                        <div>Status</div>
+                                        <div>Date</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIOLATIONS SECTIONS SECOND (as requested by client) -->
                     <div class="compliance-row" onclick="toggleRow('hpd', event)">
                         <div class="row-summary">
                             <div class="category-name">
@@ -1450,7 +1605,7 @@
                                 HPD Violations
                             </div>
                             <div class="status-summary" id="hpdStatus">0 total, 0 active</div>
-                            <div class="status-summary" id="hpdDescription">Housing violations and maintenance issues</div>
+                            <div class="status-summary">Housing Preservation & Development violations</div>
                             <div class="expand-icon">
                                 <i class="fas fa-chevron-right"></i>
                             </div>
@@ -1680,8 +1835,56 @@
 
     <script>
         let currentData = null;
+        let propertyMap = null;
 
-        document.getElementById('analysisForm').addEventListener('submit', async function(e) {
+        // Google Maps initialization function
+        function initializePropertyMap(address) {
+            if (typeof google === 'undefined' || !google.maps) {
+                console.warn('Google Maps API not loaded');
+                document.getElementById('propertyMap').innerHTML = '<i class="fas fa-map-marker-alt"></i> Map unavailable';
+                return;
+            }
+
+            const geocoder = new google.maps.Geocoder();
+            const mapElement = document.getElementById('propertyMap');
+            
+            geocoder.geocode({ address: address }, (results, status) => {
+                if (status === 'OK' && results[0]) {
+                    const location = results[0].geometry.location;
+                    
+                    propertyMap = new google.maps.Map(mapElement, {
+                        zoom: 17,
+                        center: location,
+                        mapTypeId: google.maps.MapTypeId.HYBRID,
+                        disableDefaultUI: true,
+                        zoomControl: true,
+                        streetViewControl: true
+                    });
+                    
+                    new google.maps.Marker({
+                        position: location,
+                        map: propertyMap,
+                        title: address,
+                        icon: {
+                            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#667eea"/>
+                                    <circle cx="12" cy="9" r="2.5" fill="white"/>
+                                </svg>
+                            `),
+                            scaledSize: new google.maps.Size(24, 24),
+                            anchor: new google.maps.Point(12, 24)
+                        }
+                    });
+                } else {
+                    console.error('Geocoding failed:', status);
+                    mapElement.innerHTML = '<i class="fas fa-map-marker-alt"></i> Location not found';
+                }
+            });
+        }
+
+        // Updated event listener for the new form structure
+        document.getElementById('analyzeBtn').addEventListener('click', async function(e) {
             e.preventDefault();
             
             const address = document.getElementById('addressInput').value.trim();
@@ -1695,7 +1898,7 @@
             
             // Disable form
             document.getElementById('analyzeBtn').disabled = true;
-            document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
             
             try {
                 const response = await fetch('/api/analyze-property', {
@@ -1722,7 +1925,7 @@
             } finally {
                 // Re-enable form
                 document.getElementById('analyzeBtn').disabled = false;
-                document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-search"></i> Generate Report';
+                document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-search"></i> Analyze Property';
                 document.getElementById('loadingDiv').style.display = 'none';
             }
         });
@@ -1743,7 +1946,10 @@
             setTextContent('propertyBorough', data.property.borough);
             setTextContent('propertyBlockLot', `${data.property.block}/${data.property.lot}`);
             setTextContent('propertyZip', data.property.zip_code);
-            setTextContent('reportDate', new Date().toLocaleDateString());
+            setTextContent('reportDate', `Report generated on: ${new Date().toLocaleDateString()}`);
+            
+            // Initialize Google Map
+            initializePropertyMap(data.property.address);
             
             // Overall score
             const overallScore = data.compliance_scores.overall;

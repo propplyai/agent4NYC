@@ -310,146 +310,150 @@ class ComprehensivePropertyComplianceSystem:
         return compliance_data
     
     async def gather_hpd_violations(self, identifiers: PropertyIdentifiers, compliance_data: Dict):
-        """Gather HPD violations data using multiple search strategies with timeout handling"""
-        print("🏠 Gathering HPD violations...")
+        """Gather HPD violations data using multiple search strategies with timeout handling - ACTIVE ONLY"""
         
-        try:
-            # Strategy 1: Search by BIN with timeout
-            if identifiers.bin:
-                print(f"   🔍 Searching by BIN: {identifiers.bin}")
-                try:
-                    # Use run_in_executor instead of to_thread for better compatibility
-                    loop = asyncio.get_event_loop()
-                    data = await asyncio.wait_for(
-                        loop.run_in_executor(
-                            None,
-                            lambda: self.nyc_client.get_data(
-                                'hpd_violations',
-                                where=f"buildingid = '{identifiers.bin}'",
-                                select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing",
-                                order="approveddate DESC",
-                                limit=500  # Reduced limit for faster response
-                            )
-                        ),
-                        timeout=20  # 20 second timeout
-                    )
-                except asyncio.TimeoutError:
-                    print(f"   ⏰ HPD BIN search timed out, trying fallback...")
-                    data = None
+        hpd_violations = []
+        search_strategies = []
+        
+        # Strategy 1: BIN search (most reliable)
+        if identifiers.bin:
+            search_strategies.append(("BIN", f"bin = '{identifiers.bin}'"))
+        
+        # Strategy 2: BBL search
+        if identifiers.bbl:
+            search_strategies.append(("BBL", f"bbl = '{identifiers.bbl}'"))
+        
+        # Strategy 3: Block/Lot search
+        if identifiers.block and identifiers.lot:
+            search_strategies.append(("Block/Lot", f"block = '{identifiers.block}' AND lot = '{identifiers.lot}'"))
+        
+        for strategy_name, where_clause in search_strategies:
+            try:
+                print(f"🔍 HPD Violations - Trying {strategy_name} search: {where_clause}")
                 
-                if data is not None and len(data) > 0:
-                    compliance_data['hpd_violations'] = data
-                    print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (BIN search)")
-                    return
-            
-            # Strategy 2: Search by block/lot
-            if identifiers.borough and identifiers.block and identifiers.lot:
-                print(f"   🔍 Fallback: Searching by block/lot: {identifiers.block}/{identifiers.lot}")
-                boro_map = {'MANHATTAN': '1', 'BRONX': '2', 'BROOKLYN': '3', 'QUEENS': '4', 'STATEN ISLAND': '5'}
-                boro_id = boro_map.get(identifiers.borough, identifiers.borough)
+                # Add active status filter to the where clause
+                active_where_clause = f"({where_clause}) AND violationstatus IN ('OPEN', 'ACTIVE')"
                 
-                data = self.nyc_client.get_data(
+                violations_data = self.nyc_client.get_data(
                     'hpd_violations',
-                    where=f"boroid = '{boro_id}' AND block = '{identifiers.block}' AND lot = '{identifiers.lot}'",
-                    select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing, buildingid",
-                    order="approveddate DESC",
+                    where=active_where_clause,
                     limit=1000
                 )
                 
-                if data is not None and len(data) > 0:
-                    compliance_data['hpd_violations'] = data
-                    print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (block/lot search)")
-                    return
+                if violations_data and len(violations_data) > 0:
+                    hpd_violations = violations_data.to_dict('records')
+                    print(f"✅ HPD Violations - Found {len(hpd_violations)} ACTIVE violations using {strategy_name}")
+                    break
+                else:
+                    print(f"❌ HPD Violations - No active results with {strategy_name}")
+                    
+            except Exception as e:
+                print(f"❌ HPD Violations - {strategy_name} search failed: {e}")
+                continue
+        
+        # Clean and process violations data
+        if hpd_violations:
+            hpd_violations = self.clean_data_for_json(hpd_violations)
             
-            # Strategy 3: Search by address
-            address_parts = identifiers.address.split(' ')
-            if len(address_parts) >= 2:
-                house_number = address_parts[0]
-                street_name = ' '.join(address_parts[1:])
-                print(f"   🔍 Fallback: Searching by address: {house_number} {street_name}")
+            # All violations are active since we filtered for them
+            active_violations = hpd_violations
+            
+            compliance_data['hpd_violations_total'] = len(hpd_violations)  # Only active count
+            compliance_data['hpd_violations_active'] = len(active_violations)
+            compliance_data['hpd_violations_data'] = json.dumps(hpd_violations)
+            
+            # Calculate HPD compliance score (lower is worse)
+            if len(active_violations) == 0:
+                compliance_data['hpd_compliance_score'] = 100.0
+            elif len(active_violations) <= 5:
+                compliance_data['hpd_compliance_score'] = 85.0
+            elif len(active_violations) <= 15:
+                compliance_data['hpd_compliance_score'] = 70.0
+            elif len(active_violations) <= 30:
+                compliance_data['hpd_compliance_score'] = 50.0
+            else:
+                compliance_data['hpd_compliance_score'] = 25.0
                 
-                data = self.nyc_client.get_data(
-                    'hpd_violations',
-                    where=f"housenumber = '{house_number}' AND UPPER(streetname) LIKE '%{street_name.upper()}%'",
-                    select="violationid, violationstatus, currentstatus, approveddate, novdescription, rentimpairing, buildingid",
-                    order="approveddate DESC",
-                    limit=1000
-                )
-                
-                if data is not None and len(data) > 0:
-                    compliance_data['hpd_violations'] = data
-                    print(f"   ✅ Found {len(compliance_data['hpd_violations'])} HPD violations (address search)")
-                    return
-            
-            print(f"   ❌ No HPD violations found")
-            
-        except Exception as e:
-            print(f"   ❌ HPD violations error: {e}")
+            print(f"📊 HPD Analysis: {len(active_violations)} ACTIVE violations found")
+        else:
+            compliance_data['hpd_violations_total'] = 0
+            compliance_data['hpd_violations_active'] = 0
+            compliance_data['hpd_violations_data'] = json.dumps([])
+            compliance_data['hpd_compliance_score'] = 100.0
+            print("✅ HPD Analysis: No active violations found - perfect score")
     
     async def gather_dob_violations(self, identifiers: PropertyIdentifiers, compliance_data: Dict):
-        """Gather DOB violations data using multiple search strategies"""
-        print("🏗️ Gathering DOB violations...")
+        """Gather DOB violations data using multiple search strategies - ACTIVE ONLY"""
         
-        try:
-            # Strategy 1: Search by BIN (DOB dataset has bin column)
-            if identifiers.bin:
-                print(f"   🔍 Searching by BIN: {identifiers.bin}")
-                data = self.nyc_client.get_data(
+        dob_violations = []
+        search_strategies = []
+        
+        # Strategy 1: BIN search (most reliable)
+        if identifiers.bin:
+            search_strategies.append(("BIN", f"bin = '{identifiers.bin}'"))
+        
+        # Strategy 2: BBL search
+        if identifiers.bbl:
+            search_strategies.append(("BBL", f"bbl = '{identifiers.bbl}'"))
+        
+        # Strategy 3: Block/Lot search
+        if identifiers.block and identifiers.lot:
+            search_strategies.append(("Block/Lot", f"block = '{identifiers.block}' AND lot = '{identifiers.lot}'"))
+        
+        for strategy_name, where_clause in search_strategies:
+            try:
+                print(f"🔍 DOB Violations - Trying {strategy_name} search: {where_clause}")
+                
+                # Add active status filter to the where clause
+                active_where_clause = f"({where_clause}) AND violationstatus IN ('OPEN', 'ACTIVE')"
+                
+                violations_data = self.nyc_client.get_data(
                     'dob_violations',
-                    where=f"bin = '{identifiers.bin}'",
-                    select="isn_dob_bis_viol, violation_category, violation_type, issue_date, disposition_comments, description, bin",
-                    order="issue_date DESC",
+                    where=active_where_clause,
                     limit=1000
                 )
                 
-                if data is not None and len(data) > 0:
-                    compliance_data['dob_violations'] = data
-                    print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (BIN search)")
-                    return
+                if violations_data and len(violations_data) > 0:
+                    dob_violations = violations_data.to_dict('records')
+                    print(f"✅ DOB Violations - Found {len(dob_violations)} ACTIVE violations using {strategy_name}")
+                    break
+                else:
+                    print(f"❌ DOB Violations - No active results with {strategy_name}")
+                    
+            except Exception as e:
+                print(f"❌ DOB Violations - {strategy_name} search failed: {e}")
+                continue
+        
+        # Clean and process violations data
+        if dob_violations:
+            dob_violations = self.clean_data_for_json(dob_violations)
             
-            # Strategy 2: Search by block/lot
-            if identifiers.borough and identifiers.block and identifiers.lot:
-                print(f"   🔍 Fallback: Searching by block/lot: {identifiers.block}/{identifiers.lot}")
-                boro_map = {'MANHATTAN': '1', 'BRONX': '2', 'BROOKLYN': '3', 'QUEENS': '4', 'STATEN ISLAND': '5'}
-                boro_num = boro_map.get(identifiers.borough, identifiers.borough)
-                
-                data = self.nyc_client.get_data(
-                    'dob_violations',
-                    where=f"boro = '{boro_num}' AND block = '{identifiers.block}' AND lot = '{identifiers.lot}'",
-                    select="isn_dob_bis_viol, violation_category, violation_type, issue_date, disposition_comments, description, bin",
-                    order="issue_date DESC",
-                    limit=1000
-                )
-                
-                if data is not None and len(data) > 0:
-                    compliance_data['dob_violations'] = data
-                    print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (block/lot search)")
-                    return
+            # All violations are active since we filtered for them
+            active_violations = dob_violations
             
-            # Strategy 3: Search by address
-            address_parts = identifiers.address.split(' ')
-            if len(address_parts) >= 2:
-                house_number = address_parts[0]
-                street_name = ' '.join(address_parts[1:])
-                print(f"   🔍 Fallback: Searching by address: {house_number} {street_name}")
-                
-                data = self.nyc_client.get_data(
-                    'dob_violations',
-                    where=f"house_number = '{house_number}' AND UPPER(street) LIKE '%{street_name.upper()}%'",
-                    select="isn_dob_bis_viol, violation_category, violation_type, issue_date, disposition_comments, description, bin",
-                    order="issue_date DESC",
-                    limit=1000
-                )
-                
-                if data is not None and len(data) > 0:
-                    compliance_data['dob_violations'] = data
-                    print(f"   ✅ Found {len(compliance_data['dob_violations'])} DOB violations (address search)")
-                    return
+            compliance_data['dob_violations_total'] = len(dob_violations)  # Only active count
+            compliance_data['dob_violations_active'] = len(active_violations)
+            compliance_data['dob_violations_data'] = json.dumps(dob_violations)
             
-            print(f"   ❌ No DOB violations found")
-            
-        except Exception as e:
-            print(f"   ❌ DOB violations error: {e}")
+            # Calculate DOB compliance score
+            if len(active_violations) == 0:
+                compliance_data['dob_compliance_score'] = 100.0
+            elif len(active_violations) <= 3:
+                compliance_data['dob_compliance_score'] = 85.0
+            elif len(active_violations) <= 10:
+                compliance_data['dob_compliance_score'] = 70.0
+            elif len(active_violations) <= 20:
+                compliance_data['dob_compliance_score'] = 50.0
+            else:
+                compliance_data['dob_compliance_score'] = 25.0
+                
+            print(f"📊 DOB Analysis: {len(active_violations)} ACTIVE violations found")
+        else:
+            compliance_data['dob_violations_total'] = 0
+            compliance_data['dob_violations_active'] = 0
+            compliance_data['dob_violations_data'] = json.dumps([])
+            compliance_data['dob_compliance_score'] = 100.0
+            print("✅ DOB Analysis: No active violations found - perfect score")
     
     async def gather_elevator_data(self, identifiers: PropertyIdentifiers, compliance_data: Dict):
         """Gather elevator data using multiple search strategies to handle BIN mismatches"""
