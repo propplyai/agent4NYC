@@ -135,26 +135,39 @@
 
         .property-meta {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .meta-item {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .meta-item:last-child {
+            border-bottom: none;
         }
 
         .meta-label {
             font-weight: 600;
-            color: #666;
+            color: #495057;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .meta-value {
-            color: #333;
+            color: #212529;
+            font-weight: 500;
+            font-size: 1rem;
         }
 
         .overall-score {
@@ -1519,10 +1532,10 @@
                         <div class="row-summary">
                             <div class="category-name">
                                 <i class="fas fa-fire category-icon"></i>
-                                Boiler Equipment
+                                Boiler Inspections
                             </div>
-                            <div class="status-summary" id="boilerStatus">0 devices</div>
-                            <div class="status-summary">Boiler safety and maintenance inspections</div>
+                            <div class="status-summary" id="boilerStatus">0 inspections</div>
+                            <div class="status-summary">Boiler safety and maintenance inspection records</div>
                             <div class="expand-icon">
                                 <i class="fas fa-chevron-right"></i>
                             </div>
@@ -1876,11 +1889,37 @@
                             anchor: new google.maps.Point(12, 24)
                         }
                     });
+                    
+                    // Add click handler to open full map in popup
+                    mapElement.style.cursor = 'pointer';
+                    mapElement.addEventListener('click', () => {
+                        openMapPopup(address, location);
+                    });
                 } else {
                     console.error('Geocoding failed:', status);
                     mapElement.innerHTML = '<i class="fas fa-map-marker-alt"></i> Location not found';
                 }
             });
+        }
+
+        // Function to open full map in popup window
+        function openMapPopup(address, location) {
+            const lat = location.lat();
+            const lng = location.lng();
+            const mapUrl = `https://www.google.com/maps?q=${lat},${lng}&z=17&t=h`;
+            
+            const popup = window.open(
+                mapUrl,
+                'PropertyMap',
+                'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,status=no'
+            );
+            
+            if (popup) {
+                popup.focus();
+            } else {
+                // Fallback if popup blocked
+                window.open(mapUrl, '_blank');
+            }
         }
 
         // Updated event listener for the new form structure
@@ -1972,8 +2011,8 @@
             setTextContent('elevatorTotal', data.equipment.elevator_total);
             setTextContent('elevatorActive', data.equipment.elevator_active);
             
-            // Boiler
-            setTextContent('boilerStatus', `${data.equipment.boiler_total} devices`);
+            // Boiler - Fix labeling to show inspections not devices
+            setTextContent('boilerStatus', `${data.equipment.boiler_total} inspections`);
             setTextContent('boilerTotal', data.equipment.boiler_total);
             
             // Electrical
