@@ -135,13 +135,13 @@
 
         .property-meta {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 20px;
-            border-radius: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
             border: 1px solid #e9ecef;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 0.85rem;
         }
 
         .meta-item {
@@ -172,16 +172,16 @@
 
         .overall-score {
             text-align: center;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         .score-display {
             display: inline-block;
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.5rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 1.1rem;
             font-weight: bold;
         }
 
@@ -1693,132 +1693,11 @@
                         </div>
                     </div>
 
-                    <div class="compliance-row" onclick="toggleRow('elevator', event)">
-                        <div class="row-summary">
-                            <div class="category-name">
-                                <i class="fas fa-elevator category-icon"></i>
-                                Elevator Inspections
-                            </div>
-                            <div class="status-summary" id="elevatorStatus">0 total, 0 active</div>
-                            <div class="status-summary">Elevator and conveyor device inspections</div>
-                            <div class="expand-icon">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
-                        <div class="row-details" onclick="event.stopPropagation()">
-                            <div class="details-content">
-                                <div class="details-grid">
-                                    <div class="detail-section">
-                                        <div class="detail-title">Device Summary</div>
-                                        <ul class="detail-list">
-                                            <li class="detail-item">
-                                                <span class="detail-label">Total Devices:</span>
-                                                <span class="detail-value" id="elevatorTotal">0</span>
-                                            </li>
-                                            <li class="detail-item">
-                                                <span class="detail-label">Active Devices:</span>
-                                                <span class="detail-value" id="elevatorActive">0</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="records-table" id="elevatorRecords">
-                                    <div class="records-header">
-                                        <div>Device Number</div>
-                                        <div>Type</div>
-                                        <div>Status</div>
-                                        <div>Last Updated</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="compliance-row" onclick="toggleRow('boiler', event)">
-                        <div class="row-summary">
-                            <div class="category-name">
-                                <i class="fas fa-fire category-icon"></i>
-                                Boiler Inspections
-                            </div>
-                            <div class="status-summary" id="boilerStatus">0 devices</div>
-                            <div class="status-summary">Boiler safety and maintenance inspections</div>
-                            <div class="expand-icon">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
-                        <div class="row-details" onclick="event.stopPropagation()">
-                            <div class="details-content">
-                                <div class="details-grid">
-                                    <div class="detail-section">
-                                        <div class="detail-title">Inspection Summary</div>
-                                        <ul class="detail-list">
-                                            <li class="detail-item">
-                                                <span class="detail-label">Total Devices:</span>
-                                                <span class="detail-value" id="boilerTotal">0</span>
-                                            </li>
-                                            <li class="detail-item">
-                                                <span class="detail-label">Recent Inspections:</span>
-                                                <span class="detail-value" id="boilerRecent">0</span>
-                                            </li>
-                                            <li class="detail-item">
-                                                <span class="detail-label">Defects Found:</span>
-                                                <span class="detail-value" id="boilerDefects">0</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="records-table" id="boilerRecords">
-                                    <div class="records-header">
-                                        <div>Boiler ID</div>
-                                        <div>Inspection Date</div>
-                                        <div>Status</div>
-                                        <div>Defects</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="compliance-row" onclick="toggleRow('electrical', event)">
-                        <div class="row-summary">
-                            <div class="category-name">
-                                <i class="fas fa-bolt category-icon"></i>
-                                Electrical Permits
-                            </div>
-                            <div class="status-summary" id="electricalStatus">0 permits, 0 active</div>
-                            <div class="status-summary">Electrical work permits and inspections</div>
-                            <div class="expand-icon">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
-                        <div class="row-details" onclick="event.stopPropagation()">
-                            <div class="details-content">
-                                <div class="details-grid">
-                                    <div class="detail-section">
-                                        <div class="detail-title">Permit Summary</div>
-                                        <ul class="detail-list">
-                                            <li class="detail-item">
-                                                <span class="detail-label">Total Permits:</span>
-                                                <span class="detail-value" id="electricalTotal">0</span>
-                                            </li>
-                                            <li class="detail-item">
-                                                <span class="detail-label">Active Permits:</span>
-                                                <span class="detail-value" id="electricalActive">0</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="records-table" id="electricalRecords">
-                                    <div class="records-header">
-                                        <div>Filing Number</div>
-                                        <div>Status</div>
-                                        <div>Date</div>
-                                        <div>Description</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+
                 </div>
             </div>
             
