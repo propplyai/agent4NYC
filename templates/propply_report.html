@@ -133,14 +133,82 @@
             margin-bottom: 15px;
         }
 
-        .property-meta {
+        .property-meta-compact {
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            overflow: hidden;
+        }
+        
+        .property-main-info {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .address-section {
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .address-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .address-text {
+            font-weight: 600;
+            color: #212529;
+            font-size: 1rem;
+        }
+        
+        .expand-icon {
+            color: #6c757d;
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .report-date-compact {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-left: 16px;
+        }
+        
+        .property-details-dropdown {
+            border-top: 1px solid #e9ecef;
+            background: #ffffff;
+            padding: 12px 16px;
+        }
+        
+        .details-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #e9ecef;
+            gap: 8px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: #6c757d;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-value {
+            color: #212529;
+            font-weight: 500;
             font-size: 0.85rem;
         }
 
@@ -1316,35 +1384,42 @@
                 <div class="property-summary">
                     <div class="property-header">
                         <div class="property-info">
-                            <h2 class="property-title" id="propertyTitle">Property Analysis Results</h2>
-                            <div class="property-meta" id="propertyMeta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Address:</span>
-                                    <span class="meta-value" id="propertyAddress"></span>
+                            <h2>Property Analysis Results</h2>
+                            <div class="property-meta-compact">
+                                <div class="property-main-info">
+                                    <div class="address-section" onclick="togglePropertyDetails()">
+                                        <div class="address-display">
+                                            <span class="address-text" id="propertyAddress">Loading...</span>
+                                            <i class="fas fa-chevron-down expand-icon" id="propertyExpandIcon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="report-date-compact">
+                                        <span id="reportDate">Loading...</span>
+                                    </div>
                                 </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">BIN:</span>
-                                    <span class="meta-value" id="propertyBIN"></span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">BBL:</span>
-                                    <span class="meta-value" id="propertyBBL"></span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Borough:</span>
-                                    <span class="meta-value" id="propertyBorough"></span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Block/Lot:</span>
-                                    <span class="meta-value" id="propertyBlockLot"></span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">ZIP Code:</span>
-                                    <span class="meta-value" id="propertyZip"></span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Report Date:</span>
-                                    <span class="meta-value" id="reportDate"></span>
+                                <div class="property-details-dropdown" id="propertyDetailsDropdown" style="display: none;">
+                                    <div class="details-grid">
+                                        <div class="detail-item">
+                                            <span class="detail-label">BIN:</span>
+                                            <span class="detail-value" id="propertyBin">-</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">BBL:</span>
+                                            <span class="detail-value" id="propertyBbl">-</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Borough:</span>
+                                            <span class="detail-value" id="propertyBorough">-</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Block/Lot:</span>
+                                            <span class="detail-value" id="propertyBlockLot">-</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">ZIP Code:</span>
+                                            <span class="detail-value" id="propertyZip">-</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1800,6 +1875,20 @@
                 window.open(mapUrl, '_blank');
             }
         }
+        
+        // Function to toggle property details dropdown
+        function togglePropertyDetails() {
+            const dropdown = document.getElementById('propertyDetailsDropdown');
+            const icon = document.getElementById('propertyExpandIcon');
+            
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+                icon.classList.add('rotated');
+            } else {
+                dropdown.style.display = 'none';
+                icon.classList.remove('rotated');
+            }
+        }
 
         // Updated event listener for the new form structure
         document.getElementById('analyzeBtn').addEventListener('click', async function(e) {
@@ -1859,8 +1948,8 @@
             };
             
             setTextContent('propertyAddress', data.property.address);
-            setTextContent('propertyBIN', data.property.bin);
-            setTextContent('propertyBBL', data.property.bbl);
+            setTextContent('propertyBin', data.property.bin);
+            setTextContent('propertyBbl', data.property.bbl);
             setTextContent('propertyBorough', data.property.borough);
             setTextContent('propertyBlockLot', `${data.property.block}/${data.property.lot}`);
             setTextContent('propertyZip', data.property.zip_code);
