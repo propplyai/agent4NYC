@@ -1951,24 +1951,46 @@
             color: #ffffff !important;
         }
         
-        /* Comprehensive dark mode text fixes */
+        /* Comprehensive dark mode text fixes with better contrast */
         [data-theme="dark"] .risk-assessment-enhanced,
         [data-theme="dark"] .action-card-enhanced,
         [data-theme="dark"] .ai-insights {
-            color: #ffffff !important;
+            color: #f8fafc !important;
         }
         
         [data-theme="dark"] .risk-assessment-enhanced *,
         [data-theme="dark"] .action-card-enhanced *,
         [data-theme="dark"] .ai-insights * {
-            color: #ffffff !important;
+            color: #f8fafc !important;
         }
         
         [data-theme="dark"] .risk-summary,
         [data-theme="dark"] .risk-summary *,
         [data-theme="dark"] .action-description,
-        [data-theme="dark"] .action-description * {
+        [data-theme="dark"] .action-description *,
+        [data-theme="dark"] .detail-compliance-analysis *,
+        [data-theme="dark"] .vendor-marketplace * {
+            color: #f8fafc !important;
+        }
+        
+        /* Enhanced visibility for specific elements */
+        [data-theme="dark"] .compliance-table *,
+        [data-theme="dark"] .compliance-row *,
+        [data-theme="dark"] .compliance-item *,
+        [data-theme="dark"] .service-provider * {
+            color: #f8fafc !important;
+        }
+        
+        /* Better contrast for headings and important text */
+        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+        [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
             color: #ffffff !important;
+        }
+        
+        /* Ensure all paragraph and list text is visible */
+        [data-theme="dark"] p, [data-theme="dark"] li, [data-theme="dark"] span,
+        [data-theme="dark"] div:not(.status-text):not(.badge) {
+            color: #f8fafc !important;
         }
         
         /* Risk Assessment Redesign */
@@ -2038,6 +2060,52 @@
         
         [data-theme="dark"] .risk-title {
             color: #ffffff !important;
+        }
+        
+        /* Improve background contrast for better text visibility */
+        [data-theme="dark"] .risk-assessment-enhanced {
+            background: #1a1a1a !important;
+            border: 1px solid #333333 !important;
+        }
+        
+        [data-theme="dark"] .action-card-enhanced {
+            background: #1a1a1a !important;
+            border: 1px solid #333333 !important;
+        }
+        
+        [data-theme="dark"] .compliance-table,
+        [data-theme="dark"] .detail-compliance-analysis {
+            background: #1a1a1a !important;
+            border: 1px solid #333333 !important;
+        }
+        
+        [data-theme="dark"] .vendor-marketplace {
+            background: #1a1a1a !important;
+            border: 1px solid #333333 !important;
+        }
+        
+        /* Fix gray boxes and service sections */
+        [data-theme="dark"] .compliance-row,
+        [data-theme="dark"] .compliance-item,
+        [data-theme="dark"] .service-provider {
+            background: #2a2a2a !important;
+            border: 1px solid #404040 !important;
+        }
+        
+        [data-theme="dark"] .compliance-row:hover,
+        [data-theme="dark"] .compliance-item:hover {
+            background: #333333 !important;
+        }
+        
+        /* Ensure buttons and interactive elements are visible */
+        [data-theme="dark"] .btn, [data-theme="dark"] button {
+            color: #ffffff !important;
+        }
+        
+        /* Fix any remaining invisible text */
+        [data-theme="dark"] .text-muted,
+        [data-theme="dark"] .text-secondary {
+            color: #cccccc !important;
         }
         
         .risk-badge-enhanced {
