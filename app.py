@@ -33,7 +33,7 @@ webhook_service = ComplianceWebhookService()
 vendor_marketplace = VendorMarketplace()
 
 def transform_ai_analysis(raw_analysis):
-    """Transform the new AI analysis structure to match frontend expectations"""
+    """Transform and enhance the AI analysis structure for the new comprehensive frontend"""
     try:
         if not raw_analysis:
             return {}
@@ -41,10 +41,11 @@ def transform_ai_analysis(raw_analysis):
         # Extract property_analysis if it exists
         prop_analysis = raw_analysis.get('property_analysis', raw_analysis)
         
-        # Transform to the structure expected by the frontend
+        # Create comprehensive transformed structure that preserves all rich data
         transformed = {
-            'hpd_violations': [],  # Will be populated from priority_actions if relevant
-            'dob_violations': [],  # Will be populated from priority_actions if relevant  
+            # Legacy structure for backward compatibility
+            'hpd_violations': [],  
+            'dob_violations': [],  
             'equipment_data': {
                 'elevators': prop_analysis.get('equipment_monitoring', {}).get('elevators', {}),
                 'boilers': prop_analysis.get('equipment_monitoring', {}).get('boilers', {}),
@@ -63,15 +64,25 @@ def transform_ai_analysis(raw_analysis):
                 'trends': prop_analysis.get('compliance_insights', {}).get('trends_analysis', ''),
                 'trajectory': prop_analysis.get('compliance_insights', {}).get('compliance_trajectory', '')
             },
+            
+            # NEW: Enhanced structure for comprehensive frontend
+            'risk_assessment': prop_analysis.get('overall_risk_assessment', {}),
+            'priority_actions': prop_analysis.get('priority_actions', []),
+            'compliance_insights': prop_analysis.get('compliance_insights', {}),
             'financial_impact': prop_analysis.get('financial_impact', {}),
-            'analysis_timestamp': prop_analysis.get('analysis_timestamp', ''),
-            'data_freshness': prop_analysis.get('data_freshness', {}),
+            'equipment_monitoring': prop_analysis.get('equipment_monitoring', {}),
             'regulatory_intelligence': prop_analysis.get('regulatory_intelligence', {}),
-            # Keep the original structure as well for advanced frontends
-            'property_analysis': prop_analysis
+            'data_freshness': prop_analysis.get('data_freshness', {}),
+            'analysis_timestamp': prop_analysis.get('analysis_timestamp', ''),
+            'ai_confidence': raw_analysis.get('ai_confidence', 'High'),
+            'recommendations_summary': raw_analysis.get('recommendations_summary', ''),
+            
+            # Full original structure for complete access
+            'property_analysis': prop_analysis,
+            'raw_analysis': raw_analysis
         }
         
-        print(f"[DEBUG] Transformation successful, transformed keys: {transformed.keys()}")
+        print(f"[DEBUG] Enhanced transformation successful, keys: {list(transformed.keys())}")
         return transformed
         
     except Exception as e:

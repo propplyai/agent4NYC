@@ -1,0 +1,511 @@
+/* Comprehensive Dashboard Styles */
+/* Enhanced styling for the new comprehensive AI analysis display */
+
+/* Enhanced Report Header */
+.enhanced-report-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-xl);
+}
+
+.risk-score-display {
+    text-align: center;
+}
+
+.score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.score-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+}
+
+.score-total {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.risk-badge {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Priority Actions Timeline */
+.priority-actions-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.priority-action-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border-left: 5px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.priority-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.priority-action-card.priority-critical {
+    border-left-color: var(--danger-color);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, var(--bg-primary) 100%);
+}
+
+.priority-action-card.priority-high {
+    border-left-color: var(--warning-color);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, var(--bg-primary) 100%);
+}
+
+.priority-action-card.priority-medium {
+    border-left-color: var(--info-color);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, var(--bg-primary) 100%);
+}
+
+.priority-action-card.priority-low {
+    border-left-color: var(--success-color);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, var(--bg-primary) 100%);
+}
+
+.action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.action-priority {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.action-category {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.action-title {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.action-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.action-details {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+}
+
+.deadline-date {
+    font-weight: 600;
+    color: var(--danger-color);
+}
+
+.cost-amount {
+    font-weight: 600;
+    color: var(--info-color);
+}
+
+.penalty-amount {
+    font-weight: 700;
+}
+
+.action-reason {
+    background: var(--bg-tertiary);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.regulatory-context {
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Financial Impact Section */
+.financial-overview {
+    margin-bottom: 2rem;
+}
+
+.financial-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.financial-card h4 {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.financial-card .amount {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.cost-breakdown {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+}
+
+.breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.breakdown-item .category {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.breakdown-item .cost {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Equipment Monitoring Grid */
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.equipment-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.equipment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.equipment-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.equipment-header h4 {
+    flex: 1;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.device-count {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.equipment-status {
+    margin-bottom: 1rem;
+}
+
+.compliance-gaps {
+    background: rgba(239, 68, 68, 0.1);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--danger-color);
+    margin-bottom: 1rem;
+}
+
+.compliance-gaps ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1rem;
+}
+
+.equipment-costs {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Compliance Insights */
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.insight-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.insight-card.strengths {
+    border-left: 4px solid var(--success-color);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, var(--bg-primary) 100%);
+}
+
+.insight-card.concerns {
+    border-left: 4px solid var(--warning-color);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, var(--bg-primary) 100%);
+}
+
+.insight-card h4 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.insight-card ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.insight-card li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.trends-analysis,
+.compliance-trajectory {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+}
+
+.trends-analysis h4,
+.compliance-trajectory h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+/* Regulatory Intelligence */
+.upcoming-inspections,
+.best-practices,
+.monitoring-schedule {
+    margin-bottom: 1.5rem;
+}
+
+.upcoming-inspections h4,
+.best-practices h4,
+.monitoring-schedule h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.upcoming-inspections h4:before {
+    content: "📅";
+    margin-right: 0.5rem;
+}
+
+.best-practices h4:before {
+    content: "✅";
+    margin-right: 0.5rem;
+}
+
+.monitoring-schedule h4:before {
+    content: "⏰";
+    margin-right: 0.5rem;
+}
+
+/* Data Freshness */
+.freshness-info p {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.confidence-meter {
+    text-align: center;
+}
+
+.confidence-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.confidence-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--success-color);
+}
+
+/* Dark mode specific overrides */
+@media (prefers-color-scheme: dark) {
+    .enhanced-report-header {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    }
+    
+    .score-circle {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .financial-card,
+    .equipment-card,
+    .insight-card,
+    .priority-action-card {
+        background: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+}
+
+[data-theme="dark"] .enhanced-report-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+[data-theme="dark"] .score-circle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .financial-card,
+[data-theme="dark"] .equipment-card,
+[data-theme="dark"] .insight-card,
+[data-theme="dark"] .priority-action-card {
+    background: var(--bg-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .enhanced-report-header {
+        padding: 1.5rem;
+    }
+    
+    .enhanced-report-header .row {
+        text-align: center;
+    }
+    
+    .enhanced-report-header .col-md-4 {
+        margin-top: 1rem;
+    }
+    
+    .score-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .score-number {
+        font-size: 2rem;
+    }
+    
+    .equipment-grid,
+    .insights-grid,
+    .breakdown-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .priority-action-card {
+        padding: 1rem;
+    }
+}
+
+/* Animation enhancements */
+.compliance-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.priority-action-card,
+.equipment-card,
+.insight-card {
+    animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
