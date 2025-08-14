@@ -1,0 +1,45 @@
+<!-- Theme Toggle Button - Add to header or navigation area -->
+<button class="theme-toggle" title="Toggle theme (Light/Dark/Auto)" aria-label="Toggle theme">
+    <i class="fas fa-adjust"></i>
+</button>
+
+<!-- Alternative inline styles for immediate use -->
+<style>
+.theme-toggle {
+    background: none;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: currentColor;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #4f46e5;
+    transform: translateY(-1px);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle i {
+    font-size: 1rem;
+}
+</style>
+
+<!-- Initialize PropplyApp after DOM is loaded -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PropplyApp !== 'undefined') {
+        PropplyApp.init();
+    }
+});
+</script>

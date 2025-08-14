@@ -1,0 +1,238 @@
+/* Additional Dark Mode Fixes */
+/* This file provides comprehensive fixes for any remaining white backgrounds in dark mode */
+
+/* Force all potentially white elements to use theme colors */
+@media (prefers-color-scheme: dark) {
+    /* Generic fixes for common white background patterns */
+    * {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+    }
+    
+    /* Bootstrap and common white background classes */
+    .bg-white,
+    .bg-body,
+    .bg-body-secondary,
+    .bg-light {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Card components */
+    .card,
+    .card-body,
+    .card-header,
+    .card-footer {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Modal components */
+    .modal-content,
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Tables */
+    .table {
+        color: var(--text-primary) !important;
+    }
+    
+    .table > :not(caption) > * > * {
+        background-color: transparent !important;
+        border-bottom-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    
+    /* Forms */
+    .form-control,
+    .form-select,
+    .form-check-input {
+        background-color: var(--bg-secondary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .form-control:focus,
+    .form-select:focus {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--primary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Dropdowns */
+    .dropdown-menu {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    .dropdown-item {
+        color: var(--text-primary) !important;
+    }
+    
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Alerts */
+    .alert {
+        border-color: var(--border-color) !important;
+    }
+    
+    .alert-light {
+        background-color: var(--bg-secondary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* List groups */
+    .list-group-item {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Pagination */
+    .page-link {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .page-link:hover {
+        background-color: var(--bg-secondary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Breadcrumb */
+    .breadcrumb {
+        background-color: var(--bg-secondary) !important;
+    }
+    
+    .breadcrumb-item a {
+        color: var(--text-secondary) !important;
+    }
+    
+    /* Nav tabs/pills */
+    .nav-tabs .nav-link {
+        background-color: transparent !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-secondary) !important;
+    }
+    
+    .nav-tabs .nav-link.active {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Progress bars */
+    .progress {
+        background-color: var(--bg-secondary) !important;
+    }
+    
+    /* Accordion */
+    .accordion-item {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    .accordion-header button {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .accordion-body {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+}
+
+/* Explicit data-theme="dark" overrides */
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .bg-body,
+[data-theme="dark"] .bg-body-secondary,
+[data-theme="dark"] .bg-light {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .card-body,
+[data-theme="dark"] .card-header,
+[data-theme="dark"] .card-footer {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-body,
+[data-theme="dark"] .modal-footer {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .table {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .table > :not(caption) > * > * {
+    background-color: transparent !important;
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .form-check-input {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Specific fixes for content areas that might still be white */
+[data-theme="dark"] .content,
+[data-theme="dark"] .main-content,
+[data-theme="dark"] .report-content,
+[data-theme="dark"] .analysis-content,
+[data-theme="dark"] .summary-content {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Force override for any remaining white backgrounds via important declarations */
+@media (prefers-color-scheme: dark) {
+    div[style*="background-color: white"],
+    div[style*="background: white"],
+    div[style*="background-color: #fff"],
+    div[style*="background: #fff"],
+    section[style*="background-color: white"],
+    section[style*="background: white"] {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+}
+
+[data-theme="dark"] div[style*="background-color: white"],
+[data-theme="dark"] div[style*="background: white"],
+[data-theme="dark"] div[style*="background-color: #fff"],
+[data-theme="dark"] div[style*="background: #fff"],
+[data-theme="dark"] section[style*="background-color: white"],
+[data-theme="dark"] section[style*="background: white"] {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
