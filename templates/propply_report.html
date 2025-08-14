@@ -3016,9 +3016,14 @@
             setTextContent('elevatorTotal', data.equipment.elevator_total);
             setTextContent('elevatorActive', data.equipment.elevator_active);
             
-            // Boiler - Fix labeling to show inspections not devices
-            setTextContent('boilerStatus', `${data.equipment.boiler_total} inspections`);
-            setTextContent('boilerTotal', data.equipment.boiler_total);
+            // Boiler - Calculate unique devices from inspection data
+            const boilerData = data.inspections.boiler_data || [];
+            const uniqueBoilerDevices = new Set(boilerData.map(record => record.boiler_id)).size;
+            const recentInspections = boilerData.length;
+            
+            setTextContent('boilerStatus', `${recentInspections} inspections`);
+            setTextContent('boilerTotal', uniqueBoilerDevices);
+            setTextContent('boilerRecent', recentInspections);
             
             // Electrical
             updateComplianceRow('electrical', `${data.equipment.electrical_permits_total} permits, ${data.equipment.electrical_permits_active} active`);
