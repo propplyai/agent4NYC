@@ -882,6 +882,50 @@
             font-weight: 500;
         }
         
+        .actions-count {
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .device-list {
+            margin: 20px 0;
+        }
+        
+        .device-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+        
+        .device-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+        
+        .device-card h5 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .device-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .device-card p strong {
+            color: #495057;
+        }
+        
         .service-category {
             background: white;
             border: 1px solid #dee2e6;
@@ -3772,41 +3816,66 @@
             const card = document.createElement('div');
             card.className = `action-card ${(action.priority || '').toLowerCase()}`;
             
-            const financialItems = action.financial_impact ? `
+            // Safely extract data with proper fallbacks
+            const actionId = action.id || `action_${Date.now()}`;
+            const title = action.title || 'Action Required';
+            const category = action.category || 'General';
+            const priority = action.priority || 'Medium';
+            const description = action.action || action.description || 'No description available';
+            const reason = action.reason || '';
+            const deviceId = action.device_id || '';
+            
+            // Financial impact with safe extraction
+            const financial = action.financial_impact || {};
+            const estimatedCost = financial.estimated_cost || 'Not specified';
+            const potentialPenalty = financial.potential_penalty || 'Not specified';
+            const penaltyEscalation = financial.penalty_escalation || '';
+            const costBenefit = financial.cost_benefit || '';
+            
+            // Timeline with safe extraction
+            const timeline = action.timeline || {};
+            const urgency = timeline.urgency || 'Not specified';
+            const deadline = timeline.deadline || 'Not specified';
+            const consequences = timeline.consequences || 'Not specified';
+            
+            const financialItems = `
                 <div class="action-financial">
                     <div class="financial-item">
                         <span class="financial-item-label">Estimated Cost:</span>
-                        <span class="financial-item-value">${action.financial_impact.estimated_cost || '-'}</span>
+                        <span class="financial-item-value">${estimatedCost}</span>
                     </div>
                     <div class="financial-item">
                         <span class="financial-item-label">Potential Penalty:</span>
-                        <span class="financial-item-value">${action.financial_impact.potential_penalty || '-'}</span>
+                        <span class="financial-item-value">${potentialPenalty}</span>
                     </div>
                 </div>
-            ` : '';
+            `;
             
-            const regulatoryDetails = action.regulatory_context ? `
-                <div class="action-details" id="details-${action.id}">
-                    <h5>Regulatory Context</h5>
-                    <p><strong>Regulation:</strong> ${action.regulatory_context.regulation_reference || '-'}</p>
-                    <p><strong>Penalty Schedule:</strong> ${action.regulatory_context.penalty_schedule || '-'}</p>
-                    <p><strong>Filing Requirements:</strong> ${action.regulatory_context.filing_requirements || '-'}</p>
-                    <p><strong>Timeline:</strong> ${action.timeline?.urgency || '-'} - ${action.timeline?.consequences || '-'}</p>
+            const regulatoryDetails = `
+                <div class="action-details" id="details-${actionId}" style="display: none;">
+                    <h5>Details & Timeline</h5>
+                    ${deviceId ? `<p><strong>Device:</strong> ${deviceId}</p>` : ''}
+                    ${reason ? `<p><strong>Reason:</strong> ${reason}</p>` : ''}
+                    <p><strong>Urgency:</strong> ${urgency}</p>
+                    <p><strong>Deadline:</strong> ${deadline}</p>
+                    <p><strong>Consequences:</strong> ${consequences}</p>
+                    ${penaltyEscalation ? `<p><strong>Penalty Escalation:</strong> ${penaltyEscalation}</p>` : ''}
+                    ${costBenefit ? `<p><strong>Cost vs Benefit:</strong> ${costBenefit}</p>` : ''}
                 </div>
-            ` : '';
+            `;
             
             card.innerHTML = `
                 <div class="action-header">
                     <div>
-                        <div class="action-title">${action.title || '-'}</div>
-                        <div class="action-category">${action.category || '-'}</div>
+                        <div class="action-title">${title}</div>
+                        <div class="action-category">${category}${deviceId ? ` - ${deviceId}` : ''}</div>
                     </div>
-                    <div class="action-priority ${(action.priority || '').toLowerCase()}">${action.priority || '-'}</div>
+                    <div class="action-priority ${priority.toLowerCase()}">${priority}</div>
                 </div>
-                <div class="action-description">${action.action || '-'}</div>
+                <div class="action-description">${description}</div>
                 ${financialItems}
-                <div class="action-expandable" onclick="toggleActionDetails('${action.id}')">
-                    <i class="fas fa-chevron-down"></i> View Regulatory Details
+                <div class="action-expandable" onclick="toggleActionDetails('${actionId}')">
+                    <i class="fas fa-chevron-down"></i> View Details
                 </div>
                 ${regulatoryDetails}
             `;
@@ -3815,24 +3884,41 @@
         }
         
         function populateEquipmentTabs(equipment) {
-            // Populate Elevators tab
+            // Populate Elevators tab with device-specific information
             if (equipment.elevators) {
                 const elevatorsPanel = document.getElementById('elevators-panel');
                 if (elevatorsPanel) {
+                    const elevatorData = equipment.elevators;
+                    
+                    // Handle individual elevator devices if available
+                    let deviceList = '';
+                    if (elevatorData.devices && Array.isArray(elevatorData.devices)) {
+                        deviceList = elevatorData.devices.map(device => `
+                            <div class="device-card">
+                                <h5>${device.device_id || 'Elevator Device'}</h5>
+                                <p><strong>Status:</strong> ${device.status || 'Unknown'}</p>
+                                <p><strong>Last Inspection:</strong> ${device.last_inspection || 'Not specified'}</p>
+                                <p><strong>Next Due:</strong> ${device.next_due || 'Not specified'}</p>
+                                ${device.compliance_gaps ? `<p><strong>Issues:</strong> ${device.compliance_gaps.join(', ')}</p>` : ''}
+                            </div>
+                        `).join('');
+                    }
+                    
                     elevatorsPanel.innerHTML = `
                         <div class="equipment-summary">
                             <h4>Elevator Overview</h4>
-                            <p><strong>Total Devices:</strong> ${equipment.elevators.total_devices || '-'}</p>
-                            <p><strong>Active Devices:</strong> ${equipment.elevators.active_devices || '-'}</p>
-                            <p><strong>Estimated Annual Costs:</strong> ${equipment.elevators.estimated_annual_costs || '-'}</p>
+                            <p><strong>Total Devices:</strong> ${elevatorData.total_devices || '-'}</p>
+                            <p><strong>Active Devices:</strong> ${elevatorData.active_devices || '-'}</p>
+                            <p><strong>Estimated Annual Costs:</strong> ${elevatorData.estimated_annual_costs || '-'}</p>
                         </div>
+                        ${deviceList ? `<div class="device-list">${deviceList}</div>` : ''}
                         <div class="equipment-requirements">
                             <h4>CAT-1 Requirements</h4>
-                            <ul>${(equipment.elevators.cat1_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
+                            <ul>${(elevatorData.cat1_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
                             <h4>CAT-5 Requirements</h4>
-                            <ul>${(equipment.elevators.cat5_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
+                            <ul>${(elevatorData.cat5_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
                             <h4>Compliance Gaps</h4>
-                            <ul>${(equipment.elevators.compliance_gaps || []).map(gap => `<li style="color: #dc3545;">${gap}</li>`).join('')}</ul>
+                            <ul>${(elevatorData.compliance_gaps || []).map(gap => `<li style="color: #dc3545;">${gap}</li>`).join('')}</ul>
                         </div>
                     `;
                 }
