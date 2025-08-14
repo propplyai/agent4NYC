@@ -541,20 +541,25 @@ class ComprehensivePropertyComplianceSystem:
                     select="tracking_number, boiler_id, inspection_date, defects_exist, " +
                            "report_status, bin_number, boiler_make, pressure_type, report_type",
                     order="inspection_date DESC",
-                    limit=100
+                    limit=200  # Get more records to filter properly
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['boiler_inspections'] = data
-                    print(f"   ✅ Found {len(compliance_data['boiler_inspections'])} boiler records")
+                    # Filter to only keep last 2 years of data per device
+                    filtered_data = self.filter_recent_boiler_data(data)
+                    compliance_data['boiler_inspections'] = filtered_data
+                    
+                    print(f"   ✅ Found {len(data)} total boiler records, filtered to {len(filtered_data)} recent records (last 2 years)")
                     
                     # Show summary of findings
-                    latest_inspection = data[0]
-                    active_boilers = len([item for item in data if item.get('report_status') == 'Accepted'])
-                    defective_boilers = len([item for item in data if item.get('defects_exist') == 'Yes'])
-                    
-                    print(f"   📊 Latest inspection: {latest_inspection.get('inspection_date')}")
-                    print(f"   📊 Active boilers: {active_boilers}, With defects: {defective_boilers}")
+                    if filtered_data:
+                        latest_inspection = filtered_data[0]
+                        active_boilers = len([item for item in filtered_data if item.get('report_status') == 'Accepted'])
+                        defective_boilers = len([item for item in filtered_data if item.get('defects_exist') == 'Yes'])
+                        unique_devices = len(set([item.get('boiler_id') for item in filtered_data if item.get('boiler_id')]))
+                        
+                        print(f"   📊 Latest inspection: {latest_inspection.get('inspection_date')}")
+                        print(f"   📊 Unique devices: {unique_devices}, Active boilers: {active_boilers}, With defects: {defective_boilers}")
                     return
                 else:
                     print(f"   ❌ No boiler records found for BIN {identifiers.bin}")
@@ -568,6 +573,51 @@ class ComprehensivePropertyComplianceSystem:
             # If it's a 400 error, provide more specific guidance
             if "400 Client Error" in str(e):
                 print(f"   ℹ️  Note: Boiler dataset only supports BIN-based searches")
+    
+    def filter_recent_boiler_data(self, data: List[Dict]) -> List[Dict]:
+        """Filter boiler data to only keep the last 2 years of records per device ID"""
+        from datetime import datetime, timedelta
+        
+        # Calculate cutoff date (2 years ago)
+        cutoff_date = datetime.now() - timedelta(days=730)  # 2 years
+        
+        # Group data by device ID and filter by date
+        device_data = {}
+        
+        for record in data:
+            boiler_id = record.get('boiler_id')
+            inspection_date_str = record.get('inspection_date')
+            
+            if not boiler_id or not inspection_date_str:
+                continue
+                
+            try:
+                # Parse inspection date (format: M/D/YYYY)
+                inspection_date = datetime.strptime(inspection_date_str, '%m/%d/%Y')
+                
+                # Only keep records from last 2 years
+                if inspection_date >= cutoff_date:
+                    if boiler_id not in device_data:
+                        device_data[boiler_id] = []
+                    device_data[boiler_id].append(record)
+                    
+            except ValueError:
+                # If date parsing fails, include the record (better safe than sorry)
+                if boiler_id not in device_data:
+                    device_data[boiler_id] = []
+                device_data[boiler_id].append(record)
+        
+        # Flatten the filtered data back to a list, sorted by inspection date
+        filtered_data = []
+        for device_records in device_data.values():
+            # Sort each device's records by date (newest first)
+            device_records.sort(key=lambda x: x.get('inspection_date', ''), reverse=True)
+            filtered_data.extend(device_records)
+        
+        # Sort final list by inspection date (newest first)
+        filtered_data.sort(key=lambda x: x.get('inspection_date', ''), reverse=True)
+        
+        return filtered_data
     
     async def gather_electrical_permits(self, identifiers: PropertyIdentifiers, compliance_data: Dict):
         """Gather electrical permit applications data - critical for electrical safety compliance"""
