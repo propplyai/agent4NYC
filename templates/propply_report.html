@@ -1679,13 +1679,17 @@
         }
 
         .detail-label {
-            font-weight: 500;
-            color: #666;
-            min-width: 120px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        [data-theme="dark"] .detail-label {
+            color: #ffffff !important;
         }
 
         .detail-value {
-            color: #333;
+            color: var(--text-secondary);
             text-align: right;
             flex: 1;
         }
@@ -1930,6 +1934,41 @@
         
         .ai-content {
             padding: 25px;
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .ai-content {
+            color: #ffffff;
+        }
+        
+        .ai-content p, .ai-content div, .ai-content span {
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .ai-content p,
+        [data-theme="dark"] .ai-content div,
+        [data-theme="dark"] .ai-content span {
+            color: #ffffff !important;
+        }
+        
+        /* Comprehensive dark mode text fixes */
+        [data-theme="dark"] .risk-assessment-enhanced,
+        [data-theme="dark"] .action-card-enhanced,
+        [data-theme="dark"] .ai-insights {
+            color: #ffffff !important;
+        }
+        
+        [data-theme="dark"] .risk-assessment-enhanced *,
+        [data-theme="dark"] .action-card-enhanced *,
+        [data-theme="dark"] .ai-insights * {
+            color: #ffffff !important;
+        }
+        
+        [data-theme="dark"] .risk-summary,
+        [data-theme="dark"] .risk-summary *,
+        [data-theme="dark"] .action-description,
+        [data-theme="dark"] .action-description * {
+            color: #ffffff !important;
         }
         
         /* Risk Assessment Redesign */
@@ -1994,7 +2033,11 @@
         .risk-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #1f2937;
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .risk-title {
+            color: #ffffff !important;
         }
         
         .risk-badge-enhanced {
