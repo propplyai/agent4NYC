@@ -445,60 +445,197 @@
             color: #28a745;
         }
         
-        /* Enhanced Compliance Score Display */
-        /* Modern Compliance Score with Circular Progress */
-        .compliance-score-prominent {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 24px;
+        /* Two-Column Compliance Score and Map Layout */
+        .compliance-map-layout {
+            display: flex;
+            gap: 24px;
+            margin: 24px 0;
+            align-items: stretch;
+        }
+
+        @media (max-width: 768px) {
+            .compliance-map-layout {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        /* Compliance Score Card */
+        .compliance-score-card {
+            flex: 1;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px 24px;
             text-align: center;
-            margin: 20px 0;
-            box-shadow: var(--shadow-medium);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-large);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
         }
-        
-        [data-theme="dark"] .compliance-score-prominent {
+
+        [data-theme="dark"] .compliance-score-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow-large), var(--shadow-inner);
         }
-        
-        .compliance-score-prominent::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-success);
-            opacity: 0.1;
-            border-radius: 24px;
+
+        /* Status-based light mode gradients */
+        .compliance-score-card.status-good {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.08) 100%), var(--glass-bg);
+            border-color: rgba(16, 185, 129, 0.2);
         }
-        
-        .compliance-score-prominent.warning::before {
-            background: var(--gradient-warning);
+
+        .compliance-score-card.status-caution {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(217, 119, 6, 0.08) 100%), var(--glass-bg);
+            border-color: rgba(245, 158, 11, 0.2);
         }
-        
-        .compliance-score-prominent.critical::before {
-            background: var(--gradient-error);
+
+        .compliance-score-card.status-critical {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(220, 38, 38, 0.08) 100%), var(--glass-bg);
+            border-color: rgba(239, 68, 68, 0.2);
         }
-        
-        .compliance-score-prominent:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+        /* Status Chip */
+        .compliance-status-chip {
+            align-self: center;
+            margin-bottom: 20px;
         }
-        
-        .compliance-score-container {
-            position: relative;
+
+        .status-text {
             display: inline-block;
-            margin: 10px 0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
+
+        .status-text.good {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-text.caution {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .status-text.critical {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        [data-theme="dark"] .status-text.good {
+            background: linear-gradient(135deg, #059669, #047857);
+            box-shadow: 0 2px 12px rgba(5, 150, 105, 0.4);
+        }
+
+        [data-theme="dark"] .status-text.caution {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            box-shadow: 0 2px 12px rgba(217, 119, 6, 0.4);
+        }
+
+        [data-theme="dark"] .status-text.critical {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            box-shadow: 0 2 12px rgba(220, 38, 38, 0.4);
+        }
+
+        /* Compliance Score Container */
+        .compliance-score-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Updated Compliance Score Content */
+        .compliance-score-content {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .compliance-score-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .compliance-score-unit {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            line-height: 1;
+        }
+
+        /* Compliance Score Footer */
+        .compliance-score-footer {
+            margin-top: 20px;
+        }
+
+        .report-date {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* Map Preview Card */
+        .map-preview-card {
+            flex: 1;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: var(--shadow-large);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            min-height: 280px;
+        }
+
+        [data-theme="dark"] .map-preview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-large), var(--shadow-inner);
+        }
+
+        .property-map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            background: var(--bg-tertiary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border-radius: 20px;
+        }
+
+        .map-placeholder-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            opacity: 0.6;
+        }
+
+        .map-placeholder-text {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
         
         .circular-progress {
             width: 80px;
@@ -2736,17 +2873,33 @@
                         <div class="property-info">
                             <h2>Property Analysis Results</h2>
                             
-                            <!-- Prominent Compliance Score Display -->
-                            <div class="compliance-score-prominent">
-                                <div class="compliance-score-container">
-                                    <div class="circular-progress" style="--progress: 93">
-                                        <div class="compliance-score-content">
-                                            <div class="compliance-score-label">Compliance Score</div>
-                                            <div class="compliance-score-value" id="overallScoreProminent">93</div>
+                            <!-- Two-Column Compliance Score and Map Layout -->
+                            <div class="compliance-map-layout">
+                                <!-- Compliance Score Card -->
+                                <div class="compliance-score-card" id="complianceScoreCard">
+                                    <div class="compliance-status-chip" id="complianceStatusChip">
+                                        <span class="status-text" id="statusText">Good</span>
+                                    </div>
+                                    <div class="compliance-score-container">
+                                        <div class="circular-progress" id="circularProgress" style="--progress: 93">
+                                            <div class="compliance-score-content">
+                                                <div class="compliance-score-value" id="overallScoreProminent">93</div>
+                                                <div class="compliance-score-unit">%</div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="compliance-score-footer">
+                                        <div class="report-date" id="reportDate">Report generated on: Aug 14, 2025</div>
+                                    </div>
                                 </div>
-                                <div class="compliance-score-subtitle" id="reportDate">Report generated on: 8/14/2025</div>
+                                
+                                <!-- Map Preview Card -->
+                                <div class="map-preview-card">
+                                    <div id="propertyMap" class="property-map-container">
+                                        <i class="fas fa-map-marker-alt map-placeholder-icon"></i>
+                                        <span class="map-placeholder-text">Map will load here</span>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="property-meta-compact">
@@ -2782,11 +2935,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="property-map">
-                            <div id="propertyMap" style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666;">
-                                <i class="fas fa-map-marker-alt"></i> Map will load here
                             </div>
                         </div>
                     </div>
@@ -3560,24 +3708,9 @@
             // Initialize Google Map
             initializePropertyMap(data.property.address);
             
-            // Overall score - prominent display
+            // Overall score - prominent display with dynamic styling
             const overallScore = data.compliance_scores.overall;
-            setTextContent('overallScoreProminent', overallScore);
-            
-            // Update prominent score background based on score
-            const prominentScoreContainer = document.querySelector('.compliance-score-prominent');
-            if (prominentScoreContainer) {
-                if (overallScore >= 80) {
-                    prominentScoreContainer.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
-                    prominentScoreContainer.style.boxShadow = '0 8px 25px rgba(40, 167, 69, 0.3)';
-                } else if (overallScore >= 60) {
-                    prominentScoreContainer.style.background = 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100%)';
-                    prominentScoreContainer.style.boxShadow = '0 8px 25px rgba(255, 193, 7, 0.3)';
-                } else {
-                    prominentScoreContainer.style.background = 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)';
-                    prominentScoreContainer.style.boxShadow = '0 8px 25px rgba(220, 53, 69, 0.3)';
-                }
-            }
+            updateComplianceScoreCard(overallScore, new Date().toISOString());
             
             // HPD
             updateComplianceRow('hpd', `${data.violations.hpd_total} total, ${data.violations.hpd_active} active`);
@@ -4760,6 +4893,80 @@
                 return date.toLocaleString();
             } catch (e) {
                 return timestamp;
+            }
+        }
+        
+        function updateComplianceScoreCard(score, reportDate) {
+            // Update score value and progress
+            const scoreElement = document.getElementById('overallScoreProminent');
+            const progressElement = document.getElementById('circularProgress');
+            const statusElement = document.getElementById('statusText');
+            const cardElement = document.getElementById('complianceScoreCard');
+            const dateElement = document.getElementById('reportDate');
+            
+            if (scoreElement) {
+                scoreElement.textContent = score;
+            }
+            
+            if (progressElement) {
+                progressElement.style.setProperty('--progress', score);
+            }
+            
+            // Determine status based on score
+            let status = 'good';
+            let statusText = 'Good';
+            let progressColor = '#10b981';
+            
+            if (score < 50) {
+                status = 'critical';
+                statusText = 'Critical';
+                progressColor = '#ef4444';
+            } else if (score < 80) {
+                status = 'caution';
+                statusText = 'Caution';
+                progressColor = '#f59e0b';
+            }
+            
+            // Update status chip
+            if (statusElement) {
+                statusElement.textContent = statusText;
+                statusElement.className = `status-text ${status}`;
+            }
+            
+            // Update card styling
+            if (cardElement) {
+                cardElement.className = `compliance-score-card status-${status}`;
+            }
+            
+            // Update circular progress colors
+            if (progressElement) {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                let bgColor, shadowColor;
+                
+                if (status === 'good') {
+                    bgColor = isDark ? '#059669' : '#10b981';
+                    shadowColor = isDark ? 'rgba(5, 150, 105, 0.3)' : 'rgba(16, 185, 129, 0.2)';
+                } else if (status === 'caution') {
+                    bgColor = isDark ? '#d97706' : '#f59e0b';
+                    shadowColor = isDark ? 'rgba(217, 119, 6, 0.3)' : 'rgba(245, 158, 11, 0.2)';
+                } else {
+                    bgColor = isDark ? '#dc2626' : '#ef4444';
+                    shadowColor = isDark ? 'rgba(220, 38, 38, 0.3)' : 'rgba(239, 68, 68, 0.2)';
+                }
+                
+                const grayColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.1)';
+                progressElement.style.background = `conic-gradient(${bgColor} 0deg, ${bgColor} calc(var(--progress) * 3.6deg), ${grayColor} calc(var(--progress) * 3.6deg))`;
+                progressElement.style.boxShadow = `0 4px 12px ${shadowColor}`;
+            }
+            
+            // Update report date
+            if (dateElement && reportDate) {
+                const formattedDate = new Date(reportDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                dateElement.textContent = `Report generated on: ${formattedDate}`;
             }
         }
         
