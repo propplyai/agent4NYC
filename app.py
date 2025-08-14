@@ -32,6 +32,53 @@ compliance_system = ComprehensivePropertyComplianceSystem()
 webhook_service = ComplianceWebhookService()
 vendor_marketplace = VendorMarketplace()
 
+def transform_ai_analysis(raw_analysis):
+    """Transform the new AI analysis structure to match frontend expectations"""
+    try:
+        if not raw_analysis:
+            return {}
+        
+        # Extract property_analysis if it exists
+        prop_analysis = raw_analysis.get('property_analysis', raw_analysis)
+        
+        # Transform to the structure expected by the frontend
+        transformed = {
+            'hpd_violations': [],  # Will be populated from priority_actions if relevant
+            'dob_violations': [],  # Will be populated from priority_actions if relevant  
+            'equipment_data': {
+                'elevators': prop_analysis.get('equipment_monitoring', {}).get('elevators', {}),
+                'boilers': prop_analysis.get('equipment_monitoring', {}).get('boilers', {}),
+                'electrical': prop_analysis.get('equipment_monitoring', {}).get('electrical', {})
+            },
+            'scorecard': {
+                'overall_score': prop_analysis.get('overall_risk_assessment', {}).get('risk_score', '0/100'),
+                'risk_level': prop_analysis.get('overall_risk_assessment', {}).get('risk_level', 'Unknown'),
+                'risk_factors': prop_analysis.get('overall_risk_assessment', {}).get('primary_risk_factors', []),
+                'summary': prop_analysis.get('overall_risk_assessment', {}).get('risk_summary', '')
+            },
+            'recommendations': prop_analysis.get('priority_actions', []),
+            'highlights': {
+                'strengths': prop_analysis.get('compliance_insights', {}).get('strengths', []),
+                'concerns': prop_analysis.get('compliance_insights', {}).get('immediate_concerns', []),
+                'trends': prop_analysis.get('compliance_insights', {}).get('trends_analysis', ''),
+                'trajectory': prop_analysis.get('compliance_insights', {}).get('compliance_trajectory', '')
+            },
+            'financial_impact': prop_analysis.get('financial_impact', {}),
+            'analysis_timestamp': prop_analysis.get('analysis_timestamp', ''),
+            'data_freshness': prop_analysis.get('data_freshness', {}),
+            'regulatory_intelligence': prop_analysis.get('regulatory_intelligence', {}),
+            # Keep the original structure as well for advanced frontends
+            'property_analysis': prop_analysis
+        }
+        
+        print(f"[DEBUG] Transformation successful, transformed keys: {transformed.keys()}")
+        return transformed
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to transform analysis: {e}")
+        # Return the raw analysis if transformation fails
+        return raw_analysis
+
 @app.route('/')
 def index():
     """Propply AI - Detailed compliance report interface"""
@@ -92,6 +139,124 @@ def get_ai_analysis(analysis_id):
             'status': 'error',
             'message': f'Error fetching analysis: {str(e)}'
         }), 500
+
+@app.route('/ai-analysis', methods=['POST'])
+def ai_analysis():
+    """Generate AI analysis for compliance data"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data received'}), 400
+        
+        compliance_data = data.get('compliance_data')
+        property_info = data.get('property_info')
+        
+        if not compliance_data or not property_info:
+            return jsonify({'error': 'Missing compliance_data or property_info'}), 400
+        
+        # Use the webhook service to get AI analysis
+        from webhook_service import ComplianceWebhookService
+        webhook_service = ComplianceWebhookService()
+        
+        # Format the data for the webhook
+        formatted_data = {
+            'property_info': property_info,
+            'compliance_data': compliance_data
+        }
+        
+        # Get AI analysis from webhook
+        ai_result = webhook_service.send_compliance_data(formatted_data)
+        
+        print(f"[DEBUG] AI webhook result: {ai_result}")
+        
+        if ai_result:
+            # Extract the analysis from the response
+            if isinstance(ai_result, list) and len(ai_result) > 0:
+                raw_analysis = ai_result[0].get('output', {})
+                print(f"[DEBUG] Extracted analysis from list: {type(raw_analysis)}")
+            else:
+                raw_analysis = ai_result.get('output', ai_result)
+                print(f"[DEBUG] Extracted analysis from dict: {type(raw_analysis)}")
+            
+            # Transform the new structure to match frontend expectations
+            analysis = transform_ai_analysis(raw_analysis)
+            print(f"[DEBUG] Transformed analysis keys: {analysis.keys() if isinstance(analysis, dict) else 'Not a dict'}")
+            return jsonify(analysis)
+        else:
+            print("[ERROR] No AI result from webhook")
+            return jsonify({'error': 'Failed to get AI analysis'}), 500
+            
+    except Exception as e:
+        print(f"Error in ai_analysis endpoint: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/search', methods=['POST'])
+def search_property():
+    """Search for a property by address"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data received'}), 400
+        
+        address = data.get('address', '').strip()
+        zip_code = data.get('zip_code', '').strip()
+        
+        if not address:
+            return jsonify({'error': 'Address is required'}), 400
+        
+        # Use the existing compliance system to search for property
+        # This should return property information
+        property_info = {
+            'address': address,
+            'zip_code': zip_code,
+            'bin': 'Unknown',  # Will be populated by actual search
+            'borough': 'Unknown',  # Will be populated by actual search
+            'bbl': 'Unknown'  # Will be populated by actual search
+        }
+        
+        # For now, return a basic response - this should be enhanced with actual property search
+        return jsonify({
+            'success': True,
+            'property': property_info
+        })
+        
+    except Exception as e:
+        print(f"Error in search endpoint: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/compliance', methods=['POST'])
+def get_compliance_data():
+    """Get compliance data for a property"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data received'}), 400
+        
+        property_info = data.get('property')
+        if not property_info:
+            return jsonify({'error': 'Property information required'}), 400
+        
+        # Use the existing analyze-property endpoint logic to get compliance data
+        # For now, return mock compliance data that matches the frontend expectations
+        compliance_data = {
+            'hpd_violations': [],
+            'dob_violations': [],
+            'equipment_inspections': {
+                'elevators': [],
+                'boilers': [],
+                'electrical': []
+            },
+            'building_info': property_info
+        }
+        
+        return jsonify({
+            'success': True,
+            'report': compliance_data
+        })
+        
+    except Exception as e:
+        print(f"Error in compliance endpoint: {e}")
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/analyze-property', methods=['POST'])
 def analyze_property():
