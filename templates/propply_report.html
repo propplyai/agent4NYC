@@ -470,6 +470,11 @@
         }
 
         /* Status-based light mode gradients */
+        .compliance-score-card.status-excellent {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.06) 0%, rgba(4, 120, 87, 0.1) 100%), var(--glass-bg);
+            border-color: rgba(5, 150, 105, 0.25);
+        }
+
         .compliance-score-card.status-good {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.08) 100%), var(--glass-bg);
             border-color: rgba(16, 185, 129, 0.2);
@@ -502,6 +507,12 @@
             transition: all 0.3s ease;
         }
 
+        .status-text.excellent {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+        }
+
         .status-text.good {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
@@ -520,6 +531,11 @@
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
+        [data-theme="dark"] .status-text.excellent {
+            background: linear-gradient(135deg, #047857, #065f46);
+            box-shadow: 0 2px 12px rgba(4, 120, 87, 0.5);
+        }
+
         [data-theme="dark"] .status-text.good {
             background: linear-gradient(135deg, #059669, #047857);
             box-shadow: 0 2px 12px rgba(5, 150, 105, 0.4);
@@ -532,7 +548,7 @@
 
         [data-theme="dark"] .status-text.critical {
             background: linear-gradient(135deg, #dc2626, #b91c1c);
-            box-shadow: 0 2 12px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 2px 12px rgba(220, 38, 38, 0.4);
         }
 
         /* Compliance Score Container */
@@ -1867,12 +1883,18 @@
         
         /* Enhanced AI Analysis Section */
         .ai-insights {
-            background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
-            border-radius: 12px;
+            background: var(--bg-card);
+            border-radius: 20px;
             padding: 0;
             margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid #e3e8ef;
+            box-shadow: var(--shadow-large);
+            border: 1px solid var(--border-color);
+        }
+        
+        [data-theme="dark"] .ai-insights {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-large), var(--shadow-inner);
         }
         
         .insights-header {
@@ -4935,18 +4957,22 @@
             }
             
             // Determine status based on score
-            let status = 'good';
-            let statusText = 'Good';
+            let status = 'excellent';
+            let statusText = 'Excellent';
             let progressColor = '#10b981';
             
             if (score < 50) {
                 status = 'critical';
                 statusText = 'Critical';
                 progressColor = '#ef4444';
-            } else if (score < 80) {
+            } else if (score < 70) {
                 status = 'caution';
                 statusText = 'Caution';
                 progressColor = '#f59e0b';
+            } else if (score < 90) {
+                status = 'good';
+                statusText = 'Good';
+                progressColor = '#10b981';
             }
             
             // Update status chip
@@ -4965,7 +4991,10 @@
                 const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
                 let bgColor, shadowColor;
                 
-                if (status === 'good') {
+                if (status === 'excellent') {
+                    bgColor = isDark ? '#047857' : '#059669';
+                    shadowColor = isDark ? 'rgba(4, 120, 87, 0.4)' : 'rgba(5, 150, 105, 0.3)';
+                } else if (status === 'good') {
                     bgColor = isDark ? '#059669' : '#10b981';
                     shadowColor = isDark ? 'rgba(5, 150, 105, 0.3)' : 'rgba(16, 185, 129, 0.2)';
                 } else if (status === 'caution') {
