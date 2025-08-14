@@ -430,21 +430,6 @@
             transform: rotate(180deg);
         }
         
-        .compliance-score-under-address {
-            margin-top: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .score-text {
-            color: #495057;
-            font-weight: 500;
-        }
-        
-        .score-text span {
-            font-weight: 700;
-            color: #28a745;
-        }
-        
         /* Two-Column Compliance Score and Map Layout */
         .compliance-map-layout {
             display: flex;
@@ -975,15 +960,21 @@
         }
         
         .risk-summary {
-            background: #f8f9fa;
+            background: var(--bg-tertiary);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 15px;
             line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .risk-summary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
         
         .risk-factors h4 {
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 10px;
         }
         
@@ -995,11 +986,12 @@
         .risk-factors li {
             margin-bottom: 8px;
             line-height: 1.5;
+            color: var(--text-primary);
         }
         
         /* Priority Actions Section */
         .actions-header h3 {
-            color: #333;
+            color: var(--text-primary);
             font-size: 1.3rem;
             margin-bottom: 5px;
             display: flex;
@@ -1008,7 +1000,7 @@
         }
         
         .actions-subtitle {
-            color: #6c757d;
+            color: var(--text-secondary);
             font-size: 0.95rem;
             margin-bottom: 20px;
         }
@@ -1019,10 +1011,18 @@
         }
         
         .action-card {
-            border: 1px solid #e9ecef;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 20px;
             transition: all 0.3s ease;
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .action-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
         
         .action-card:hover {
@@ -1078,9 +1078,9 @@
         .action-priority.low { background: #28a745; color: white; }
         
         .action-description {
-            color: #495057;
-            line-height: 1.5;
+            color: var(--text-primary);
             margin-bottom: 15px;
+            line-height: 1.5;
         }
         
         .action-financial {
@@ -1641,7 +1641,7 @@
 
         .detail-title {
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-size: 1.1rem;
         }
@@ -2372,19 +2372,41 @@
         .loading {
             text-align: center;
             padding: 40px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: var(--shadow-large);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .loading {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-large), var(--shadow-inner);
+        }
+
+        .loading p {
+            color: var(--text-primary);
+            margin: 8px 0;
+        }
+
+        .loading p strong {
+            color: var(--text-primary);
         }
 
         .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+            border: 3px solid var(--border-subtle);
+            border-top: 3px solid var(--accent-primary);
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
+        }
+
+        [data-theme="dark"] .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--accent-primary);
         }
 
         @keyframes spin {
@@ -3199,7 +3221,7 @@
                             <div class="risk-summary">
                                 Our AI agent is conducting a comprehensive analysis of your property's compliance data across all NYC datasets. This process typically takes 20-30 seconds and includes evaluation of HPD violations, DOB records, elevator systems, boiler inspections, and electrical permits.
                             </div>
-                            <div id="aiLoadingMessage" class="risk-summary" style="margin-top: 15px; font-style: italic; color: #666;">
+                            <div id="aiLoadingMessage" class="risk-summary" style="margin-top: 15px; font-style: italic; color: var(--text-secondary);">
                                 AI analysis in progress... This may take a minute or two.
                             </div>
                         </div>
