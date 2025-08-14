@@ -461,6 +461,42 @@
         color: var(--text-primary) !important;
         border-color: var(--border-color) !important;
     }
+    
+    /* ULTIMATE NUCLEAR OPTION: Force ALL elements to respect dark mode */
+    * {
+        /* Apply to all elements except media */
+    }
+    
+    /* Blanket override for all potentially problematic elements */
+    div:not([class*="icon"]):not([class*="logo"]):not([class*="image"]),
+    section, article, main, aside, 
+    table, tbody, thead, tfoot, tr, td, th,
+    ul, ol, li, dl, dt, dd, p, span, h1, h2, h3, h4, h5, h6 {
+        background-color: transparent !important;
+    }
+    
+    /* Specific override for containers that commonly have white backgrounds */
+    .container, .row, .col, .card, .panel, .box, .widget,
+    [class*="table"], [class*="grid"], [class*="data"], [class*="list"],
+    [class*="summary"], [class*="detail"], [class*="info"], [class*="content"],
+    [class*="permit"], [class*="record"], [class*="item"], [class*="entry"],
+    [id*="table"], [id*="grid"], [id*="data"], [id*="list"],
+    [id*="summary"], [id*="detail"], [id*="info"], [id*="content"],
+    [id*="permit"], [id*="record"] {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Force any remaining table-like structures */
+    [style*="display: table"], 
+    [style*="display: table-row"],
+    [style*="display: table-cell"],
+    [style*="display: grid"],
+    [style*="display: flex"] {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
 }
 
 [data-theme="dark"] *[style*="255, 255, 255"],

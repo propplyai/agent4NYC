@@ -189,11 +189,17 @@ const PropplyApp = {
         this.state.theme = theme;
         localStorage.setItem('theme', theme);
         this.updateThemeToggleIcon();
+        
+        // Run style fixes immediately and repeatedly
         this.fixInlineStyles();
         
         // Set up periodic style fixing for any dynamic content
         if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             this.startPeriodicStyleFixer();
+            // Run additional immediate fixes after a short delay to catch any async content
+            setTimeout(() => this.fixInlineStyles(), 100);
+            setTimeout(() => this.fixInlineStyles(), 500);
+            setTimeout(() => this.fixInlineStyles(), 1000);
         }
     },
     
@@ -294,11 +300,13 @@ const PropplyApp = {
         
         // Nuclear option: fix ALL elements that have computed white backgrounds
         const allElements = document.querySelectorAll('*');
+        let fixedCount = 0;
+        
         allElements.forEach(el => {
             const computedStyle = window.getComputedStyle(el);
             const bgColor = computedStyle.backgroundColor;
             
-            // Check if background is white or near-white
+            // Check if background is white or near-white (expanded list)
             if (bgColor === 'rgb(255, 255, 255)' || 
                 bgColor === 'rgba(255, 255, 255, 1)' ||
                 bgColor === '#ffffff' ||
@@ -306,15 +314,33 @@ const PropplyApp = {
                 bgColor === 'white' ||
                 bgColor === 'rgb(248, 250, 252)' ||
                 bgColor === 'rgb(241, 245, 249)' ||
-                bgColor === 'rgb(226, 232, 240)') {
+                bgColor === 'rgb(226, 232, 240)' ||
+                bgColor === 'rgb(239, 246, 255)' ||
+                bgColor === 'rgb(219, 234, 254)' ||
+                bgColor === 'rgb(191, 219, 254)' ||
+                bgColor === 'rgb(147, 197, 253)' ||
+                // Any RGB value where all components are > 240 (very light)
+                (bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/) && 
+                 bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/).slice(1).every(val => parseInt(val) > 240))) {
                 
-                el.style.backgroundColor = 'var(--bg-primary)';
-                if (computedStyle.color === 'rgb(0, 0, 0)' || computedStyle.color === '#000' || computedStyle.color === 'black') {
-                    el.style.color = 'var(--text-primary)';
+                el.style.setProperty('background-color', 'var(--bg-primary)', 'important');
+                
+                if (computedStyle.color === 'rgb(0, 0, 0)' || 
+                    computedStyle.color === '#000' || 
+                    computedStyle.color === 'black' ||
+                    computedStyle.color === 'rgb(31, 41, 55)' ||
+                    computedStyle.color === 'rgb(17, 24, 39)') {
+                    el.style.setProperty('color', 'var(--text-primary)', 'important');
                 }
-                el.style.borderColor = 'var(--border-color)';
+                
+                el.style.setProperty('border-color', 'var(--border-color)', 'important');
+                fixedCount++;
             }
         });
+        
+        if (fixedCount > 0) {
+            console.log(`[DEBUG] Fixed ${fixedCount} white background elements`);
+        }
         
         // Fix badge and label elements that might be light blue
         const badgeElements = document.querySelectorAll('.badge, .label, .tag, .chip, .btn-info, .btn-light');
@@ -402,10 +428,11 @@ const PropplyApp = {
             clearInterval(this.styleFixerInterval);
         }
         
-        // Fix styles every 1 second to catch dynamic content aggressively
+        // Fix styles immediately and then every 500ms to catch dynamic content ultra-aggressively
+        this.fixInlineStyles(); // Run immediately
         this.styleFixerInterval = setInterval(() => {
             this.fixInlineStyles();
-        }, 1000);
+        }, 500); // Even more frequent - every half second
         
         console.log('[DEBUG] Started periodic style fixer for dark mode');
     },
