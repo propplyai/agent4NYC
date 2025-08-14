@@ -66,7 +66,7 @@ class ComplianceWebhookService:
             response = self.session.post(
                 self.webhook_url,
                 json=webhook_payload,
-                timeout=240  # Give AI 4 minutes for comprehensive analysis
+                timeout=360  # Give AI 6 minutes for comprehensive analysis (increased for slow external AI)
             )
             
             logger.info(f"AI analysis request completed at {datetime.now().isoformat()}")

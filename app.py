@@ -367,9 +367,19 @@ def analyze_property():
                     print(f"❌ [Background] AI analysis failed for {analysis_id}: {e}")
                     if not hasattr(app, 'ai_analysis_results'):
                         app.ai_analysis_results = {}
+                    
+                    # Determine error type for better user messaging
+                    error_message = str(e)
+                    if 'timeout' in error_message.lower():
+                        error_message = "AI analysis timed out. The external AI service took too long to respond. Please try again or contact support if this persists."
+                    elif 'connection' in error_message.lower():
+                        error_message = "Connection error with AI service. Please check your internet connection and try again."
+                    else:
+                        error_message = f"AI analysis failed: {error_message}"
+                    
                     app.ai_analysis_results[analysis_id] = {
                         'status': 'failed',
-                        'error': str(e),
+                        'error': error_message,
                         'completed_at': datetime.now().isoformat()
                     }
             
