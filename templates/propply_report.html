@@ -2224,56 +2224,78 @@
                 <!-- AI Analysis Results -->
                 <div class="ai-analysis-results" id="aiAnalysisResults" style="display: none;">
                     
-                    <!-- Data Freshness & Confidence -->
-                    <div class="data-freshness-section">
-                        <div class="freshness-header">
-                            <h3><i class="fas fa-clock"></i> Data Freshness & Analysis Confidence</h3>
+                    <!-- Analysis Header with Key Metrics -->
+                    <div class="analysis-header">
+                        <div class="analysis-title">
+                            <h2><i class="fas fa-brain"></i> AI Compliance Analysis</h2>
+                            <div class="analysis-meta">
+                                <span class="analysis-timestamp" id="analysisTimestamp">-</span>
+                                <span class="ai-confidence" id="aiConfidenceLevel">-</span>
+                            </div>
                         </div>
-                        <div class="freshness-content">
-                            <div class="freshness-item">
-                                <span class="freshness-label">Compliance Data:</span>
-                                <span class="freshness-value" id="complianceDataDate">-</span>
+                        <div class="key-metrics">
+                            <div class="metric-card risk-score">
+                                <div class="metric-label">Risk Score</div>
+                                <div class="metric-value" id="overallRiskScore">-</div>
                             </div>
-                            <div class="freshness-item">
-                                <span class="freshness-label">Regulatory Data:</span>
-                                <span class="freshness-value" id="regulatoryDataDate">-</span>
+                            <div class="metric-card risk-level">
+                                <div class="metric-label">Risk Level</div>
+                                <div class="metric-value" id="overallRiskLevel">-</div>
                             </div>
-                            <div class="freshness-item">
-                                <span class="freshness-label">Analysis Confidence:</span>
-                                <span class="confidence-badge" id="analysisConfidence">-</span>
+                            <div class="metric-card data-freshness">
+                                <div class="metric-label">Data Freshness</div>
+                                <div class="metric-value" id="dataFreshnessDate">-</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Risk Assessment Section -->
+                    <!-- Executive Summary -->
                     <div class="analysis-section expandable-section">
-                        <div class="section-header" onclick="toggleSection('riskAssessment')">
-                            <h3><i class="fas fa-exclamation-triangle"></i> Overall Risk Assessment</h3>
+                        <div class="section-header" onclick="toggleSection('executiveSummary')">
+                            <h3><i class="fas fa-chart-line"></i> Executive Summary</h3>
                             <div class="expand-indicator">
-                                <span class="risk-level-badge" id="riskLevelBadge">-</span>
-                                <i class="fas fa-chevron-down expand-icon" id="riskAssessment-icon"></i>
+                                <i class="fas fa-chevron-down expand-icon" id="executiveSummary-icon"></i>
                             </div>
                         </div>
-                        <div class="section-content" id="riskAssessment-content">
-                            <div class="risk-overview">
-                                <div class="risk-metrics">
-                                    <div class="metric-card">
-                                        <div class="metric-label">Risk Score</div>
-                                        <div class="metric-value" id="riskScoreValue">-</div>
-                                    </div>
-                                    <div class="metric-card">
-                                        <div class="metric-label">Confidence</div>
-                                        <div class="metric-value" id="analysisConfidence">-</div>
-                                    </div>
+                        <div class="section-content" id="executiveSummary-content">
+                            <div class="summary-card">
+                                <h4>Risk Assessment</h4>
+                                <p id="riskSummaryText">-</p>
+                            </div>
+                            <div class="summary-card">
+                                <h4>Recommendations Summary</h4>
+                                <p id="recommendationsSummary">-</p>
+                            </div>
+                            <div class="risk-factors-section">
+                                <h4>Primary Risk Factors</h4>
+                                <ul id="primaryRiskFactors" class="risk-factors-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliance Insights Section -->
+                    <div class="analysis-section expandable-section">
+                        <div class="section-header" onclick="toggleSection('complianceInsights')">
+                            <h3><i class="fas fa-lightbulb"></i> Compliance Insights</h3>
+                            <div class="expand-indicator">
+                                <span class="trajectory-badge" id="complianceTrajectory">-</span>
+                                <i class="fas fa-chevron-down expand-icon" id="complianceInsights-icon"></i>
+                            </div>
+                        </div>
+                        <div class="section-content" id="complianceInsights-content">
+                            <div class="insights-grid">
+                                <div class="insight-card strengths">
+                                    <h4><i class="fas fa-check-circle"></i> Strengths</h4>
+                                    <ul id="complianceStrengths" class="insight-list"></ul>
                                 </div>
-                                <div class="risk-summary-card">
-                                    <h4>Risk Summary</h4>
-                                    <p id="riskSummary">-</p>
+                                <div class="insight-card concerns">
+                                    <h4><i class="fas fa-exclamation-circle"></i> Immediate Concerns</h4>
+                                    <ul id="immediateConcerns" class="insight-list"></ul>
                                 </div>
-                                <div class="risk-factors-card">
-                                    <h4>Primary Risk Factors</h4>
-                                    <ul id="riskFactorsList" class="risk-factors-list"></ul>
-                                </div>
+                            </div>
+                            <div class="trends-analysis">
+                                <h4>Trends Analysis</h4>
+                                <p id="trendsAnalysis">-</p>
                             </div>
                         </div>
                     </div>
@@ -2281,7 +2303,7 @@
                     <!-- Priority Actions Section -->
                 <div class="analysis-section expandable-section">
                     <div class="section-header" onclick="toggleSection('priorityActions')">
-                        <h3><i class="fas fa-tasks"></i> Priority Actions Dashboard</h3>
+                        <h3><i class="fas fa-tasks"></i> Priority Actions</h3>
                         <div class="expand-indicator">
                             <span class="actions-count" id="actionsCount">0 actions</span>
                             <i class="fas fa-chevron-down expand-icon" id="priorityActions-icon"></i>
@@ -2304,88 +2326,134 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="actions-grid" id="priorityActionsGrid">
-                            <!-- Action cards will be populated by JavaScript -->
+                        <div class="priority-actions-list" id="priorityActionsList">
+                            <!-- Priority action items will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
 
-                    <!-- Financial Impact Overview -->
-                    <div class="financial-impact-section">
-                        <div class="financial-header">
-                            <h3><i class="fas fa-dollar-sign"></i> Financial Impact Overview</h3>
+                    <!-- Financial Impact Section -->
+                <div class="analysis-section expandable-section">
+                    <div class="section-header" onclick="toggleSection('financialImpact')">
+                        <h3><i class="fas fa-dollar-sign"></i> Financial Impact Analysis</h3>
+                        <div class="expand-indicator">
+                            <span class="financial-exposure" id="totalExposure">-</span>
+                            <i class="fas fa-chevron-down expand-icon" id="financialImpact-icon"></i>
                         </div>
-                        <div class="financial-grid">
-                            <div class="financial-card">
-                                <div class="financial-label">Immediate Exposure</div>
-                                <div class="financial-value critical" id="immediateExposure">-</div>
-                                <div class="financial-description">Potential penalties if no action taken</div>
-                            </div>
-                            <div class="financial-card">
-                                <div class="financial-label">Annual Compliance Costs</div>
-                                <div class="financial-value moderate" id="annualCosts">-</div>
-                                <div class="financial-description">Estimated annual maintenance costs</div>
-                            </div>
-                            <div class="financial-card">
-                                <div class="financial-label">Priority Investment</div>
-                                <div class="financial-value positive" id="priorityInvestment">-</div>
-                                <div class="financial-description">Recommended immediate investment</div>
+                    </div>
+                    <div class="section-content" id="financialImpact-content">
+                        <div class="financial-overview">
+                            <div class="financial-metrics">
+                                <div class="metric-card immediate-exposure">
+                                    <div class="metric-label">Immediate Exposure</div>
+                                    <div class="metric-value" id="immediateExposure">-</div>
+                                </div>
+                                <div class="metric-card annual-costs">
+                                    <div class="metric-label">Annual Compliance Costs</div>
+                                    <div class="metric-value" id="annualComplianceCosts">-</div>
+                                </div>
+                                <div class="metric-card priority-investment">
+                                    <div class="metric-label">Priority Investment</div>
+                                    <div class="metric-value" id="priorityInvestment">-</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="cost-breakdown">
-                            <h4>Cost Breakdown by Category</h4>
-                            <div class="breakdown-grid" id="costBreakdownGrid">
-                                <!-- Cost breakdown items will be populated here -->
+                        <div class="financial-details">
+                            <div class="detail-row">
+                                <div class="detail-card">
+                                    <h4>Potential Fines</h4>
+                                    <p id="potentialFines">-</p>
+                                </div>
+                                <div class="detail-card">
+                                    <h4>Maintenance Costs</h4>
+                                    <p id="maintenanceCosts">-</p>
+                                </div>
+                            </div>
+                            <div class="cost-benefit-analysis">
+                                <h4>Cost-Benefit Analysis</h4>
+                                <p id="costBenefitAnalysis">-</p>
+                            </div>
+                            <div class="cost-breakdown">
+                                <h4>Cost Breakdown by Category</h4>
+                                <div class="breakdown-grid" id="costBreakdownGrid">
+                                    <!-- Cost breakdown items will be populated here -->
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Equipment Monitoring -->
-                    <div class="equipment-monitoring-section">
-                        <div class="equipment-header">
-                            <h3><i class="fas fa-cogs"></i> Equipment Monitoring</h3>
-                            <div class="equipment-subtitle">Track devices, inspections, and compliance status</div>
+                </div>     <!-- Equipment Monitoring -->
+                    <div class="analysis-section expandable-section">
+                    <div class="section-header" onclick="toggleSection('equipmentMonitoring')">
+                        <h3><i class="fas fa-cogs"></i> Equipment Monitoring</h3>
+                        <div class="expand-indicator">
+                            <span class="equipment-summary" id="equipmentSummary">-</span>
+                            <i class="fas fa-chevron-down expand-icon" id="equipmentMonitoring-icon"></i>
                         </div>
+                    </div>
+                    <div class="section-content" id="equipmentMonitoring-content">
                         <div class="equipment-tabs">
                             <div class="tab-buttons">
-                                <button class="tab-button active" data-tab="elevators">Elevators</button>
-                                <button class="tab-button" data-tab="boilers">Boilers</button>
-                                <button class="tab-button" data-tab="electrical">Electrical</button>
+                                <button class="tab-button active" data-tab="elevators">
+                                    <i class="fas fa-elevator"></i> Elevators
+                                    <span class="device-count" id="elevatorCount">-</span>
+                                </button>
+                                <button class="tab-button" data-tab="boilers">
+                                    <i class="fas fa-fire"></i> Boilers
+                                    <span class="device-count" id="boilerCount">-</span>
+                                </button>
+                                <button class="tab-button" data-tab="electrical">
+                                    <i class="fas fa-bolt"></i> Electrical
+                                    <span class="device-count" id="electricalCount">-</span>
+                                </button>
                             </div>
                             <div class="tab-content">
                                 <div class="tab-panel active" id="elevators-panel">
-                                    <!-- Elevator content will be populated here -->
+                                    <!-- Elevator monitoring content -->
                                 </div>
                                 <div class="tab-panel" id="boilers-panel">
-                                    <!-- Boiler content will be populated here -->
+                                    <!-- Boiler monitoring content -->
                                 </div>
                                 <div class="tab-panel" id="electrical-panel">
-                                    <!-- Electrical content will be populated here -->
+                                    <!-- Electrical monitoring content -->
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Regulatory Intelligence -->
-                    <div class="regulatory-intelligence-section">
-                        <div class="regulatory-header">
-                            <h3><i class="fas fa-gavel"></i> Regulatory Intelligence</h3>
-                        </div>
-                        <div class="regulatory-content">
-                            <div class="regulatory-item">
-                                <h4>Upcoming Inspections</h4>
-                                <div id="upcomingInspections">-</div>
-                            </div>
-                            <div class="regulatory-item">
-                                <h4>Seasonal Considerations</h4>
-                                <div id="seasonalConsiderations">-</div>
-                            </div>
-                            <div class="regulatory-item">
-                                <h4>Best Practices</h4>
-                                <ul id="bestPracticesList"></ul>
-                            </div>
+                    <!-- Regulatory Intelligence Section -->
+                <div class="analysis-section expandable-section">
+                    <div class="section-header" onclick="toggleSection('regulatoryIntelligence')">
+                        <h3><i class="fas fa-gavel"></i> Regulatory Intelligence</h3>
+                        <div class="expand-indicator">
+                            <i class="fas fa-chevron-down expand-icon" id="regulatoryIntelligence-icon"></i>
                         </div>
                     </div>
+                    <div class="section-content" id="regulatoryIntelligence-content">
+                        <div class="regulatory-grid">
+                            <div class="regulatory-card">
+                                <h4><i class="fas fa-calendar-alt"></i> Upcoming Inspections</h4>
+                                <p id="upcomingInspections">-</p>
+                            </div>
+                            <div class="regulatory-card">
+                                <h4><i class="fas fa-leaf"></i> Seasonal Considerations</h4>
+                                <p id="seasonalConsiderations">-</p>
+                            </div>
+                            <div class="regulatory-card">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Regulatory Changes</h4>
+                                <p id="regulatoryChanges">-</p>
+                            </div>
+                        </div>
+                        <div class="best-practices">
+                            <h4><i class="fas fa-star"></i> Best Practices</h4>
+                            <ul id="bestPracticesList" class="practices-list"></ul>
+                        </div>
+                        <div class="monitoring-schedule">
+                            <h4><i class="fas fa-clock"></i> Monitoring Schedule</h4>
+                            <p id="monitoringSchedule">-</p>
+                        </div>
+                    </div>
+                </div>
 
                 </div>
 
@@ -3698,7 +3766,8 @@
         function displayEnhancedAIAnalysis(aiData) {
             console.log('Displaying enhanced AI analysis:', aiData);
             
-            const analysis = aiData.property_analysis;
+            // Handle both direct property_analysis and nested output structure
+            const analysis = aiData.property_analysis || aiData.output?.property_analysis;
             if (!analysis) {
                 console.error('No property_analysis found in AI data');
                 return;
@@ -3707,29 +3776,29 @@
             // Show the AI analysis results section
             document.getElementById('aiAnalysisResults').style.display = 'block';
             
-            // Populate Data Freshness
-            if (analysis.data_freshness) {
-                setTextContent('complianceDataDate', analysis.data_freshness.compliance_data_date || '-');
-                setTextContent('regulatoryDataDate', analysis.data_freshness.regulatory_data_date || '-');
-                setTextContent('analysisConfidence', analysis.data_freshness.analysis_confidence || '-');
+            // Populate Analysis Header
+            setTextContent('analysisTimestamp', formatTimestamp(analysis.analysis_timestamp));
+            setTextContent('aiConfidenceLevel', aiData.ai_confidence || 'High');
+            
+            // Populate Key Metrics
+            if (analysis.overall_risk_assessment) {
+                setTextContent('overallRiskScore', analysis.overall_risk_assessment.risk_score || '-');
+                setTextContent('overallRiskLevel', analysis.overall_risk_assessment.risk_level || '-');
             }
             
-            // Populate Risk Assessment
+            if (analysis.data_freshness) {
+                setTextContent('dataFreshnessDate', analysis.data_freshness.compliance_data_date || '-');
+            }
+            
+            // Populate Executive Summary
             if (analysis.overall_risk_assessment) {
-                const risk = analysis.overall_risk_assessment;
-                const riskBadge = document.getElementById('riskLevelBadge');
-                if (riskBadge) {
-                    riskBadge.textContent = risk.risk_level || '-';
-                    riskBadge.className = `risk-level-badge ${(risk.risk_level || '').toLowerCase()}`;
-                }
-                setTextContent('riskScoreValue', risk.risk_score || '-');
-                setTextContent('riskSummary', risk.risk_summary || '-');
+                setTextContent('riskSummaryText', analysis.overall_risk_assessment.risk_summary || '-');
                 
-                // Populate risk factors
-                const riskFactorsList = document.getElementById('riskFactorsList');
-                if (riskFactorsList && risk.primary_risk_factors) {
+                // Populate primary risk factors
+                const riskFactorsList = document.getElementById('primaryRiskFactors');
+                if (riskFactorsList && analysis.overall_risk_assessment.primary_risk_factors) {
                     riskFactorsList.innerHTML = '';
-                    risk.primary_risk_factors.forEach(factor => {
+                    analysis.overall_risk_assessment.primary_risk_factors.forEach(factor => {
                         const li = document.createElement('li');
                         li.textContent = factor;
                         riskFactorsList.appendChild(li);
@@ -3737,18 +3806,50 @@
                 }
             }
             
+            // Add recommendations summary
+            setTextContent('recommendationsSummary', aiData.recommendations_summary || analysis.recommendations_summary || '-');
+            
+            // Populate Compliance Insights
+            if (analysis.compliance_insights) {
+                const insights = analysis.compliance_insights;
+                setTextContent('complianceTrajectory', insights.compliance_trajectory || '-');
+                setTextContent('trendsAnalysis', insights.trends_analysis || '-');
+                
+                // Populate strengths
+                const strengthsList = document.getElementById('complianceStrengths');
+                if (strengthsList && insights.strengths) {
+                    strengthsList.innerHTML = '';
+                    insights.strengths.forEach(strength => {
+                        const li = document.createElement('li');
+                        li.textContent = strength;
+                        strengthsList.appendChild(li);
+                    });
+                }
+                
+                // Populate immediate concerns
+                const concernsList = document.getElementById('immediateConcerns');
+                if (concernsList && insights.immediate_concerns) {
+                    concernsList.innerHTML = '';
+                    insights.immediate_concerns.forEach(concern => {
+                        const li = document.createElement('li');
+                        li.textContent = concern;
+                        concernsList.appendChild(li);
+                    });
+                }
+            }
+            
             // Populate Priority Actions
             if (analysis.priority_actions) {
-                const actionsGrid = document.getElementById('priorityActionsGrid');
-                if (actionsGrid) {
-                    actionsGrid.innerHTML = '';
+                const actionsList = document.getElementById('priorityActionsList');
+                if (actionsList) {
+                    actionsList.innerHTML = '';
                     
                     // Count actions by priority
                     let criticalCount = 0, highCount = 0, mediumCount = 0;
                     
                     analysis.priority_actions.forEach(action => {
-                        const actionCard = createActionCard(action);
-                        actionsGrid.appendChild(actionCard);
+                        const actionItem = createDetailedActionItem(action);
+                        actionsList.appendChild(actionItem);
                         
                         // Count by priority
                         const priority = (action.priority || '').toLowerCase();
@@ -3768,9 +3869,13 @@
             // Populate Financial Impact
             if (analysis.financial_impact) {
                 const financial = analysis.financial_impact;
+                setTextContent('totalExposure', financial.immediate_exposure || '-');
                 setTextContent('immediateExposure', financial.immediate_exposure || '-');
-                setTextContent('annualCosts', financial.annual_compliance_costs || '-');
+                setTextContent('annualComplianceCosts', financial.annual_compliance_costs || '-');
                 setTextContent('priorityInvestment', financial.priority_investment || '-');
+                setTextContent('potentialFines', financial.potential_fines || '-');
+                setTextContent('maintenanceCosts', financial.maintenance_costs || '-');
+                setTextContent('costBenefitAnalysis', financial.cost_benefit_analysis || '-');
                 
                 // Populate cost breakdown
                 const breakdownGrid = document.getElementById('costBreakdownGrid');
@@ -3780,8 +3885,8 @@
                         const breakdownItem = document.createElement('div');
                         breakdownItem.className = 'breakdown-item';
                         breakdownItem.innerHTML = `
-                            <span class="breakdown-label">${category.replace('_', ' ').toUpperCase()}</span>
-                            <span class="breakdown-value">${cost}</span>
+                            <div class="breakdown-category">${category.replace('_', ' ').toUpperCase()}</div>
+                            <div class="breakdown-value">${cost}</div>
                         `;
                         breakdownGrid.appendChild(breakdownItem);
                     });
@@ -3790,7 +3895,26 @@
             
             // Populate Equipment Monitoring
             if (analysis.equipment_monitoring) {
-                populateEquipmentTabs(analysis.equipment_monitoring);
+                const equipment = analysis.equipment_monitoring;
+                
+                // Update equipment summary and counts
+                let totalDevices = 0;
+                if (equipment.elevators) {
+                    setTextContent('elevatorCount', equipment.elevators.total_devices || '0');
+                    totalDevices += parseInt(equipment.elevators.total_devices || 0);
+                }
+                if (equipment.boilers) {
+                    setTextContent('boilerCount', equipment.boilers.total_devices || '0');
+                    totalDevices += parseInt(equipment.boilers.total_devices || 0);
+                }
+                if (equipment.electrical) {
+                    setTextContent('electricalCount', equipment.electrical.active_permits || '0');
+                }
+                
+                setTextContent('equipmentSummary', `${totalDevices} total devices`);
+                
+                // Populate detailed equipment tabs
+                populateDetailedEquipmentTabs(equipment);
             }
             
             // Populate Regulatory Intelligence
@@ -3798,6 +3922,8 @@
                 const regulatory = analysis.regulatory_intelligence;
                 setTextContent('upcomingInspections', regulatory.upcoming_inspections || '-');
                 setTextContent('seasonalConsiderations', regulatory.seasonal_considerations || '-');
+                setTextContent('regulatoryChanges', regulatory.regulatory_changes || '-');
+                setTextContent('monitoringSchedule', regulatory.monitoring_schedule || '-');
                 
                 // Populate best practices
                 const bestPracticesList = document.getElementById('bestPracticesList');
@@ -3812,18 +3938,17 @@
             }
         }
         
-        function createActionCard(action) {
-            const card = document.createElement('div');
-            card.className = `action-card ${(action.priority || '').toLowerCase()}`;
+        function createDetailedActionItem(action) {
+            const item = document.createElement('div');
+            item.className = `priority-action-item ${(action.priority || '').toLowerCase()}`;
             
             // Safely extract data with proper fallbacks
             const actionId = action.id || `action_${Date.now()}`;
             const title = action.title || 'Action Required';
             const category = action.category || 'General';
             const priority = action.priority || 'Medium';
-            const description = action.action || action.description || 'No description available';
+            const actionText = action.action || 'No action specified';
             const reason = action.reason || '';
-            const deviceId = action.device_id || '';
             
             // Financial impact with safe extraction
             const financial = action.financial_impact || {};
@@ -3838,49 +3963,100 @@
             const deadline = timeline.deadline || 'Not specified';
             const consequences = timeline.consequences || 'Not specified';
             
-            const financialItems = `
-                <div class="action-financial">
-                    <div class="financial-item">
-                        <span class="financial-item-label">Estimated Cost:</span>
-                        <span class="financial-item-value">${estimatedCost}</span>
-                    </div>
-                    <div class="financial-item">
-                        <span class="financial-item-label">Potential Penalty:</span>
-                        <span class="financial-item-value">${potentialPenalty}</span>
-                    </div>
-                </div>
-            `;
+            // Regulatory context
+            const regulatory = action.regulatory_context || {};
+            const regulationRef = regulatory.regulation_reference || '';
+            const penaltySchedule = regulatory.penalty_schedule || '';
+            const filingRequirements = regulatory.filing_requirements || '';
             
-            const regulatoryDetails = `
-                <div class="action-details" id="details-${actionId}" style="display: none;">
-                    <h5>Details & Timeline</h5>
-                    ${deviceId ? `<p><strong>Device:</strong> ${deviceId}</p>` : ''}
-                    ${reason ? `<p><strong>Reason:</strong> ${reason}</p>` : ''}
-                    <p><strong>Urgency:</strong> ${urgency}</p>
-                    <p><strong>Deadline:</strong> ${deadline}</p>
-                    <p><strong>Consequences:</strong> ${consequences}</p>
-                    ${penaltyEscalation ? `<p><strong>Penalty Escalation:</strong> ${penaltyEscalation}</p>` : ''}
-                    ${costBenefit ? `<p><strong>Cost vs Benefit:</strong> ${costBenefit}</p>` : ''}
-                </div>
-            `;
-            
-            card.innerHTML = `
-                <div class="action-header">
-                    <div>
+            item.innerHTML = `
+                <div class="action-item-header" onclick="toggleActionItem('${actionId}')">
+                    <div class="action-main-info">
                         <div class="action-title">${title}</div>
-                        <div class="action-category">${category}${deviceId ? ` - ${deviceId}` : ''}</div>
+                        <div class="action-category-badge">${category}</div>
+                        <div class="action-priority-badge ${priority.toLowerCase()}">${priority}</div>
                     </div>
-                    <div class="action-priority ${priority.toLowerCase()}">${priority}</div>
+                    <div class="action-summary">
+                        <span class="cost-summary">${estimatedCost}</span>
+                        <i class="fas fa-chevron-down expand-icon" id="${actionId}-icon"></i>
+                    </div>
                 </div>
-                <div class="action-description">${description}</div>
-                ${financialItems}
-                <div class="action-expandable" onclick="toggleActionDetails('${actionId}')">
-                    <i class="fas fa-chevron-down"></i> View Details
+                <div class="action-item-content" id="${actionId}-content" style="display: none;">
+                    <div class="action-description">
+                        <h4>Action Required</h4>
+                        <p>${actionText}</p>
+                        ${reason ? `<p><strong>Reason:</strong> ${reason}</p>` : ''}
+                    </div>
+                    
+                    <div class="action-details-grid">
+                        <div class="detail-section financial">
+                            <h4><i class="fas fa-dollar-sign"></i> Financial Impact</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-label">Estimated Cost:</span>
+                                    <span class="detail-value">${estimatedCost}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Potential Penalty:</span>
+                                    <span class="detail-value">${potentialPenalty}</span>
+                                </div>
+                                ${penaltyEscalation ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">Penalty Escalation:</span>
+                                    <span class="detail-value">${penaltyEscalation}</span>
+                                </div>` : ''}
+                                ${costBenefit ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">Cost vs Benefit:</span>
+                                    <span class="detail-value">${costBenefit}</span>
+                                </div>` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section timeline">
+                            <h4><i class="fas fa-clock"></i> Timeline</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-label">Urgency:</span>
+                                    <span class="detail-value urgency-${urgency.toLowerCase().replace('_', '-')}">${urgency}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Deadline:</span>
+                                    <span class="detail-value">${deadline}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Consequences:</span>
+                                    <span class="detail-value">${consequences}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${regulationRef || penaltySchedule || filingRequirements ? `
+                        <div class="detail-section regulatory">
+                            <h4><i class="fas fa-gavel"></i> Regulatory Context</h4>
+                            <div class="detail-items">
+                                ${regulationRef ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">Regulation:</span>
+                                    <span class="detail-value">${regulationRef}</span>
+                                </div>` : ''}
+                                ${penaltySchedule ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">Penalty Schedule:</span>
+                                    <span class="detail-value">${penaltySchedule}</span>
+                                </div>` : ''}
+                                ${filingRequirements ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">Filing Requirements:</span>
+                                    <span class="detail-value">${filingRequirements}</span>
+                                </div>` : ''}
+                            </div>
+                        </div>` : ''}
+                    </div>
                 </div>
-                ${regulatoryDetails}
             `;
             
-            return card;
+            return item;
         }
         
         function populateEquipmentTabs(equipment) {
@@ -3964,17 +4140,132 @@
             }
         }
         
-        function toggleActionDetails(actionId) {
-            const details = document.getElementById(`details-${actionId}`);
-            if (details) {
-                const isVisible = details.style.display !== 'none';
-                details.style.display = isVisible ? 'none' : 'block';
-                
-                // Update chevron icon
-                const expandable = details.previousElementSibling;
-                const icon = expandable.querySelector('i');
-                if (icon) {
-                    icon.className = isVisible ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+        function toggleActionItem(actionId) {
+            const content = document.getElementById(`${actionId}-content`);
+            const icon = document.getElementById(`${actionId}-icon`);
+            
+            if (content && icon) {
+                const isVisible = content.style.display !== 'none';
+                content.style.display = isVisible ? 'none' : 'block';
+                icon.className = isVisible ? 'fas fa-chevron-down expand-icon' : 'fas fa-chevron-up expand-icon';
+            }
+        }
+        
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return '-';
+            try {
+                const date = new Date(timestamp);
+                return date.toLocaleString();
+            } catch (e) {
+                return timestamp;
+            }
+        }
+        
+        function populateDetailedEquipmentTabs(equipment) {
+            // Populate Elevators tab with detailed information
+            if (equipment.elevators) {
+                const elevatorsPanel = document.getElementById('elevators-panel');
+                if (elevatorsPanel) {
+                    const elevatorData = equipment.elevators;
+                    
+                    elevatorsPanel.innerHTML = `
+                        <div class="equipment-overview">
+                            <div class="equipment-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total Devices:</span>
+                                    <span class="stat-value">${elevatorData.total_devices || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Active Devices:</span>
+                                    <span class="stat-value">${elevatorData.active_devices || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Estimated Annual Costs:</span>
+                                    <span class="stat-value">${elevatorData.estimated_annual_costs || '-'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="equipment-requirements">
+                            <div class="requirement-section">
+                                <h4><i class="fas fa-clipboard-check"></i> CAT-1 Requirements</h4>
+                                <ul>${(elevatorData.cat1_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
+                            </div>
+                            <div class="requirement-section">
+                                <h4><i class="fas fa-clipboard-list"></i> CAT-5 Requirements</h4>
+                                <ul>${(elevatorData.cat5_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
+                            </div>
+                            <div class="requirement-section gaps">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Compliance Gaps</h4>
+                                <ul>${(elevatorData.compliance_gaps || []).map(gap => `<li class="gap-item">${gap}</li>`).join('')}</ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Populate Boilers tab with detailed information
+            if (equipment.boilers) {
+                const boilersPanel = document.getElementById('boilers-panel');
+                if (boilersPanel) {
+                    const boilerData = equipment.boilers;
+                    
+                    boilersPanel.innerHTML = `
+                        <div class="equipment-overview">
+                            <div class="equipment-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total Devices:</span>
+                                    <span class="stat-value">${boilerData.total_devices || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Inspection Status:</span>
+                                    <span class="stat-value">${boilerData.inspection_status || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Estimated Annual Costs:</span>
+                                    <span class="stat-value">${boilerData.estimated_annual_costs || '-'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="equipment-requirements">
+                            <div class="requirement-section">
+                                <h4><i class="fas fa-file-alt"></i> Filing Requirements</h4>
+                                <ul>${(boilerData.filing_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
+                            </div>
+                            <div class="requirement-section gaps">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Compliance Gaps</h4>
+                                <ul>${(boilerData.compliance_gaps || []).map(gap => `<li class="gap-item">${gap}</li>`).join('')}</ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Populate Electrical tab with detailed information
+            if (equipment.electrical) {
+                const electricalPanel = document.getElementById('electrical-panel');
+                if (electricalPanel) {
+                    const electricalData = equipment.electrical;
+                    
+                    electricalPanel.innerHTML = `
+                        <div class="equipment-overview">
+                            <div class="equipment-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Active Permits:</span>
+                                    <span class="stat-value">${electricalData.active_permits || '-'}</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Status Summary:</span>
+                                    <span class="stat-value">${electricalData.status_summary || '-'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="equipment-requirements">
+                            <div class="requirement-section">
+                                <h4><i class="fas fa-tasks"></i> Actions Needed</h4>
+                                <ul>${(electricalData.action_needed || []).map(action => `<li>${action}</li>`).join('')}</ul>
+                            </div>
+                        </div>
+                    `;
                 }
             }
         }
