@@ -545,9 +545,15 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if data is not None and len(data) > 0:
+                    # Debug: Show original data dates
+                    print(f"   🔍 Original data dates: {[item.get('inspection_date') for item in data[:5]]}")
+                    
                     # Filter to only keep last 2 years of data per device
                     filtered_data = self.filter_recent_boiler_data(data)
                     compliance_data['boiler_inspections'] = filtered_data
+                    
+                    # Debug: Show filtered data dates
+                    print(f"   🔍 Filtered data dates: {[item.get('inspection_date') for item in filtered_data[:5]]}")
                     
                     print(f"   ✅ Found {len(data)} total boiler records, filtered to {len(filtered_data)} recent records (last 2 years)")
                     
