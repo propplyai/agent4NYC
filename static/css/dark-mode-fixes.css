@@ -236,3 +236,187 @@
     background-color: var(--bg-primary) !important;
     color: var(--text-primary) !important;
 }
+
+/* Additional specific fixes for progress bars and data tables */
+@media (prefers-color-scheme: dark) {
+    /* Progress bars and loading areas */
+    .progress,
+    .progress-bar,
+    .loading-area,
+    .analysis-progress,
+    .compliance-progress,
+    .ai-progress {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .progress-bar {
+        background-color: var(--primary) !important;
+    }
+    
+    /* Data tables and inspection summaries */
+    .inspection-summary,
+    .device-summary,
+    .compliance-table,
+    .data-table,
+    .summary-table,
+    .device-table {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Table headers and cells - more specific */
+    .table-header,
+    .summary-header,
+    .device-header,
+    .inspection-header,
+    thead th,
+    tbody td {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Blue badge/button elements that show as light blue */
+    .badge,
+    .badge-primary,
+    .badge-info,
+    .badge-light,
+    .btn-info,
+    .btn-light,
+    .tag,
+    .label,
+    .chip {
+        background-color: var(--primary) !important;
+        color: white !important;
+        border-color: var(--primary) !important;
+    }
+    
+    /* Status indicators and small text elements */
+    .status,
+    .device-status,
+    .inspection-status,
+    .compliance-status {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Any remaining light colored text on dark backgrounds */
+    .light-text,
+    .muted-text,
+    .secondary-text {
+        color: var(--text-secondary) !important;
+    }
+    
+    /* Force override any remaining white or very light backgrounds */
+    *[style*="background-color: #f"],
+    *[style*="background: #f"],
+    *[class*="bg-light"],
+    *[class*="light"] {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+}
+
+/* Explicit data-theme dark mode fixes */
+[data-theme="dark"] .progress,
+[data-theme="dark"] .progress-bar,
+[data-theme="dark"] .loading-area,
+[data-theme="dark"] .analysis-progress,
+[data-theme="dark"] .compliance-progress,
+[data-theme="dark"] .ai-progress {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .progress-bar {
+    background-color: var(--primary) !important;
+}
+
+[data-theme="dark"] .inspection-summary,
+[data-theme="dark"] .device-summary,
+[data-theme="dark"] .compliance-table,
+[data-theme="dark"] .data-table,
+[data-theme="dark"] .summary-table,
+[data-theme="dark"] .device-table {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .table-header,
+[data-theme="dark"] .summary-header,
+[data-theme="dark"] .device-header,
+[data-theme="dark"] .inspection-header,
+[data-theme="dark"] thead th,
+[data-theme="dark"] tbody td {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .badge,
+[data-theme="dark"] .badge-primary,
+[data-theme="dark"] .badge-info,
+[data-theme="dark"] .badge-light,
+[data-theme="dark"] .btn-info,
+[data-theme="dark"] .btn-light,
+[data-theme="dark"] .tag,
+[data-theme="dark"] .label,
+[data-theme="dark"] .chip {
+    background-color: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+}
+
+[data-theme="dark"] *[style*="background-color: #f"],
+[data-theme="dark"] *[style*="background: #f"],
+[data-theme="dark"] *[class*="bg-light"],
+[data-theme="dark"] *[class*="light"] {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Ultra-aggressive fixes for any remaining white backgrounds */
+@media (prefers-color-scheme: dark) {
+    /* Catch any dynamically created elements */
+    *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal) {
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+    }
+    
+    /* Force any element with computed white background */
+    *[style*="255, 255, 255"],
+    *[style*="rgb(255,255,255)"],
+    *[style*="rgba(255,255,255"],
+    *[style*="hsl(0,0%,100%)"] {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Fix any remaining light gray backgrounds */
+    *[style*="#f0f0f0"],
+    *[style*="#f5f5f5"],
+    *[style*="#f8f9fa"],
+    *[style*="#e9ecef"] {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+    }
+}
+
+[data-theme="dark"] *[style*="255, 255, 255"],
+[data-theme="dark"] *[style*="rgb(255,255,255)"],
+[data-theme="dark"] *[style*="rgba(255,255,255"],
+[data-theme="dark"] *[style*="hsl(0,0%,100%)"] {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] *[style*="#f0f0f0"],
+[data-theme="dark"] *[style*="#f5f5f5"],
+[data-theme="dark"] *[style*="#f8f9fa"],
+[data-theme="dark"] *[style*="#e9ecef"] {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}

@@ -190,6 +190,11 @@ const PropplyApp = {
         localStorage.setItem('theme', theme);
         this.updateThemeToggleIcon();
         this.fixInlineStyles();
+        
+        // Set up periodic style fixing for any dynamic content
+        if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            this.startPeriodicStyleFixer();
+        }
     },
     
     toggleTheme() {
@@ -236,16 +241,26 @@ const PropplyApp = {
         
         if (!isDark) return;
         
-        // Find all elements with white backgrounds
+        // Find all elements with white or light backgrounds
         const selectors = [
             'div[style*="background: white"]',
             'div[style*="background-color: white"]',
             'div[style*="background: #fff"]',
             'div[style*="background-color: #fff"]',
+            'div[style*="background: #ffffff"]',
+            'div[style*="background-color: #ffffff"]',
             'section[style*="background: white"]',
             'section[style*="background-color: white"]',
             '[style*="background: rgb(255, 255, 255)"]',
-            '[style*="background-color: rgb(255, 255, 255)"]'
+            '[style*="background-color: rgb(255, 255, 255)"]',
+            // Light backgrounds
+            '[style*="background-color: #f"]',
+            '[style*="background: #f"]',
+            // Common Bootstrap classes
+            '.bg-white',
+            '.bg-light',
+            '.bg-body',
+            '.bg-body-secondary'
         ];
         
         selectors.forEach(selector => {
@@ -253,7 +268,36 @@ const PropplyApp = {
             elements.forEach(el => {
                 el.style.backgroundColor = 'var(--bg-primary)';
                 el.style.color = 'var(--text-primary)';
+                el.style.borderColor = 'var(--border-color)';
             });
+        });
+        
+        // Fix progress bars specifically
+        const progressElements = document.querySelectorAll('.progress, .progress-bar, .ai-progress, .analysis-progress');
+        progressElements.forEach(el => {
+            if (el.classList.contains('progress-bar')) {
+                el.style.backgroundColor = 'var(--primary)';
+                el.style.color = 'white';
+            } else {
+                el.style.backgroundColor = 'var(--bg-secondary)';
+                el.style.color = 'var(--text-primary)';
+            }
+        });
+        
+        // Fix table elements specifically
+        const tableElements = document.querySelectorAll('table, th, td, .table, .table-header, .summary-header');
+        tableElements.forEach(el => {
+            el.style.backgroundColor = el.tagName === 'TH' ? 'var(--bg-secondary)' : 'var(--bg-primary)';
+            el.style.color = 'var(--text-primary)';
+            el.style.borderColor = 'var(--border-color)';
+        });
+        
+        // Fix badge and label elements that might be light blue
+        const badgeElements = document.querySelectorAll('.badge, .label, .tag, .chip, .btn-info, .btn-light');
+        badgeElements.forEach(el => {
+            el.style.backgroundColor = 'var(--primary)';
+            el.style.color = 'white';
+            el.style.borderColor = 'var(--primary)';
         });
         
         // Fix any remaining white text on dark backgrounds
@@ -263,6 +307,8 @@ const PropplyApp = {
                 el.style.color = 'white';
             }
         });
+        
+        console.log('[DEBUG] Fixed inline styles for dark mode');
     },
     
     // Setup observer for dynamically created content
@@ -322,6 +368,29 @@ const PropplyApp = {
             Array.from(element.children).forEach(child => {
                 this.fixElementStyles(child);
             });
+        }
+    },
+    
+    // Periodic style fixer for dynamic content
+    startPeriodicStyleFixer() {
+        // Clear any existing interval
+        if (this.styleFixerInterval) {
+            clearInterval(this.styleFixerInterval);
+        }
+        
+        // Fix styles every 2 seconds to catch dynamic content
+        this.styleFixerInterval = setInterval(() => {
+            this.fixInlineStyles();
+        }, 2000);
+        
+        console.log('[DEBUG] Started periodic style fixer for dark mode');
+    },
+    
+    stopPeriodicStyleFixer() {
+        if (this.styleFixerInterval) {
+            clearInterval(this.styleFixerInterval);
+            this.styleFixerInterval = null;
+            console.log('[DEBUG] Stopped periodic style fixer');
         }
     }
 };
