@@ -191,25 +191,21 @@
         
         /* Enhanced Compliance Score Display */
         .compliance-score-prominent {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #28a745, #20c997);
             border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
+            color: white;
+            margin: 15px 0;
+            box-shadow: 0 3px 12px rgba(40, 167, 69, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .compliance-score-prominent::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            pointer-events: none;
+        .compliance-score-prominent .score-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .compliance-score-label {
@@ -241,6 +237,152 @@
         /* AI Analysis Results Sections */
         .ai-analysis-results {
             margin-top: 25px;
+        }
+        
+        /* Expandable Sections */
+        .expandable-section {
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .expandable-section:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s ease;
+        }
+        
+        .section-header:hover {
+            background: #e9ecef;
+        }
+        
+        .section-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .expand-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: #6c757d;
+        }
+        
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .section-content {
+            padding: 20px;
+            display: none;
+        }
+        
+        .section-content.expanded {
+            display: block;
+        }
+        
+        /* Metric Cards */
+        .risk-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .metric-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        /* Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .summary-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.2s ease;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .summary-card.critical {
+            border-color: #dc3545;
+        }
+        
+        .summary-card.high {
+            border-color: #fd7e14;
+        }
+        
+        .summary-card.medium {
+            border-color: #ffc107;
+        }
+        
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .summary-card.critical .summary-number {
+            color: #dc3545;
+        }
+        
+        .summary-card.high .summary-number {
+            color: #fd7e14;
+        }
+        
+        .summary-card.medium .summary-number {
+            color: #ffc107;
+        }
+        
+        .summary-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-weight: 500;
         }
         
         .ai-analysis-results > div {
@@ -2059,35 +2201,70 @@
                         </div>
                     </div>
 
-                    <!-- Overall Risk Assessment -->
-                    <div class="risk-assessment-section">
-                        <div class="risk-header">
+                    <!-- Risk Assessment Section -->
+                    <div class="analysis-section expandable-section">
+                        <div class="section-header" onclick="toggleSection('riskAssessment')">
                             <h3><i class="fas fa-exclamation-triangle"></i> Overall Risk Assessment</h3>
-                            <div class="risk-level-badge" id="riskLevelBadge">-</div>
-                        </div>
-                        <div class="risk-content">
-                            <div class="risk-score">
-                                <span class="risk-score-label">Risk Score:</span>
-                                <span class="risk-score-value" id="riskScoreValue">-</span>
+                            <div class="expand-indicator">
+                                <span class="risk-level-badge" id="riskLevelBadge">-</span>
+                                <i class="fas fa-chevron-down expand-icon" id="riskAssessment-icon"></i>
                             </div>
-                            <div class="risk-summary" id="riskSummary">-</div>
-                            <div class="risk-factors">
-                                <h4>Primary Risk Factors:</h4>
-                                <ul id="riskFactorsList"></ul>
+                        </div>
+                        <div class="section-content" id="riskAssessment-content">
+                            <div class="risk-overview">
+                                <div class="risk-metrics">
+                                    <div class="metric-card">
+                                        <div class="metric-label">Risk Score</div>
+                                        <div class="metric-value" id="riskScoreValue">-</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-label">Confidence</div>
+                                        <div class="metric-value" id="analysisConfidence">-</div>
+                                    </div>
+                                </div>
+                                <div class="risk-summary-card">
+                                    <h4>Risk Summary</h4>
+                                    <p id="riskSummary">-</p>
+                                </div>
+                                <div class="risk-factors-card">
+                                    <h4>Primary Risk Factors</h4>
+                                    <ul id="riskFactorsList" class="risk-factors-list"></ul>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Priority Actions Dashboard -->
-                    <div class="priority-actions-section">
-                        <div class="actions-header">
-                            <h3><i class="fas fa-tasks"></i> Priority Actions</h3>
-                            <div class="actions-subtitle">What needs to be done and how much it will cost</div>
-                        </div>
-                        <div class="actions-grid" id="priorityActionsGrid">
-                            <!-- Action cards will be populated here -->
+                    <!-- Priority Actions Section -->
+                <div class="analysis-section expandable-section">
+                    <div class="section-header" onclick="toggleSection('priorityActions')">
+                        <h3><i class="fas fa-tasks"></i> Priority Actions Dashboard</h3>
+                        <div class="expand-indicator">
+                            <span class="actions-count" id="actionsCount">0 actions</span>
+                            <i class="fas fa-chevron-down expand-icon" id="priorityActions-icon"></i>
                         </div>
                     </div>
+                    <div class="section-content" id="priorityActions-content">
+                        <div class="actions-summary">
+                            <div class="summary-cards">
+                                <div class="summary-card critical">
+                                    <div class="summary-number" id="criticalCount">0</div>
+                                    <div class="summary-label">Critical</div>
+                                </div>
+                                <div class="summary-card high">
+                                    <div class="summary-number" id="highCount">0</div>
+                                    <div class="summary-label">High Priority</div>
+                                </div>
+                                <div class="summary-card medium">
+                                    <div class="summary-number" id="mediumCount">0</div>
+                                    <div class="summary-label">Medium Priority</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions-grid" id="priorityActionsGrid">
+                            <!-- Action cards will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
 
                     <!-- Financial Impact Overview -->
                     <div class="financial-impact-section">
@@ -3521,10 +3698,26 @@
                 const actionsGrid = document.getElementById('priorityActionsGrid');
                 if (actionsGrid) {
                     actionsGrid.innerHTML = '';
+                    
+                    // Count actions by priority
+                    let criticalCount = 0, highCount = 0, mediumCount = 0;
+                    
                     analysis.priority_actions.forEach(action => {
                         const actionCard = createActionCard(action);
                         actionsGrid.appendChild(actionCard);
+                        
+                        // Count by priority
+                        const priority = (action.priority || '').toLowerCase();
+                        if (priority === 'critical') criticalCount++;
+                        else if (priority === 'high') highCount++;
+                        else if (priority === 'medium') mediumCount++;
                     });
+                    
+                    // Update summary cards
+                    setTextContent('actionsCount', `${analysis.priority_actions.length} actions`);
+                    setTextContent('criticalCount', criticalCount.toString());
+                    setTextContent('highCount', highCount.toString());
+                    setTextContent('mediumCount', mediumCount.toString());
                 }
             }
             
@@ -3700,6 +3893,24 @@
             }
         }
         
+        // Expandable sections functionality
+        function toggleSection(sectionId) {
+            const content = document.getElementById(`${sectionId}-content`);
+            const icon = document.getElementById(`${sectionId}-icon`);
+            
+            if (content && icon) {
+                const isExpanded = content.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    content.classList.remove('expanded');
+                    icon.classList.remove('rotated');
+                } else {
+                    content.classList.add('expanded');
+                    icon.classList.add('rotated');
+                }
+            }
+        }
+        
         // Tab functionality for equipment monitoring
         document.addEventListener('DOMContentLoaded', function() {
             const tabButtons = document.querySelectorAll('.tab-button');
@@ -3718,6 +3929,13 @@
                     document.getElementById(`${tabName}-panel`).classList.add('active');
                 });
             });
+            
+            // Auto-expand first section by default
+            const firstSection = document.querySelector('.expandable-section');
+            if (firstSection) {
+                const firstSectionId = firstSection.querySelector('.section-content').id.replace('-content', '');
+                toggleSection(firstSectionId);
+            }
         });
         
         function showAIAnalysisError(errorMessage) {
