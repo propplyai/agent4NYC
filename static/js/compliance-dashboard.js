@@ -645,37 +645,111 @@ class ComplianceDashboard {
         const score = riskAssessment.risk_score || '0/100';
         const riskLevel = riskAssessment.risk_level || 'Unknown';
         const timestamp = analysis.analysis_timestamp ? new Date(analysis.analysis_timestamp).toLocaleString() : new Date().toLocaleString();
+        const confidence = analysis.ai_confidence || 'High';
         
-        const getRiskColor = (level) => {
-            switch(level?.toLowerCase()) {
-                case 'low': return 'success';
-                case 'medium': return 'warning';
-                case 'high': return 'danger';
-                default: return 'secondary';
-            }
+        // Parse numeric score for better visualization
+        const numericScore = parseInt(score.split('/')[0]) || 0;
+        
+        // Enhanced status determination
+        const getScoreStatus = (score) => {
+            if (score >= 95) return { 
+                color: '#10b981', 
+                badge: 'success', 
+                status: 'OUTSTANDING',
+                icon: 'fas fa-trophy',
+                description: 'Exceptional compliance record'
+            };
+            if (score >= 85) return { 
+                color: '#059669', 
+                badge: 'success', 
+                status: 'EXCELLENT',
+                icon: 'fas fa-star',
+                description: 'Strong compliance performance'
+            };
+            if (score >= 75) return { 
+                color: '#3b82f6', 
+                badge: 'primary', 
+                status: 'GOOD',
+                icon: 'fas fa-thumbs-up',
+                description: 'Solid compliance standing'
+            };
+            if (score >= 60) return { 
+                color: '#f59e0b', 
+                badge: 'warning', 
+                status: 'NEEDS ATTENTION',
+                icon: 'fas fa-exclamation-triangle',
+                description: 'Some compliance issues'
+            };
+            return { 
+                color: '#ef4444', 
+                badge: 'danger', 
+                status: 'CRITICAL',
+                icon: 'fas fa-exclamation-circle',
+                description: 'Serious compliance deficiencies'
+            };
         };
+        
+        const status = getScoreStatus(numericScore);
+        const progressPercent = (numericScore / 100) * 100;
 
         return `
             <div class="enhanced-report-header">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h1 class="report-building-title">🏢 ${property.address.toUpperCase()}</h1>
-                        <p class="report-building-subtitle">Building ID: ${property.bin} | ${property.borough}</p>
-                        <div class="analysis-meta">
-                            <small class="text-muted">
-                                <i class="fas fa-clock me-1"></i>Analysis completed: ${timestamp}
-                                ${analysis.ai_confidence ? `| Confidence: ${analysis.ai_confidence}` : ''}
-                            </small>
+                    <div class="col-md-7">
+                        <div class="property-info">
+                            <h1 class="property-title">
+                                <i class="fas fa-building text-primary me-2"></i>
+                                ${property.address}
+                            </h1>
+                            <div class="property-metadata mb-3">
+                                <div class="metadata-grid">
+                                    <span class="metadata-item">
+                                        <i class="fas fa-map-marker-alt text-muted"></i>
+                                        <strong>${property.borough}</strong>
+                                    </span>
+                                    <span class="metadata-item">
+                                        <i class="fas fa-id-card text-muted"></i>
+                                        BIN: <strong>${property.bin}</strong>
+                                    </span>
+                                    <span class="metadata-item">
+                                        <i class="fas fa-hashtag text-muted"></i>
+                                        BBL: <strong>${property.bbl}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="analysis-details">
+                                <div class="detail-row">
+                                    <i class="fas fa-clock text-info"></i>
+                                    <span>Analysis completed ${new Date(timestamp).toLocaleDateString()} at ${new Date(timestamp).toLocaleTimeString()}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <i class="fas fa-brain text-primary"></i>
+                                    <span>AI Confidence: <strong class="text-${confidence.toLowerCase() === 'high' ? 'success' : confidence.toLowerCase() === 'medium' ? 'warning' : 'danger'}">${confidence}</strong></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4 text-end">
-                        <div class="risk-score-display">
-                            <div class="score-circle">
-                                <span class="score-number">${score.split('/')[0]}</span>
-                                <small class="score-total">/${score.split('/')[1] || '100'}</small>
-                            </div>
-                            <div class="risk-level">
-                                <span class="badge bg-${getRiskColor(riskLevel)} risk-badge">${riskLevel.toUpperCase()} RISK</span>
+                    <div class="col-md-5">
+                        <div class="score-showcase">
+                            <div class="score-container">
+                                <div class="score-circle-enhanced" style="background: conic-gradient(${status.color} 0deg, ${status.color} ${progressPercent * 3.6}deg, rgba(255,255,255,0.1) ${progressPercent * 3.6}deg);">
+                                    <div class="score-inner">
+                                        <div class="score-number-large">${numericScore}</div>
+                                        <div class="score-denominator">/100</div>
+                                    </div>
+                                </div>
+                                <div class="score-details mt-3">
+                                    <div class="status-badge-enhanced bg-${status.badge} text-white">
+                                        <i class="${status.icon} me-1"></i>
+                                        ${status.status}
+                                    </div>
+                                    <div class="risk-level-enhanced mt-2">
+                                        <small class="text-muted">${riskLevel}</small>
+                                    </div>
+                                    <div class="status-description mt-1">
+                                        <small class="text-muted">${status.description}</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -730,43 +804,161 @@ class ComplianceDashboard {
 
     generatePriorityActionCard(action) {
         const urgencyClass = this.getPriorityClass(action.priority);
-        const deadline = action.timeline?.deadline ? new Date(action.timeline.deadline).toLocaleDateString() : 'No deadline';
+        const deadlineStr = action.timeline?.deadline || '';
+        const deadlineDate = deadlineStr ? new Date(deadlineStr) : null;
+        const urgencyText = action.timeline?.urgency || '';
+        
+        // Calculate days until deadline
+        let daysUntilDeadline = '';
+        let deadlineStatus = '';
+        if (deadlineDate) {
+            const today = new Date();
+            const timeDiff = deadlineDate.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            if (daysDiff < 0) {
+                daysUntilDeadline = `${Math.abs(daysDiff)} days overdue`;
+                deadlineStatus = 'overdue';
+            } else if (daysDiff === 0) {
+                daysUntilDeadline = 'Due today';
+                deadlineStatus = 'today';
+            } else if (daysDiff <= 30) {
+                daysUntilDeadline = `${daysDiff} days left`;
+                deadlineStatus = 'urgent';
+            } else {
+                daysUntilDeadline = `${daysDiff} days remaining`;
+                deadlineStatus = 'normal';
+            }
+        }
+
         const cost = action.financial_impact?.estimated_cost || 'Cost TBD';
         const penalty = action.financial_impact?.potential_penalty || 'Penalty TBD';
+        const penaltyEscalation = action.financial_impact?.penalty_escalation || '';
+        const costBenefit = action.financial_impact?.cost_benefit || '';
+        
+        // Get priority icon
+        const getPriorityIcon = (priority) => {
+            switch(priority?.toLowerCase()) {
+                case 'critical': return 'fas fa-exclamation-triangle';
+                case 'high': return 'fas fa-arrow-up';
+                case 'medium': return 'fas fa-minus';
+                case 'low': return 'fas fa-arrow-down';
+                default: return 'fas fa-info-circle';
+            }
+        };
         
         return `
             <div class="priority-action-card ${urgencyClass}">
                 <div class="action-header">
-                    <div class="action-priority">${action.priority}</div>
-                    <div class="action-category">${action.category?.toUpperCase() || 'GENERAL'}</div>
+                    <div class="header-left">
+                        <div class="action-priority">
+                            <i class="${getPriorityIcon(action.priority)} me-1"></i>
+                            ${action.priority}
+                        </div>
+                        <div class="action-category">${action.category?.toUpperCase() || 'GENERAL'}</div>
+                    </div>
+                    ${deadlineDate ? `
+                        <div class="deadline-countdown deadline-${deadlineStatus}">
+                            <div class="countdown-number">${daysUntilDeadline}</div>
+                            <div class="countdown-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                ${deadlineDate.toLocaleDateString()}
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
-                <h4 class="action-title">${action.title}</h4>
-                <p class="action-description">${action.action}</p>
-                <div class="action-details">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <strong>Deadline:</strong><br>
-                            <span class="deadline-date">${deadline}</span>
+                
+                <div class="action-content">
+                    <h4 class="action-title">${action.title}</h4>
+                    <p class="action-description">${action.action}</p>
+                    
+                    ${urgencyText ? `
+                        <div class="urgency-alert">
+                            <i class="fas fa-clock text-warning"></i>
+                            <strong>Timeline:</strong> ${urgencyText}
                         </div>
-                        <div class="col-md-4">
-                            <strong>Estimated Cost:</strong><br>
-                            <span class="cost-amount">${cost}</span>
+                    ` : ''}
+                </div>
+
+                <div class="financial-impact-summary">
+                    <div class="impact-grid">
+                        <div class="impact-item cost">
+                            <div class="impact-label">
+                                <i class="fas fa-dollar-sign text-info"></i>
+                                Estimated Cost
+                            </div>
+                            <div class="impact-value">${cost}</div>
                         </div>
-                        <div class="col-md-4">
-                            <strong>Potential Penalty:</strong><br>
-                            <span class="penalty-amount text-danger">${penalty}</span>
+                        <div class="impact-item penalty">
+                            <div class="impact-label">
+                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                                Potential Penalty
+                            </div>
+                            <div class="impact-value text-danger">${penalty}</div>
                         </div>
                     </div>
+                    
+                    ${penaltyEscalation ? `
+                        <div class="penalty-escalation">
+                            <small class="text-warning">
+                                <i class="fas fa-chart-line"></i>
+                                <strong>Escalation:</strong> ${penaltyEscalation}
+                            </small>
+                        </div>
+                    ` : ''}
+                    
+                    ${costBenefit ? `
+                        <div class="cost-benefit">
+                            <small class="text-success">
+                                <i class="fas fa-lightbulb"></i>
+                                <strong>Benefit:</strong> ${costBenefit}
+                            </small>
+                        </div>
+                    ` : ''}
                 </div>
+
                 ${action.reason ? `
                     <div class="action-reason">
-                        <strong>Why this matters:</strong> ${action.reason}
+                        <div class="reason-header">
+                            <i class="fas fa-info-circle text-primary"></i>
+                            <strong>Why this matters</strong>
+                        </div>
+                        <p class="reason-text">${action.reason}</p>
                     </div>
                 ` : ''}
+
                 ${action.regulatory_context ? `
                     <div class="regulatory-context">
+                        <div class="regulatory-header">
+                            <i class="fas fa-gavel text-muted"></i>
+                            <strong>Regulatory Details</strong>
+                        </div>
+                        <div class="regulatory-details">
+                            <div class="regulatory-item">
+                                <span class="detail-label">Reference:</span>
+                                <span class="detail-value">${action.regulatory_context.regulation_reference || 'N/A'}</span>
+                            </div>
+                            ${action.regulatory_context.penalty_schedule ? `
+                                <div class="regulatory-item">
+                                    <span class="detail-label">Penalties:</span>
+                                    <span class="detail-value">${action.regulatory_context.penalty_schedule}</span>
+                                </div>
+                            ` : ''}
+                            ${action.regulatory_context.filing_requirements ? `
+                                <div class="regulatory-item">
+                                    <span class="detail-label">Requirements:</span>
+                                    <span class="detail-value">${action.regulatory_context.filing_requirements}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${action.device_id ? `
+                    <div class="device-reference">
                         <small class="text-muted">
-                            <strong>Regulation:</strong> ${action.regulatory_context.regulation_reference || 'N/A'}
+                            <i class="fas fa-cog"></i>
+                            Device/Permit ID: <code>${action.device_id}</code>
                         </small>
                     </div>
                 ` : ''}

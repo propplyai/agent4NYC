@@ -28,6 +28,120 @@
     backdrop-filter: blur(10px);
 }
 
+/* Enhanced Header Styles */
+.property-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.property-metadata {
+    margin-bottom: 1rem;
+}
+
+.metadata-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.metadata-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+.metadata-item i {
+    opacity: 0.7;
+}
+
+.analysis-details {
+    margin-top: 1rem;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.score-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.score-container {
+    text-align: center;
+}
+
+.score-circle-enhanced {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.score-inner {
+    text-align: center;
+    color: white;
+}
+
+.score-number-large {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.score-denominator {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-top: -0.25rem;
+}
+
+.status-badge-enhanced {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.risk-level-enhanced {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.status-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
 .score-number {
     font-size: 2.5rem;
     font-weight: 800;
@@ -90,8 +204,151 @@
 .action-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.header-left {
+    display: flex;
+    gap: 1rem;
     align-items: center;
+}
+
+.deadline-countdown {
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    min-width: 120px;
+}
+
+.deadline-countdown.deadline-overdue {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.deadline-countdown.deadline-today {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+}
+
+.deadline-countdown.deadline-urgent {
+    background: rgba(245, 158, 11, 0.05);
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+}
+
+.countdown-number {
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.countdown-label {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.action-content {
+    margin-bottom: 1.5rem;
+}
+
+.urgency-alert {
+    background: rgba(245, 158, 11, 0.1);
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+    border-left: 3px solid var(--warning-color);
+}
+
+.financial-impact-summary {
+    background: var(--bg-secondary);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
     margin-bottom: 1rem;
+}
+
+.impact-item {
+    text-align: center;
+}
+
+.impact-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.impact-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.penalty-escalation, .cost-benefit {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: 0.75rem;
+}
+
+.reason-header, .regulatory-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.reason-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.regulatory-details {
+    background: var(--bg-tertiary);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.regulatory-item {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.regulatory-item:last-child {
+    margin-bottom: 0;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    min-width: 100px;
+    margin-right: 1rem;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.device-reference {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
 }
 
 .action-priority {
