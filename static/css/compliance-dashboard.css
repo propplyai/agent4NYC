@@ -7,8 +7,15 @@
     --warning: #d97706;
     --danger: #dc2626;
     --info: #0891b2;
-    --light: #f8fafc;
-    --dark: #0f172a;
+    
+    /* Light theme */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    
     --ai-blue: #3b82f6;
     --ai-purple: #8b5cf6;
     --ai-gradient: linear-gradient(135deg, var(--ai-blue) 0%, var(--ai-purple) 100%);
@@ -18,11 +25,33 @@
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
+/* Dark theme colors */
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #111111;
+    --bg-tertiary: #0a0a0a;
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #111111;
+        --bg-tertiary: #0a0a0a;
+        --text-primary: #ffffff;
+        --text-secondary: #e2e8f0;
+        --text-muted: #94a3b8;
+    }
+}
+
 body {
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    background: var(--bg-secondary);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: var(--dark);
+    color: var(--text-primary);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Header Styles */
@@ -74,7 +103,8 @@ body {
 }
 
 .search-card .card-header {
-    background: white;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     border-bottom: 3px solid var(--ai-blue);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     padding: 1.5rem;
@@ -174,13 +204,13 @@ body {
 }
 
 .loading-title {
-    color: var(--dark);
+    color: var(--text-primary);
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
 .loading-subtitle {
-    color: var(--secondary);
+    color: var(--text-secondary);
     margin-bottom: 0;
 }
 
@@ -219,7 +249,8 @@ body {
 /* AI Report Content Styles */
 .ai-report-container {
     padding: 2rem;
-    background: white;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .report-header {
@@ -232,19 +263,19 @@ body {
 .report-building-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
 .report-building-subtitle {
-    color: var(--secondary);
+    color: var(--text-secondary);
     font-size: 1.1rem;
 }
 
 /* Compliance Sections */
 .compliance-section {
     margin-bottom: 2rem;
-    background: #f8fafc;
+    background: var(--bg-secondary);
     border-radius: var(--border-radius);
     padding: 2rem;
     border-left: 5px solid var(--ai-blue);
@@ -265,7 +296,7 @@ body {
 .section-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -281,12 +312,12 @@ body {
 
 /* Violation Items */
 .violation-item {
-    background: white;
+    background: var(--bg-primary);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     margin-bottom: 1rem;
     box-shadow: var(--shadow);
-    border-left: 4px solid #e2e8f0;
+    border-left: 4px solid var(--text-muted);
     transition: all 0.3s ease;
 }
 
@@ -312,12 +343,12 @@ body {
 
 .violation-date {
     font-weight: 600;
-    color: var(--dark);
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
 .violation-description {
-    color: var(--secondary);
+    color: var(--text-secondary);
     margin-bottom: 1rem;
     line-height: 1.5;
 }
@@ -355,7 +386,7 @@ body {
 }
 
 .status-item {
-    background: white;
+    background: var(--bg-primary);
     padding: 1rem;
     border-radius: var(--border-radius);
     text-align: center;
@@ -369,7 +400,7 @@ body {
 }
 
 .status-label {
-    color: var(--secondary);
+    color: var(--text-secondary);
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -377,7 +408,7 @@ body {
 
 /* Scorecard Table */
 .scorecard-table {
-    background: white;
+    background: var(--bg-primary);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -440,7 +471,7 @@ body {
 .recommendations-title {
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
@@ -451,7 +482,7 @@ body {
 .category-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--text-primary);
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -463,12 +494,13 @@ body {
 }
 
 .recommendation-item {
-    background: white;
+    background: var(--bg-primary);
     padding: 1rem 1.5rem;
     border-radius: var(--border-radius);
     margin-bottom: 0.5rem;
     border-left: 4px solid var(--ai-blue);
     box-shadow: var(--shadow);
+    color: var(--text-primary);
 }
 
 /* Building Highlights */
@@ -494,7 +526,7 @@ body {
 .highlights-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -516,7 +548,7 @@ body {
 }
 
 .highlight-text {
-    color: var(--dark);
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -529,7 +561,7 @@ body {
 }
 
 .equipment-item {
-    background: white;
+    background: var(--bg-primary);
     padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
@@ -545,12 +577,12 @@ body {
 
 .equipment-type {
     font-weight: 600;
-    color: var(--dark);
+    color: var(--text-primary);
     margin: 0.5rem 0;
 }
 
 .equipment-details {
-    color: var(--secondary);
+    color: var(--text-secondary);
     font-size: 0.875rem;
 }
 

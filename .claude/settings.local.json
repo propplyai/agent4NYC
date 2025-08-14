@@ -19,6 +19,7 @@
       "Bash(git reset:*)",
       "Bash(rm:*)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "acceptEdits"
   }
 }

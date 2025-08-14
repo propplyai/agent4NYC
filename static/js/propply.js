@@ -8,7 +8,8 @@ const PropplyApp = {
     state: {
         isLoading: false,
         currentUser: null,
-        dashboardData: null
+        dashboardData: null,
+        theme: localStorage.getItem('theme') || 'auto'
     },
     
     // Initialize the application
@@ -16,6 +17,7 @@ const PropplyApp = {
         this.setupEventListeners();
         this.initializeTooltips();
         this.checkAuthStatus();
+        this.initializeTheme();
     },
     
     // Setup global event listeners
@@ -32,6 +34,13 @@ const PropplyApp = {
             if (e.target.matches('.ajax-form')) {
                 e.preventDefault();
                 this.handleAjaxForm(e.target);
+            }
+        });
+        
+        // Handle theme toggle
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.theme-toggle') || e.target.closest('.theme-toggle')) {
+                this.toggleTheme();
             }
         });
         
@@ -156,6 +165,65 @@ const PropplyApp = {
         } finally {
             this.showLoading(false);
         }
+    },
+    
+    // Theme management
+    initializeTheme() {
+        this.applyTheme(this.state.theme);
+    },
+    
+    applyTheme(theme) {
+        const html = document.documentElement;
+        
+        if (theme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+        } else if (theme === 'light') {
+            html.removeAttribute('data-theme');
+        } else {
+            // Auto mode - follow system preference
+            html.removeAttribute('data-theme');
+        }
+        
+        this.state.theme = theme;
+        localStorage.setItem('theme', theme);
+        this.updateThemeToggleIcon();
+    },
+    
+    toggleTheme() {
+        let newTheme;
+        switch (this.state.theme) {
+            case 'light':
+                newTheme = 'dark';
+                break;
+            case 'dark':
+                newTheme = 'auto';
+                break;
+            default:
+                newTheme = 'light';
+                break;
+        }
+        this.applyTheme(newTheme);
+    },
+    
+    updateThemeToggleIcon() {
+        const toggleButton = document.querySelector('.theme-toggle');
+        if (!toggleButton) return;
+        
+        const icon = toggleButton.querySelector('i');
+        if (!icon) return;
+        
+        icon.className = '';
+        switch (this.state.theme) {
+            case 'light':
+                icon.className = 'fas fa-sun';
+                break;
+            case 'dark':
+                icon.className = 'fas fa-moon';
+                break;
+            default:
+                icon.className = 'fas fa-adjust';
+                break;
+        }
     }
 };
 
@@ -229,10 +297,10 @@ function createToast(type, message) {
     toastElement.className = 'toast';
     toastElement.setAttribute('role', 'alert');
     toastElement.innerHTML = `
-        <div class="toast-header ${toastColors[type]} text-white">
-            <i class="${toastIcons[type]} me-2"></i>
-            <strong class="me-auto">${type.charAt(0).toUpperCase() + type.slice(1)}</strong>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+        <div class="toast-header ${toastColors[type]}">
+            <i class="${toastIcons[type]} me-2" style="color: white;"></i>
+            <strong class="me-auto" style="color: white;">${type.charAt(0).toUpperCase() + type.slice(1)}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" style="filter: brightness(0) invert(1);"></button>
         </div>
         <div class="toast-body">${message}</div>
     `;

@@ -10,6 +10,7 @@
     --danger-color: #ef4444;
     --info-color: #06b6d4;
     
+    /* Light theme colors */
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
     --bg-tertiary: #f1f5f9;
@@ -32,6 +33,32 @@
     
     --sidebar-width: 280px;
     --header-height: 80px;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #111111;
+    --bg-tertiary: #0a0a0a;
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border-color: #2d3748;
+    --border-light: #1a202c;
+}
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #111111;
+        --bg-tertiary: #0a0a0a;
+        --text-primary: #ffffff;
+        --text-secondary: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border-color: #2d3748;
+        --border-light: #1a202c;
+    }
 }
 
 /* Global Styles */
