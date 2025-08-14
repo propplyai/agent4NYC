@@ -375,7 +375,7 @@
         }
 
         .property-summary {
-            background: white;
+            background: var(--bg-card);
             border-radius: 10px;
             padding: 25px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -829,7 +829,7 @@
         }
         
         .summary-card {
-            background: white;
+            background: var(--bg-card);
             padding: 15px;
             border-radius: 8px;
             text-align: center;
@@ -879,7 +879,7 @@
         }
         
         .ai-analysis-results > div {
-            background: white;
+            background: var(--bg-card);
             border-radius: 10px;
             padding: 25px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -955,8 +955,23 @@
         }
         
         .risk-level-badge.low { background: #d4edda; color: #155724; }
+        
+        [data-theme="dark"] .risk-level-badge.low { 
+            background: #052e16; 
+            color: #34d399 !important; 
+        }
         .risk-level-badge.moderate { background: #fff3cd; color: #856404; }
+        
+        [data-theme="dark"] .risk-level-badge.moderate { 
+            background: #4a3d00; 
+            color: #fbbf24 !important; 
+        }
         .risk-level-badge.high { background: #f8d7da; color: #721c24; }
+        
+        [data-theme="dark"] .risk-level-badge.high { 
+            background: #4c1d24; 
+            color: #f87171 !important; 
+        }
         .risk-level-badge.critical { background: #dc3545; color: white; }
         
         .risk-score {
@@ -1048,22 +1063,22 @@
         
         .action-card.critical {
             border-left: 4px solid #dc3545;
-            background: #fff5f5;
+            background: var(--bg-card);
         }
         
         .action-card.high {
             border-left: 4px solid #fd7e14;
-            background: #fff8f0;
+            background: var(--bg-card);
         }
         
         .action-card.medium {
             border-left: 4px solid #ffc107;
-            background: #fffbf0;
+            background: var(--bg-card);
         }
         
         .action-card.low {
             border-left: 4px solid #28a745;
-            background: #f8fff9;
+            background: var(--bg-card);
         }
         
         .action-header {
@@ -1260,7 +1275,7 @@
         }
         
         .tab-button.active {
-            background: white;
+            background: var(--bg-card);
             color: #667eea;
             font-weight: 600;
         }
@@ -1329,7 +1344,7 @@
         
         .property-details-dropdown {
             border-top: 1px solid #e9ecef;
-            background: #ffffff;
+            background: var(--bg-card);
             padding: 12px 16px;
         }
         
@@ -1435,7 +1450,7 @@
         }
         
         .service-category {
-            background: white;
+            background: var(--bg-card);
             border: 1px solid #dee2e6;
             border-radius: 6px;
             margin-bottom: 8px;
@@ -1448,7 +1463,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #ffffff;
+            background: var(--bg-card);
             border-bottom: 1px solid #dee2e6;
         }
         
@@ -1550,7 +1565,7 @@
         .score-critical { background: linear-gradient(135deg, #f44336, #d32f2f); }
 
         .compliance-table {
-            background: white;
+            background: var(--bg-card);
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow: hidden;
@@ -1649,7 +1664,7 @@
         }
 
         .detail-section {
-            background: white;
+            background: var(--bg-card);
             border-radius: 8px;
             padding: 20px;
             border-left: 4px solid #667eea;
@@ -1695,7 +1710,7 @@
         }
 
         .records-table {
-            background: white;
+            background: var(--bg-card);
             border-radius: 8px;
             overflow: hidden;
             margin-top: 20px;
@@ -1747,7 +1762,7 @@
         }
 
         .modal-content {
-            background-color: white;
+            background-color: var(--bg-card);
             margin: 5% auto;
             padding: 30px;
             border-radius: 10px;
@@ -1824,7 +1839,7 @@
         }
 
         .description-text {
-            background: white;
+            background: var(--bg-card);
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #667eea;
@@ -1989,8 +2004,21 @@
         
         /* Ensure all paragraph and list text is visible */
         [data-theme="dark"] p, [data-theme="dark"] li, [data-theme="dark"] span,
-        [data-theme="dark"] div:not(.status-text):not(.badge) {
+        [data-theme="dark"] div:not(.status-text):not(.badge):not(.circular-progress):not(.toggle-slider) {
             color: #f8fafc !important;
+        }
+        
+        /* Add base text color inheritance */
+        p, li, span, div, label, input, textarea, select {
+            color: inherit;
+        }
+        
+        /* Ensure proper contrast for light mode elements */
+        .property-summary, .summary-card, .ai-analysis-results > div,
+        .action-card, .service-category, .compliance-table,
+        .detail-section, .records-table, .modal-content,
+        .description-text, .vendor-marketplace, .vendor-category {
+            color: var(--text-primary);
         }
         
         /* Risk Assessment Redesign */
@@ -2106,6 +2134,33 @@
         [data-theme="dark"] .text-muted,
         [data-theme="dark"] .text-secondary {
             color: #cccccc !important;
+        }
+        
+        /* Fix input and form elements in dark mode */
+        [data-theme="dark"] input, 
+        [data-theme="dark"] textarea, 
+        [data-theme="dark"] select {
+            background: var(--bg-input) !important;
+            color: var(--text-primary) !important;
+            border-color: var(--border-color) !important;
+        }
+        
+        /* Fix dropdown and select elements */
+        [data-theme="dark"] option {
+            background: var(--bg-input) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        /* Fix table headers and cells */
+        [data-theme="dark"] th, 
+        [data-theme="dark"] td {
+            color: var(--text-primary) !important;
+            background: inherit !important;
+        }
+        
+        [data-theme="dark"] .table-header {
+            background: var(--bg-tertiary) !important;
+            color: var(--text-primary) !important;
         }
         
         .risk-badge-enhanced {
@@ -2305,7 +2360,7 @@
 
         /* Vendor Marketplace Styles */
         .vendor-marketplace {
-            background: linear-gradient(135deg, #f8fffe 0%, #ffffff 100%);
+            background: var(--bg-card);
             border-radius: 12px;
             padding: 0;
             margin-bottom: 25px;
@@ -2338,7 +2393,7 @@
         }
         
         .vendor-category {
-            background: white;
+            background: var(--bg-card);
             border-radius: 10px;
             border: 1px solid #e5e7eb;
             overflow: hidden;
@@ -2436,8 +2491,8 @@
             padding: 8px 12px;
             border: 1px solid #e5e7eb;
             border-radius: 6px;
-            background: white;
-            color: #374151;
+            background: var(--bg-card);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 500;
@@ -2548,7 +2603,7 @@
         }
 
         .error-message {
-            background: #fff3f3;
+            background: var(--bg-tertiary);
             color: #d32f2f;
             padding: 15px;
             border-radius: 8px;
