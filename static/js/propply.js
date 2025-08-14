@@ -292,6 +292,30 @@ const PropplyApp = {
             el.style.borderColor = 'var(--border-color)';
         });
         
+        // Nuclear option: fix ALL elements that have computed white backgrounds
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+            const computedStyle = window.getComputedStyle(el);
+            const bgColor = computedStyle.backgroundColor;
+            
+            // Check if background is white or near-white
+            if (bgColor === 'rgb(255, 255, 255)' || 
+                bgColor === 'rgba(255, 255, 255, 1)' ||
+                bgColor === '#ffffff' ||
+                bgColor === '#fff' ||
+                bgColor === 'white' ||
+                bgColor === 'rgb(248, 250, 252)' ||
+                bgColor === 'rgb(241, 245, 249)' ||
+                bgColor === 'rgb(226, 232, 240)') {
+                
+                el.style.backgroundColor = 'var(--bg-primary)';
+                if (computedStyle.color === 'rgb(0, 0, 0)' || computedStyle.color === '#000' || computedStyle.color === 'black') {
+                    el.style.color = 'var(--text-primary)';
+                }
+                el.style.borderColor = 'var(--border-color)';
+            }
+        });
+        
         // Fix badge and label elements that might be light blue
         const badgeElements = document.querySelectorAll('.badge, .label, .tag, .chip, .btn-info, .btn-light');
         badgeElements.forEach(el => {
@@ -378,10 +402,10 @@ const PropplyApp = {
             clearInterval(this.styleFixerInterval);
         }
         
-        // Fix styles every 2 seconds to catch dynamic content
+        // Fix styles every 1 second to catch dynamic content aggressively
         this.styleFixerInterval = setInterval(() => {
             this.fixInlineStyles();
-        }, 2000);
+        }, 1000);
         
         console.log('[DEBUG] Started periodic style fixer for dark mode');
     },

@@ -403,6 +403,64 @@
         background-color: var(--bg-secondary) !important;
         color: var(--text-primary) !important;
     }
+    
+    /* Extremely aggressive white background detection */
+    * {
+        /* Force override any white or near-white backgrounds */
+    }
+    
+    /* Target specific compliance data elements visible in screenshot */
+    .device-summary,
+    .device-table,
+    .device-records,
+    .compliance-data,
+    .data-grid,
+    .equipment-details,
+    .device-info,
+    .inspection-data,
+    .equipment-grid .equipment-card,
+    .summary-card,
+    .data-card,
+    /* Any div that might contain tabular data */
+    div[class*="device"],
+    div[class*="summary"],
+    div[class*="table"],
+    div[class*="grid"],
+    div[class*="data"],
+    /* Target by common background colors */
+    div[style*="background-color: #fff"],
+    div[style*="background: #fff"],
+    div[style*="background-color: white"],
+    div[style*="background: white"],
+    div[style*="background-color: #ffffff"],
+    div[style*="background: #ffffff"],
+    /* Light blues and grays that appear white-ish */
+    div[style*="background-color: #f1f5f9"],
+    div[style*="background-color: #f8fafc"],
+    div[style*="background-color: #e2e8f0"],
+    /* Any element with these classes that commonly have white backgrounds */
+    .bg-white,
+    .bg-light,
+    .bg-body,
+    .bg-body-secondary,
+    .bg-body-tertiary,
+    .table-light,
+    .list-group-item-light {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
+    
+    /* Nuclear option: catch all white backgrounds with wildcard */
+    *[style*="background"][style*="white"],
+    *[style*="background"][style*="#fff"],
+    *[style*="background"][style*="255, 255, 255"],
+    *[style*="background"][style*="rgb(255"],
+    *[style*="background"][style*="rgba(255, 255, 255"] {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-color) !important;
+    }
 }
 
 [data-theme="dark"] *[style*="255, 255, 255"],
