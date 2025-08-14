@@ -1687,18 +1687,52 @@
         }
         
         /* Risk Assessment Redesign */
+        /* Modern Risk Assessment Card */
         .risk-assessment-enhanced {
-            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-left: 5px solid;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-large);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
         
-        .risk-critical-border { border-left-color: #dc2626; }
-        .risk-high-border { border-left-color: #ea580c; }
-        .risk-moderate-border { border-left-color: #d97706; }
-        .risk-low-border { border-left-color: #16a34a; }
+        .risk-assessment-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-warning);
+            border-radius: 2px 0 0 2px;
+        }
+        
+        .risk-assessment-enhanced.risk-critical-border::before {
+            background: var(--gradient-error);
+        }
+        
+        .risk-assessment-enhanced.risk-high-border::before {
+            background: linear-gradient(135deg, #ea580c, #dc2626);
+        }
+        
+        .risk-assessment-enhanced.risk-moderate-border::before {
+            background: var(--gradient-warning);
+        }
+        
+        .risk-assessment-enhanced.risk-low-border::before {
+            background: var(--gradient-success);
+        }
+        
+        .risk-assessment-enhanced:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
         
         .risk-header {
             display: flex;
@@ -1790,24 +1824,40 @@
             gap: 15px;
         }
         
+        /* Modern Action Cards */
         .action-card-enhanced {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            border-left: 4px solid;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 2px 0 0 2px;
         }
         
         .action-card-enhanced:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            box-shadow: var(--shadow-large);
         }
         
-        .action-critical { border-left-color: #dc2626; }
-        .action-high { border-left-color: #ea580c; }
-        .action-medium { border-left-color: #d97706; }
-        .action-low { border-left-color: #16a34a; }
+        .action-critical::before { background: var(--gradient-error); }
+        .action-high::before { background: linear-gradient(135deg, #ea580c, #dc2626); }
+        .action-medium::before { background: var(--gradient-warning); }
+        .action-low::before { background: var(--gradient-success); }
         
         .action-header-enhanced {
             display: flex;
@@ -2119,6 +2169,125 @@
             margin-top: 20px;
         }
 
+        /* Floating Action Button */
+        .fab-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fab:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.4);
+        }
+        
+        .fab:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: center;
+            border-radius: 8px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1001;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--bg-tertiary) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
         /* Mobile Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -2474,8 +2643,14 @@
                             
                             <!-- Prominent Compliance Score Display -->
                             <div class="compliance-score-prominent">
-                                <div class="compliance-score-label">Compliance Score</div>
-                                <div class="compliance-score-value" id="overallScoreProminent">93</div>
+                                <div class="compliance-score-container">
+                                    <div class="circular-progress" style="--progress: 93">
+                                        <div class="compliance-score-content">
+                                            <div class="compliance-score-label">Compliance Score</div>
+                                            <div class="compliance-score-value" id="overallScoreProminent">93</div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="compliance-score-subtitle" id="reportDate">Report generated on: 8/14/2025</div>
                             </div>
                             
@@ -3110,7 +3285,14 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- Floating Action Button (Mobile) -->
+    <div class="fab-container">
+        <button class="fab" onclick="scrollToTop()" title="Analyze New Property">
+            <i data-lucide="plus"></i>
+        </button>
+    </div>
+    
     <script>
         let currentData = null;
         let propertyMap = null;
@@ -4720,6 +4902,30 @@
             }
         }
         
+        // Scroll to top function for FAB
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            // Clear address input and hide results
+            document.getElementById('addressInput').value = '';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('addressInput').focus();
+        }
+        
+        // Show/hide FAB based on scroll and screen size
+        function toggleFAB() {
+            const fab = document.querySelector('.fab-container');
+            const isMobile = window.innerWidth <= 768;
+            const scrolled = window.scrollY > 300;
+            const hasResults = document.getElementById('resultsSection').style.display !== 'none';
+            
+            if (fab) {
+                fab.style.display = (isMobile && (scrolled || hasResults)) ? 'block' : 'none';
+            }
+        }
+        
         // Initialize everything when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Propply AI Report page loaded');
@@ -4731,6 +4937,29 @@
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
+            
+            // Setup FAB visibility
+            window.addEventListener('scroll', toggleFAB);
+            window.addEventListener('resize', toggleFAB);
+            toggleFAB(); // Initial check
+            
+            // Add animation classes to cards when they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all cards for animation
+            const cards = document.querySelectorAll('.risk-assessment-enhanced, .priority-actions-enhanced, .action-card-enhanced, .detailed-analysis');
+            cards.forEach(card => observer.observe(card));
         });
         
     </script>
