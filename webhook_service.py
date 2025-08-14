@@ -30,7 +30,7 @@ class ComplianceWebhookService:
     
     def send_compliance_data(self, compliance_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
-        Send filtered compliance analysis data to external AI agent webhook
+        Send compliance analysis data to external AI agent webhook
         
         Args:
             compliance_data: Complete compliance analysis data from our system
@@ -39,19 +39,15 @@ class ComplianceWebhookService:
             Response from external AI agent or None if failed
         """
         try:
-            # Filter and clean data for external AI agent
-            filtered_data = self._prepare_filtered_data(compliance_data)
-            
-            # Prepare webhook payload with only filtered NYC data
+            # Prepare webhook payload
             webhook_payload = {
                 "timestamp": datetime.now().isoformat(),
                 "source": "propply_ai_compliance_system",
-                "data_type": "filtered_property_data", 
-                "property_data": filtered_data,
+                "data_type": "property_compliance_analysis", 
+                "compliance_data": compliance_data,
                 "request_metadata": {
-                    "version": "2.0",
-                    "analysis_type": "external_ai_compliance_analysis",
-                    "data_filter": "last_2_years_only",
+                    "version": "1.0",
+                    "analysis_type": "comprehensive_property_compliance",
                     "datasets_included": [
                         "hpd_violations",
                         "dob_violations", 
@@ -104,123 +100,6 @@ class ComplianceWebhookService:
         except Exception as e:
             logger.error(f"Unexpected error sending webhook: {str(e)}")
             return None
-    
-    def _prepare_filtered_data(self, compliance_data: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Filter compliance data to only include last 2 years and remove pre-calculated scores
-        
-        Args:
-            compliance_data: Raw compliance data from our system
-            
-        Returns:
-            Filtered data with only recent records and no pre-calculated scores
-        """
-        from datetime import datetime, timedelta
-        import json
-        
-        # Calculate cutoff date (2 years ago)
-        cutoff_date = datetime.now() - timedelta(days=730)
-        
-        # Prepare filtered data structure
-        filtered_data = {
-            # Property identification (keep as-is)
-            "address": compliance_data.get("address"),
-            "bin": compliance_data.get("bin"),
-            "bbl": compliance_data.get("bbl"),
-            "borough": compliance_data.get("borough"),
-            "block": compliance_data.get("block"),
-            "lot": compliance_data.get("lot"),
-            "zip_code": compliance_data.get("zip_code"),
-            
-            # Raw NYC data (filtered to last 2 years)
-            "nyc_data": {
-                "hpd_violations": self._parse_and_filter_json_data(
-                    compliance_data.get("hpd_violations_data", "[]"), 
-                    "approveddate", cutoff_date
-                ),
-                "dob_violations": self._parse_and_filter_json_data(
-                    compliance_data.get("dob_violations_data", "[]"), 
-                    "issue_date", cutoff_date
-                ),
-                "elevator_inspections": self._parse_and_filter_json_data(
-                    compliance_data.get("elevator_data", "[]"), 
-                    "status_date", cutoff_date
-                ),
-                "boiler_inspections": self._parse_and_filter_json_data(
-                    compliance_data.get("boiler_data", "[]"), 
-                    "inspection_date", cutoff_date
-                ),
-                "electrical_permits": self._parse_and_filter_json_data(
-                    compliance_data.get("electrical_data", "[]"), 
-                    "filing_date", cutoff_date
-                )
-            },
-            
-            # Metadata
-            "data_collection_date": compliance_data.get("processed_at"),
-            "data_sources": compliance_data.get("data_sources")
-        }
-        
-        return filtered_data
-    
-    def _parse_and_filter_json_data(self, json_data: str, date_field: str, cutoff_date: datetime) -> list:
-        """
-        Parse JSON string data and filter to only include records after cutoff date
-        
-        Args:
-            json_data: JSON string containing the data
-            date_field: Field name containing the date to filter on
-            cutoff_date: Only include records after this date
-            
-        Returns:
-            Filtered list of records
-        """
-        import json
-        from datetime import datetime
-        
-        try:
-            data = json.loads(json_data) if json_data else []
-            if not isinstance(data, list):
-                return []
-            
-            filtered_records = []
-            
-            for record in data:
-                date_str = record.get(date_field)
-                if not date_str:
-                    continue
-                
-                try:
-                    # Handle different date formats
-                    if isinstance(date_str, str):
-                        # Handle MM/DD/YYYY HH:MM:SS format (boiler inspections)
-                        if '/' in date_str and ' ' in date_str:
-                            date_part = date_str.split(' ')[0]
-                            record_date = datetime.strptime(date_part, '%m/%d/%Y')
-                        # Handle ISO format (YYYY-MM-DDTHH:MM:SS.fff)
-                        elif 'T' in date_str:
-                            record_date = datetime.fromisoformat(date_str.replace('T', ' ').split('.')[0])
-                        # Handle YYYY-MM-DD format
-                        elif '-' in date_str:
-                            record_date = datetime.strptime(date_str.split('T')[0], '%Y-%m-%d')
-                        else:
-                            # Skip records with unparseable dates
-                            continue
-                    else:
-                        continue
-                    
-                    # Only include records from last 2 years
-                    if record_date >= cutoff_date:
-                        filtered_records.append(record)
-                        
-                except (ValueError, AttributeError):
-                    # Skip records with invalid dates
-                    continue
-            
-            return filtered_records
-            
-        except (json.JSONDecodeError, TypeError):
-            return []
     
     def test_webhook_connection(self) -> bool:
         """Test if webhook endpoint is accessible"""
