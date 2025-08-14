@@ -3476,7 +3476,26 @@
                     return !['EXPIRED', 'CANCELLED', 'CLOSED', 'DISAPPROVED', 'REVOKED'].includes(status);
                 });
             }
-            // For boiler, show all records as they are inspection records, not violations
+            // For boiler, filter to show only last 2 years of inspection records
+            if (category === 'boiler') {
+                // Filter boiler data to only show last 2 years
+                const twoYearsAgo = new Date();
+                twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
+                
+                data = data.filter(record => {
+                    const inspectionDate = record.inspection_date;
+                    if (!inspectionDate) return false;
+                    
+                    try {
+                        // Parse inspection date (format: M/D/YYYY)
+                        const recordDate = new Date(inspectionDate);
+                        return recordDate >= twoYearsAgo;
+                    } catch (e) {
+                        // If date parsing fails, exclude the record to be safe
+                        return false;
+                    }
+                });
+            }
             
             if (data.length === 0) {
                 const noDataRow = document.createElement('div');
