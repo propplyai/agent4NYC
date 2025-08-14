@@ -170,6 +170,8 @@ const PropplyApp = {
     // Theme management
     initializeTheme() {
         this.applyTheme(this.state.theme);
+        this.fixInlineStyles();
+        this.setupDynamicStyleObserver();
     },
     
     applyTheme(theme) {
@@ -187,6 +189,7 @@ const PropplyApp = {
         this.state.theme = theme;
         localStorage.setItem('theme', theme);
         this.updateThemeToggleIcon();
+        this.fixInlineStyles();
     },
     
     toggleTheme() {
@@ -223,6 +226,102 @@ const PropplyApp = {
             default:
                 icon.className = 'fas fa-adjust';
                 break;
+        }
+    },
+    
+    // Fix any remaining inline white backgrounds
+    fixInlineStyles() {
+        const isDark = this.state.theme === 'dark' || 
+                      (this.state.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        
+        if (!isDark) return;
+        
+        // Find all elements with white backgrounds
+        const selectors = [
+            'div[style*="background: white"]',
+            'div[style*="background-color: white"]',
+            'div[style*="background: #fff"]',
+            'div[style*="background-color: #fff"]',
+            'section[style*="background: white"]',
+            'section[style*="background-color: white"]',
+            '[style*="background: rgb(255, 255, 255)"]',
+            '[style*="background-color: rgb(255, 255, 255)"]'
+        ];
+        
+        selectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+                el.style.backgroundColor = 'var(--bg-primary)';
+                el.style.color = 'var(--text-primary)';
+            });
+        });
+        
+        // Fix any remaining white text on dark backgrounds
+        const darkBgElements = document.querySelectorAll('[style*="background: black"], [style*="background: #000"], [class*="bg-dark"], [class*="bg-primary"]');
+        darkBgElements.forEach(el => {
+            if (el.style.color === 'black' || el.style.color === '#000' || el.style.color === 'var(--text-primary)') {
+                el.style.color = 'white';
+            }
+        });
+    },
+    
+    // Setup observer for dynamically created content
+    setupDynamicStyleObserver() {
+        if (!window.MutationObserver) return;
+        
+        const observer = new MutationObserver((mutations) => {
+            const isDark = this.state.theme === 'dark' || 
+                          (this.state.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            
+            if (!isDark) return;
+            
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            this.fixElementStyles(node);
+                        }
+                    });
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    },
+    
+    // Fix styles for a specific element and its children
+    fixElementStyles(element) {
+        // Fix white backgrounds
+        if (element.style && (
+            element.style.backgroundColor === 'white' || 
+            element.style.backgroundColor === '#fff' || 
+            element.style.backgroundColor === '#ffffff' ||
+            element.style.background === 'white' ||
+            element.style.background === '#fff' ||
+            element.style.background === '#ffffff'
+        )) {
+            element.style.backgroundColor = 'var(--bg-primary)';
+            if (!element.style.color || element.style.color === 'black' || element.style.color === '#000') {
+                element.style.color = 'var(--text-primary)';
+            }
+        }
+        
+        // Fix classes
+        if (element.classList) {
+            if (element.classList.contains('bg-white') || element.classList.contains('bg-light')) {
+                element.classList.remove('bg-white', 'bg-light');
+                element.classList.add('bg-primary-force');
+            }
+        }
+        
+        // Recursively fix child elements
+        if (element.children) {
+            Array.from(element.children).forEach(child => {
+                this.fixElementStyles(child);
+            });
         }
     }
 };

@@ -328,7 +328,7 @@ body {
 
 .violation-item.active {
     border-left-color: var(--warning);
-    background: #fffbeb;
+    background: rgba(251, 191, 36, 0.1);
 }
 
 .violation-item.dismissed {

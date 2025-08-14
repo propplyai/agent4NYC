@@ -750,6 +750,126 @@ body {
     color: var(--text-primary);
 }
 
+/* Additional dark mode fixes for remaining white backgrounds */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: var(--bg-primary) !important;
+        border-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .card-body {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .card-header {
+        background-color: var(--bg-secondary) !important;
+        border-bottom-color: var(--border-color) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Report sections */
+    .ai-report-container,
+    .report-section,
+    .compliance-analysis {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    /* Any remaining white backgrounds */
+    div[style*="background: white"],
+    div[style*="background-color: white"],
+    div[style*="background: #fff"],
+    div[style*="background-color: #fff"] {
+        background-color: var(--bg-primary) !important;
+    }
+    
+    /* Bootstrap utility classes */
+    .bg-white {
+        background-color: var(--bg-primary) !important;
+    }
+    
+    .bg-light {
+        background-color: var(--bg-secondary) !important;
+    }
+    
+    /* Text utilities */
+    .text-dark {
+        color: var(--text-primary) !important;
+    }
+    
+    .text-muted {
+        color: var(--text-muted) !important;
+    }
+    
+    /* Section backgrounds */
+    section,
+    .section,
+    .report-card,
+    .analysis-card,
+    .summary-card {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
+}
+
+[data-theme="dark"] .card {
+    background-color: var(--bg-primary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card-body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card-header {
+    background-color: var(--bg-secondary) !important;
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .ai-report-container,
+[data-theme="dark"] .report-section,
+[data-theme="dark"] .compliance-analysis {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] div[style*="background: white"],
+[data-theme="dark"] div[style*="background-color: white"],
+[data-theme="dark"] div[style*="background: #fff"],
+[data-theme="dark"] div[style*="background-color: #fff"] {
+    background-color: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] .bg-white {
+    background-color: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] .bg-light {
+    background-color: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .text-dark {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] section,
+[data-theme="dark"] .section,
+[data-theme="dark"] .report-card,
+[data-theme="dark"] .analysis-card,
+[data-theme="dark"] .summary-card {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
 /* Utilities */
 .d-none { display: none !important; }
 .d-block { display: block !important; }
@@ -798,9 +918,9 @@ body {
 }
 
 .alert-warning {
-    background: #fffbeb;
+    background: rgba(251, 191, 36, 0.1);
     border-color: #fed7aa;
-    color: #92400e;
+    color: var(--warning);
 }
 
 .alert-info {
@@ -1088,8 +1208,8 @@ body {
 }
 
 .compliance-dataset {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--gray-200);
     border-radius: 8px;
     padding: 1rem;
 }
@@ -1136,7 +1256,7 @@ body {
 }
 
 .sample-record {
-    background-color: #f8f9fa;
+    background-color: var(--bg-secondary);
     border-radius: 4px;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
@@ -1215,7 +1335,8 @@ body {
 }
 
 .loading-content {
-    background-color: white;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     padding: 2rem;
     border-radius: 8px;
     text-align: center;
