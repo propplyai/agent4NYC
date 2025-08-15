@@ -337,7 +337,7 @@ class ComprehensivePropertyComplianceSystem:
                 violations_data = self.nyc_client.get_data(
                     'hpd_violations',
                     where=active_where_clause,
-                    limit=1000
+                    limit=500  # Get more historical records0
                 )
                 
                 if violations_data and len(violations_data) > 0:
@@ -410,7 +410,7 @@ class ComprehensivePropertyComplianceSystem:
                 violations_data = self.nyc_client.get_data(
                     'dob_violations',
                     where=active_where_clause,
-                    limit=1000
+                    limit=500  # Get more historical records0
                 )
                 
                 if violations_data and len(violations_data) > 0:
@@ -467,12 +467,16 @@ class ComprehensivePropertyComplianceSystem:
                     where=f"bin = '{identifiers.bin}'",
                     select="device_number, device_type, device_status, status_date, house_number, street_name",
                     order="status_date DESC",
-                    limit=100
+                    limit=500  # Get more historical records
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['elevator_inspections'] = data
-                    print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (BIN search)")
+                    # Group elevator data by device number to show unique devices with all inspections
+                    grouped_data = self.group_devices_by_id(data, 'device_number', 'status_date')
+                    compliance_data['elevator_inspections'] = grouped_data
+                    unique_devices = len(grouped_data)
+                    total_inspections = sum(len(device['inspections']) for device in grouped_data)
+                    print(f"   ✅ Found {len(data)} total elevator records, grouped into {unique_devices} unique devices with {total_inspections} total inspections (BIN search)")
                     return
             
             # Strategy 2: Search by block/lot
@@ -482,12 +486,16 @@ class ComprehensivePropertyComplianceSystem:
                     where=f"block = '{identifiers.block}' AND lot = '{identifiers.lot}'",
                     select="device_number, device_type, device_status, status_date, bin, house_number, street_name",
                     order="status_date DESC",
-                    limit=100
+                    limit=500  # Get more historical records
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['elevator_inspections'] = data
-                    print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (block/lot search)")
+                    # Group elevator data by device number
+                    grouped_data = self.group_devices_by_id(data, 'device_number', 'status_date')
+                    compliance_data['elevator_inspections'] = grouped_data
+                    unique_devices = len(grouped_data)
+                    total_inspections = sum(len(device['inspections']) for device in grouped_data)
+                    print(f"   ✅ Found {len(data)} total elevator records, grouped into {unique_devices} unique devices with {total_inspections} total inspections (block/lot search)")
                     return
             
             # Strategy 3: Address search with variations
@@ -504,12 +512,16 @@ class ComprehensivePropertyComplianceSystem:
                             where=f"house_number = '{house_number}' AND street_name LIKE '%{street_pattern}%'",
                             select="device_number, device_type, device_status, status_date, bin",
                             order="status_date DESC",
-                            limit=100
+                            limit=500  # Get more historical records
                         )
                         
                         if data is not None and len(data) > 0:
-                            compliance_data['elevator_inspections'] = data
-                            print(f"   ✅ Found {len(compliance_data['elevator_inspections'])} elevator records (address search)")
+                            # Group elevator data by device number
+                            grouped_data = self.group_devices_by_id(data, 'device_number', 'status_date')
+                            compliance_data['elevator_inspections'] = grouped_data
+                            unique_devices = len(grouped_data)
+                            total_inspections = sum(len(device['inspections']) for device in grouped_data)
+                            print(f"   ✅ Found {len(data)} total elevator records, grouped into {unique_devices} unique devices with {total_inspections} total inspections (address search)")
                             return
                     except:
                         continue
@@ -541,31 +553,33 @@ class ComprehensivePropertyComplianceSystem:
                     select="tracking_number, boiler_id, inspection_date, defects_exist, " +
                            "report_status, bin_number, boiler_make, pressure_type, report_type",
                     order="inspection_date DESC",
-                    limit=200  # Get more records to filter properly
+                    limit=500  # Get more historical records0  # Get ALL historical records - no filtering
                 )
                 
                 if data is not None and len(data) > 0:
                     # Debug: Show original data dates
                     print(f"   🔍 Original data dates: {[item.get('inspection_date') for item in data[:5]]}")
                     
-                    # Filter to only keep last 2 years of data per device
-                    filtered_data = self.filter_recent_boiler_data(data)
-                    compliance_data['boiler_inspections'] = filtered_data
+                    # Get ALL historical records and group by device ID - no time filtering
+                    grouped_data = self.group_devices_by_id(data, 'boiler_id', 'inspection_date')
+                    compliance_data['boiler_inspections'] = grouped_data
                     
-                    # Debug: Show filtered data dates
-                    print(f"   🔍 Filtered data dates: {[item.get('inspection_date') for item in filtered_data[:5]]}")
+                    # Debug: Show grouped data summary
+                    unique_devices = len(grouped_data)
+                    total_inspections = sum(len(device['inspections']) for device in grouped_data)
+                    print(f"   🔍 Grouped into {unique_devices} unique devices with {total_inspections} total inspections")
                     
-                    print(f"   ✅ Found {len(data)} total boiler records, filtered to {len(filtered_data)} recent records (last 2 years)")
+                    print(f"   ✅ Found {len(data)} total boiler records, grouped into {unique_devices} unique devices (ALL HISTORICAL DATA)")
                     
-                    # Show summary of findings
-                    if filtered_data:
-                        latest_inspection = filtered_data[0]
-                        active_boilers = len([item for item in filtered_data if item.get('report_status') == 'Accepted'])
-                        defective_boilers = len([item for item in filtered_data if item.get('defects_exist') == 'Yes'])
-                        unique_devices = len(set([item.get('boiler_id') for item in filtered_data if item.get('boiler_id')]))
+                    # Show summary of findings from grouped data
+                    if grouped_data:
+                        latest_device = grouped_data[0]
+                        active_devices = len([device for device in grouped_data if device.get('device_status') == 'Active'])
+                        defective_devices = len([device for device in grouped_data if device.get('defects_exist') == 'Yes'])
+                        unique_devices = len(grouped_data)
                         
-                        print(f"   📊 Latest inspection: {latest_inspection.get('inspection_date')}")
-                        print(f"   📊 Unique devices: {unique_devices}, Active boilers: {active_boilers}, With defects: {defective_boilers}")
+                        print(f"   📊 Latest inspection: {latest_device.get('latest_inspection_date')}")
+                        print(f"   📊 Unique devices: {unique_devices}, Active devices: {active_devices}, With defects: {defective_devices}")
                     return
                 else:
                     print(f"   ❌ No boiler records found for BIN {identifiers.bin}")
@@ -580,50 +594,74 @@ class ComprehensivePropertyComplianceSystem:
             if "400 Client Error" in str(e):
                 print(f"   ℹ️  Note: Boiler dataset only supports BIN-based searches")
     
-    def filter_recent_boiler_data(self, data: List[Dict]) -> List[Dict]:
-        """Filter boiler data to only keep the last 2 years of records per device ID"""
-        from datetime import datetime, timedelta
+    def group_devices_by_id(self, data: List[Dict], device_id_field: str, date_field: str) -> List[Dict]:
+        """Group ALL device records by device ID with complete inspection history - NO time filtering"""
+        from datetime import datetime
         
-        # Calculate cutoff date (2 years ago)
-        cutoff_date = datetime.now() - timedelta(days=730)  # 2 years
-        
-        # Group data by device ID and filter by date
-        device_data = {}
+        # Group by device ID
+        device_groups = {}
         
         for record in data:
-            boiler_id = record.get('boiler_id')
-            inspection_date_str = record.get('inspection_date')
-            
-            if not boiler_id or not inspection_date_str:
+            device_id = record.get(device_id_field)
+            if not device_id:
                 continue
                 
-            try:
-                # Parse inspection date (format: M/D/YYYY)
-                inspection_date = datetime.strptime(inspection_date_str, '%m/%d/%Y')
-                
-                # Only keep records from last 2 years
-                if inspection_date >= cutoff_date:
-                    if boiler_id not in device_data:
-                        device_data[boiler_id] = []
-                    device_data[boiler_id].append(record)
+            if device_id not in device_groups:
+                device_groups[device_id] = {
+                    'device_id': device_id,
+                    'device_name': record.get('device_number', device_id),  # For elevators
+                    'device_type': record.get('device_type', 'Unknown'),
+                    'device_status': record.get('device_status', 'Unknown'),
+                    'inspections': [],
+                    'latest_inspection_date': None,
+                    'total_inspections': 0,
+                    'defects_exist': record.get('defects_exist', 'No'),
+                    'filing_status': record.get('filing_status', 'Unknown'),
+                    'house_number': record.get('house_number', ''),
+                    'street_name': record.get('street_name', ''),
+                    'bin': record.get('bin', record.get('bin_number', ''))
+                }
+            
+            # Add this inspection to the device
+            device_groups[device_id]['inspections'].append(record)
+            
+            # Update latest inspection date and status from most recent record
+            inspection_date = record.get(date_field)
+            if inspection_date:
+                try:
+                    # Handle different date formats
+                    parsed_date = None
+                    for fmt in ['%m/%d/%Y', '%Y-%m-%d', '%m-%d-%Y']:
+                        try:
+                            parsed_date = datetime.strptime(inspection_date[:10], fmt)
+                            break
+                        except ValueError:
+                            continue
                     
-            except ValueError:
-                # If date parsing fails, include the record (better safe than sorry)
-                if boiler_id not in device_data:
-                    device_data[boiler_id] = []
-                device_data[boiler_id].append(record)
+                    if parsed_date and (device_groups[device_id]['latest_inspection_date'] is None or 
+                        parsed_date > device_groups[device_id]['latest_inspection_date']):
+                        device_groups[device_id]['latest_inspection_date'] = parsed_date
+                        # Update status from most recent record
+                        device_groups[device_id]['device_status'] = record.get('device_status', 'Unknown')
+                        device_groups[device_id]['defects_exist'] = record.get('defects_exist', 'No')
+                        device_groups[device_id]['filing_status'] = record.get('filing_status', 'Unknown')
+                except (ValueError, AttributeError):
+                    pass
         
-        # Flatten the filtered data back to a list, sorted by inspection date
-        filtered_data = []
-        for device_records in device_data.values():
-            # Sort each device's records by date (newest first)
-            device_records.sort(key=lambda x: x.get('inspection_date', ''), reverse=True)
-            filtered_data.extend(device_records)
+        # Convert to list and sort inspections within each device by date (newest first)
+        result = []
+        for device_data in device_groups.values():
+            device_data['inspections'].sort(key=lambda x: x.get(date_field, ''), reverse=True)
+            device_data['total_inspections'] = len(device_data['inspections'])
+            # Convert datetime back to string for JSON serialization
+            if device_data['latest_inspection_date']:
+                device_data['latest_inspection_date'] = device_data['latest_inspection_date'].strftime('%Y-%m-%d')
+            result.append(device_data)
         
-        # Sort final list by inspection date (newest first)
-        filtered_data.sort(key=lambda x: x.get('inspection_date', ''), reverse=True)
+        # Sort devices by latest inspection date (newest first)
+        result.sort(key=lambda x: x.get('latest_inspection_date', ''), reverse=True)
         
-        return filtered_data
+        return result
     
     async def gather_electrical_permits(self, identifiers: PropertyIdentifiers, compliance_data: Dict):
         """Gather electrical permit applications data - critical for electrical safety compliance"""
@@ -637,23 +675,29 @@ class ComprehensivePropertyComplianceSystem:
                     where=f"bin = '{identifiers.bin}'",
                     select="filing_number, filing_date, filing_status, job_description, applicant_first_name, applicant_last_name, completion_date, amount_paid",
                     order="filing_date DESC",
-                    limit=100
+                    limit=500  # Get more historical records
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['electrical_permits'] = data
+                    # Group electrical permits by filing number to show unique permits with all related records
+                    grouped_data = self.group_devices_by_id(data, 'filing_number', 'filing_date')
+                    compliance_data['electrical_permits'] = grouped_data
                     
                     # Show summary of electrical permits
-                    latest_permit = data[0]
-                    active_statuses = ['Approved', 'Job in Process', 'Active']
-                    active_permits = len([item for item in data if item.get('filing_status') in active_statuses])
+                    unique_permits = len(grouped_data)
+                    total_filings = sum(len(permit['inspections']) for permit in grouped_data)
+                    active_permits = len([permit for permit in grouped_data if permit.get('filing_status') in ['Approved', 'Job in Process', 'Active']])
                     
-                    print(f"   ✅ Found {len(compliance_data['electrical_permits'])} electrical permit records")
-                    print(f"   📊 Latest permit: {latest_permit.get('filing_number')} - Status: {latest_permit.get('filing_status')} ({latest_permit.get('filing_date')})")
-                    print(f"   📊 Job description: {latest_permit.get('job_description', 'N/A')}")
-                    print(f"   📊 Active permits: {active_permits}")
-                    if latest_permit.get('completion_date'):
-                        print(f"   📊 Completion date: {latest_permit.get('completion_date')}")
+                    if grouped_data:
+                        latest_permit = grouped_data[0]
+                        print(f"   ✅ Found {len(data)} total electrical permit records, grouped into {unique_permits} unique permits (ALL HISTORICAL DATA)")
+                        print(f"   📊 Latest permit: {latest_permit.get('device_id')} - Status: {latest_permit.get('filing_status')} ({latest_permit.get('latest_inspection_date')})")
+                        if latest_permit.get('inspections') and len(latest_permit['inspections']) > 0:
+                            latest_filing = latest_permit['inspections'][0]
+                            print(f"   📊 Job description: {latest_filing.get('job_description', 'N/A')}")
+                            if latest_filing.get('completion_date'):
+                                print(f"   📊 Completion date: {latest_filing.get('completion_date')}")
+                        print(f"   📊 Active permits: {active_permits} out of {unique_permits} total")
                     return
             
             # Strategy 2: Search by block/lot as fallback
@@ -668,12 +712,16 @@ class ComprehensivePropertyComplianceSystem:
                     where=f"borough = '{borough_name}' AND block = '{identifiers.block}'",
                     select="filing_number, filing_date, filing_status, job_description, bin",
                     order="filing_date DESC",
-                    limit=100
+                    limit=500  # Get more historical records
                 )
                 
                 if data is not None and len(data) > 0:
-                    compliance_data['electrical_permits'] = data
-                    print(f"   ✅ Found {len(compliance_data['electrical_permits'])} electrical permits (block search)")
+                    # Group electrical permits by filing number
+                    grouped_data = self.group_devices_by_id(data, 'filing_number', 'filing_date')
+                    compliance_data['electrical_permits'] = grouped_data
+                    unique_permits = len(grouped_data)
+                    total_filings = sum(len(permit['inspections']) for permit in grouped_data)
+                    print(f"   ✅ Found {len(data)} total electrical permit records, grouped into {unique_permits} unique permits (block search)")
                     return
             
             print(f"   ❌ No electrical permit records found")
@@ -764,15 +812,34 @@ class ComprehensivePropertyComplianceSystem:
         dob_active = len([v for v in compliance_data['dob_violations'] 
                          if not v.get('disposition_comments')])
         
-        elevator_total = len(compliance_data['elevator_inspections'])
-        elevator_active = len([e for e in compliance_data['elevator_inspections'] 
-                              if e.get('device_status') == 'Active'])
+        # Handle both old flat format and new grouped format for backward compatibility
+        elevator_inspections = compliance_data['elevator_inspections']
+        if elevator_inspections and isinstance(elevator_inspections[0], dict) and 'device_id' in elevator_inspections[0]:
+            # New grouped format
+            elevator_total = len(elevator_inspections)
+            elevator_active = len([e for e in elevator_inspections if e.get('device_status') == 'Active'])
+        else:
+            # Old flat format (fallback)
+            elevator_total = len(elevator_inspections)
+            elevator_active = len([e for e in elevator_inspections if e.get('device_status') == 'Active'])
         
-        boiler_total = len(compliance_data['boiler_inspections'])
+        boiler_inspections = compliance_data['boiler_inspections']
+        if boiler_inspections and isinstance(boiler_inspections[0], dict) and 'device_id' in boiler_inspections[0]:
+            # New grouped format
+            boiler_total = len(boiler_inspections)
+        else:
+            # Old flat format (fallback)
+            boiler_total = len(boiler_inspections)
         
-        electrical_total = len(compliance_data['electrical_permits'])
-        electrical_active = len([e for e in compliance_data['electrical_permits'] 
-                               if e.get('filing_status') in ['Approved', 'Job in Process', 'Active', 'Permit Issued']])
+        electrical_permits = compliance_data['electrical_permits']
+        if electrical_permits and isinstance(electrical_permits[0], dict) and 'device_id' in electrical_permits[0]:
+            # New grouped format
+            electrical_total = len(electrical_permits)
+            electrical_active = len([e for e in electrical_permits if e.get('filing_status') in ['Approved', 'Job in Process', 'Active', 'Permit Issued']])
+        else:
+            # Old flat format (fallback)
+            electrical_total = len(electrical_permits)
+            electrical_active = len([e for e in electrical_permits if e.get('filing_status') in ['Approved', 'Job in Process', 'Active', 'Permit Issued']])
         
         # Calculate compliance scores
         hpd_score = max(0, 100 - (hpd_active * 10)) if hpd_total > 0 else 100
