@@ -331,8 +331,8 @@ class ComprehensivePropertyComplianceSystem:
             try:
                 print(f"🔍 HPD Violations - Trying {strategy_name} search: {where_clause}")
                 
-                # Add active status filter to the where clause
-                active_where_clause = f"({where_clause}) AND violationstatus IN ('OPEN', 'ACTIVE')"
+                # Add active status filter to the where clause - HPD uses 'Open' format
+                active_where_clause = f"({where_clause}) AND violationstatus = 'Open'"
                 
                 violations_data = self.nyc_client.get_data(
                     'hpd_violations',

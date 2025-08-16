@@ -2048,6 +2048,135 @@
             background: #fafbfc;
         }
 
+        /* Active Violations Styling */
+        .active-violations-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.1);
+        }
+
+        .violations-header h4 {
+            color: #dc3545;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .violations-header p {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .violation-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .violation-card:hover {
+            border-color: #dc3545;
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
+        }
+
+        .violation-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .violation-id {
+            font-weight: 600;
+            color: #dc3545;
+            font-size: 0.9rem;
+        }
+
+        .violation-status {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .violation-description {
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .violation-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .violation-date {
+            font-weight: 500;
+        }
+
+        .violation-expand-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-decoration: underline;
+        }
+
+        .violation-details {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e9ecef;
+            display: none;
+        }
+
+        .violation-details.expanded {
+            display: block;
+        }
+
+        .violation-detail-item {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .violation-detail-label {
+            font-weight: 600;
+            width: 120px;
+            color: #666;
+        }
+
+        .violation-detail-value {
+            color: #333;
+        }
+
+        [data-theme="dark"] .active-violations-section {
+            background: var(--bg-card);
+            border-left-color: #dc3545;
+        }
+
+        [data-theme="dark"] .violation-card {
+            background: #2a2a2a;
+            border-color: #404040;
+        }
+
+        [data-theme="dark"] .violation-card:hover {
+            border-color: #dc3545;
+        }
+
+        [data-theme="dark"] .violation-description {
+            color: var(--text-primary);
+        }
+
         .expandable-text {
             cursor: pointer;
             color: #667eea;
@@ -3954,6 +4083,18 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <!-- Active Violations Display -->
+                                <div class="active-violations-section" id="hpdActiveViolations" style="display: none;">
+                                    <div class="violations-header">
+                                        <h4><i class="fas fa-exclamation-triangle text-danger"></i> Active Violations</h4>
+                                        <p class="text-muted">Open violations requiring immediate attention</p>
+                                    </div>
+                                    <div id="hpdActiveViolationsList" class="violations-list">
+                                        <!-- Active violations will be populated here -->
+                                    </div>
+                                </div>
+                                
+                                <!-- All Violations Table (Expandable) -->
                                 <div class="records-table" id="hpdRecords">
                                     <div class="records-header">
                                         <div>Violation ID</div>
@@ -3995,6 +4136,18 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <!-- Active Violations Display -->
+                                <div class="active-violations-section" id="dobActiveViolations" style="display: none;">
+                                    <div class="violations-header">
+                                        <h4><i class="fas fa-exclamation-triangle text-danger"></i> Active Violations</h4>
+                                        <p class="text-muted">Open building code violations requiring immediate attention</p>
+                                    </div>
+                                    <div id="dobActiveViolationsList" class="violations-list">
+                                        <!-- Active violations will be populated here -->
+                                    </div>
+                                </div>
+                                
+                                <!-- All Violations Table (Expandable) -->
                                 <div class="records-table" id="dobRecords">
                                     <div class="records-header">
                                         <div>Violation ID</div>
@@ -4804,6 +4957,121 @@
             }
         }
 
+        function displayActiveViolations(category, violations) {
+            const activeViolationsContainer = document.getElementById(`${category}ActiveViolations`);
+            const violationsList = document.getElementById(`${category}ActiveViolationsList`);
+            
+            if (!activeViolationsContainer || !violationsList) return;
+            
+            // Clear existing content
+            violationsList.innerHTML = '';
+            
+            if (!violations || violations.length === 0) {
+                activeViolationsContainer.style.display = 'none';
+                return;
+            }
+            
+            // Show the active violations section
+            activeViolationsContainer.style.display = 'block';
+            
+            // Display up to 3 most recent violations prominently
+            const recentViolations = violations.slice(0, 3);
+            
+            recentViolations.forEach((violation, index) => {
+                const violationCard = document.createElement('div');
+                violationCard.className = 'violation-card';
+                violationCard.id = `violation-${category}-${index}`;
+                
+                // Extract violation data based on category
+                let violationId, status, date, description, additionalDetails;
+                
+                if (category === 'hpd') {
+                    violationId = violation.violationid || 'N/A';
+                    status = violation.violationstatus || 'N/A';
+                    date = violation.novissueddate || violation.approveddate || 'N/A';
+                    description = violation.novdescription || 'No description available';
+                    additionalDetails = {
+                        'Current Status': violation.currentstatus || 'N/A',
+                        'Class': violation.class || 'N/A',
+                        'Story': violation.story || 'N/A',
+                        'Rent Impairing': violation.rentimpairing || 'N/A',
+                        'Order Number': violation.ordernumber || 'N/A',
+                        'Inspection Date': formatDate(violation.inspectiondate),
+                        'Original Correct By': formatDate(violation.originalcorrectbydate)
+                    };
+                } else if (category === 'dob') {
+                    violationId = violation.isn_dob_bis_viol || 'N/A';
+                    status = violation.violation_category || 'N/A';
+                    date = violation.issue_date || 'N/A';
+                    description = violation.description || 'No description available';
+                    additionalDetails = {
+                        'Violation Type': violation.violation_type || 'N/A',
+                        'Block': violation.block || 'N/A',
+                        'Lot': violation.lot || 'N/A',
+                        'House Number': violation.house_number || 'N/A',
+                        'Street': violation.street || 'N/A',
+                        'ECB Number': violation.ecb_number || 'N/A'
+                    };
+                }
+                
+                violationCard.innerHTML = `
+                    <div class="violation-card-header">
+                        <div class="violation-id">ID: ${violationId}</div>
+                        <div class="violation-status">${status}</div>
+                    </div>
+                    <div class="violation-description">${description}</div>
+                    <div class="violation-meta">
+                        <div class="violation-date">Issued: ${formatDate(date)}</div>
+                        <button class="violation-expand-btn" onclick="toggleViolationDetails('${category}', ${index})">
+                            Show Details
+                        </button>
+                    </div>
+                    <div class="violation-details" id="violation-details-${category}-${index}">
+                        ${Object.entries(additionalDetails).map(([label, value]) => `
+                            <div class="violation-detail-item">
+                                <div class="violation-detail-label">${label}:</div>
+                                <div class="violation-detail-value">${value}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                violationsList.appendChild(violationCard);
+            });
+            
+            // Add "View All" button if there are more violations
+            if (violations.length > 3) {
+                const viewAllBtn = document.createElement('div');
+                viewAllBtn.className = 'text-center mt-3';
+                viewAllBtn.innerHTML = `
+                    <button class="btn btn-outline-danger btn-sm" onclick="scrollToViolationsTable('${category}')">
+                        <i class="fas fa-list"></i> View All ${violations.length} Violations
+                    </button>
+                `;
+                violationsList.appendChild(viewAllBtn);
+            }
+        }
+
+        function toggleViolationDetails(category, index) {
+            const detailsDiv = document.getElementById(`violation-details-${category}-${index}`);
+            const button = event.target;
+            
+            if (detailsDiv.classList.contains('expanded')) {
+                detailsDiv.classList.remove('expanded');
+                button.textContent = 'Show Details';
+            } else {
+                detailsDiv.classList.add('expanded');
+                button.textContent = 'Hide Details';
+            }
+        }
+
+        function scrollToViolationsTable(category) {
+            const tableElement = document.getElementById(`${category}Records`);
+            if (tableElement) {
+                tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         function loadRowDetails(category) {
             if (!currentData || !currentData.inspections) return;
             
@@ -4916,6 +5184,11 @@
                 console.log(`Applied 2-year filter to legacy boiler data: ${data.length} records remaining`);
             } else if (category === 'boiler' && currentData.comprehensive_devices && currentData.comprehensive_devices.boilers) {
                 console.log(`Skipping time filter for comprehensive boiler data: showing all ${data.length} records`);
+            }
+            
+            // Display active violations prominently for HPD and DOB
+            if (category === 'hpd' || category === 'dob') {
+                displayActiveViolations(category, data);
             }
             
             if (data.length === 0) {
