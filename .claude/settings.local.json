@@ -17,7 +17,9 @@
       "Bash(gh auth:*)",
       "Bash(git commit:*)",
       "Bash(git reset:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(grep:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
