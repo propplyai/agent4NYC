@@ -4689,7 +4689,15 @@
                 
                 const deviceId = device.device_id || device.boiler_id || `Device ${index + 1}`;
                 const totalInspections = device.inspections ? device.inspections.length : 0;
-                const latestInspection = device.inspections && device.inspections.length > 0 ? device.inspections[0] : null;
+                
+                // Sort inspections by date (newest first) before processing
+                const sortedInspections = device.inspections ? [...device.inspections].sort((a, b) => {
+                    const dateA = new Date(a.inspection_date || a.status_date || '1900-01-01');
+                    const dateB = new Date(b.inspection_date || b.status_date || '1900-01-01');
+                    return dateB - dateA; // Descending order (newest first)
+                }) : [];
+                
+                const latestInspection = sortedInspections.length > 0 ? sortedInspections[0] : null;
                 const latestDate = latestInspection ? (latestInspection.inspection_date || 'N/A') : 'N/A';
                 const latestStatus = latestInspection ? (latestInspection.report_status || 'N/A') : 'N/A';
                 const hasDefects = latestInspection ? (latestInspection.defects_exist === 'Yes') : false;
@@ -4724,8 +4732,8 @@
                             </div>
                         </div>
                         <div class="inspections-table">
-                            ${device.inspections ? (
-                                device.inspections.slice(0, 3).map(inspection => `
+                            ${sortedInspections.length > 0 ? (
+                                sortedInspections.slice(0, 3).map(inspection => `
                                     <div class="inspection-row">
                                         <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
                                         <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
@@ -4733,14 +4741,14 @@
                                         <div class="inspection-details">${inspection.tracking_number || inspection.boiler_make || 'N/A'}</div>
                                     </div>
                                 `).join('') +
-                                (device.inspections.length > 3 ? `
+                                (sortedInspections.length > 3 ? `
                                     <div class="show-more-container">
                                         <button class="show-more-btn" onclick="toggleMoreInspections('${deviceId}')">
-                                            <i class="fas fa-chevron-down"></i> Show ${device.inspections.length - 3} more inspections
+                                            <i class="fas fa-chevron-down"></i> Show ${sortedInspections.length - 3} more inspections
                                         </button>
                                     </div>
                                     <div class="additional-inspections" id="additional-${deviceId}" style="display: none;">
-                                        ${device.inspections.slice(3).map(inspection => `
+                                        ${sortedInspections.slice(3).map(inspection => `
                                             <div class="inspection-row">
                                                 <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
                                                 <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
