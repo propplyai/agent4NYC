@@ -1628,6 +1628,21 @@
             font-weight: 600;
         }
         
+        .inspection-columns-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 16px;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
         .inspections-table {
             display: flex;
             flex-direction: column;
@@ -1657,9 +1672,10 @@
             color: var(--text-secondary);
         }
         
-        .inspection-type {
+        .inspection-details {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-family: monospace;
         }
         
         .no-inspections {
@@ -4700,6 +4716,12 @@
                     <div class="device-inspections-details" id="details-${deviceId}" style="display: none;">
                         <div class="inspections-header">
                             <h5>All Inspections for ${deviceId}</h5>
+                            <div class="inspection-columns-header">
+                                <span>Date</span>
+                                <span>Status</span>
+                                <span>Defects</span>
+                                <span>Tracking #</span>
+                            </div>
                         </div>
                         <div class="inspections-table">
                             ${device.inspections ? (
@@ -4708,7 +4730,7 @@
                                         <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
                                         <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
                                         <div class="inspection-defects">${inspection.defects_exist || 'N/A'}</div>
-                                        <div class="inspection-type">${inspection.report_type || 'N/A'}</div>
+                                        <div class="inspection-details">${inspection.tracking_number || inspection.boiler_make || 'N/A'}</div>
                                     </div>
                                 `).join('') +
                                 (device.inspections.length > 3 ? `
@@ -4723,7 +4745,7 @@
                                                 <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
                                                 <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
                                                 <div class="inspection-defects">${inspection.defects_exist || 'N/A'}</div>
-                                                <div class="inspection-type">${inspection.report_type || 'N/A'}</div>
+                                                <div class="inspection-details">${inspection.tracking_number || inspection.boiler_make || 'N/A'}</div>
                                             </div>
                                         `).join('')}
                                     </div>
