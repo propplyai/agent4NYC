@@ -803,14 +803,12 @@ class ComprehensivePropertyComplianceSystem:
         print(f"\n📊 STEP 3: CREATING COMPLIANCE RECORD")
         print("-" * 40)
         
-        # Calculate compliance metrics
-        hpd_total = len(compliance_data['hpd_violations'])
-        hpd_active = len([v for v in compliance_data['hpd_violations'] 
-                         if v.get('violationstatus') in ['Open', 'ACTIVE']])
+        # Calculate compliance metrics - use new violation data keys
+        hpd_total = compliance_data.get('hpd_violations_total', 0)
+        hpd_active = compliance_data.get('hpd_violations_active', 0)
         
-        dob_total = len(compliance_data['dob_violations'])
-        dob_active = len([v for v in compliance_data['dob_violations'] 
-                         if not v.get('disposition_comments')])
+        dob_total = compliance_data.get('dob_violations_total', 0)
+        dob_active = compliance_data.get('dob_violations_active', 0)
         
         # Handle both old flat format and new grouped format for backward compatibility
         elevator_inspections = compliance_data['elevator_inspections']
@@ -889,8 +887,8 @@ class ComprehensivePropertyComplianceSystem:
             electrical_compliance_score=electrical_score,
             overall_compliance_score=overall_score,
             
-            hpd_violations_data=json.dumps(self.clean_data_for_json(compliance_data['hpd_violations'])),
-            dob_violations_data=json.dumps(self.clean_data_for_json(compliance_data['dob_violations'])),
+            hpd_violations_data=compliance_data.get('hpd_violations_data', '[]'),
+            dob_violations_data=compliance_data.get('dob_violations_data', '[]'),
             elevator_data=json.dumps(self.clean_data_for_json(compliance_data['elevator_inspections'])),
             boiler_data=json.dumps(self.clean_data_for_json(compliance_data['boiler_inspections'])),
             electrical_data=json.dumps(self.clean_data_for_json(compliance_data['electrical_permits'])),
