@@ -4558,8 +4558,13 @@
                         const priorityLevel = action.priority.toLowerCase();
                         actionCard.className = `action-card-enhanced action-${priorityLevel}`;
                         
-                        const timeline = action.timeline || 'Not specified';
-                        const cost = action.estimated_cost || 'Not specified';
+                        // Extract timeline information properly
+                        const timelineObj = action.timeline || {};
+                        const timeline = timelineObj.urgency || timelineObj.deadline || 'Not specified';
+                        
+                        // Extract cost information from financial_impact
+                        const financialImpact = action.financial_impact || {};
+                        const cost = financialImpact.estimated_cost || 'Not specified';
                         
                         actionCard.innerHTML = `
                             <div class="action-header-enhanced">
