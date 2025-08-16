@@ -143,7 +143,12 @@ class ComplianceDashboard {
     }
 
     displayAIReport(aiAnalysis, property) {
-        this.currentReport = { aiAnalysis, property };
+        // Store the comprehensive devices data in the current report for easy access
+        this.currentReport = { 
+            aiAnalysis, 
+            property,
+            comprehensive_devices: aiAnalysis.comprehensive_devices
+        };
         
         // Update report title
         document.getElementById('reportTitle').textContent = 
@@ -189,7 +194,7 @@ class ComplianceDashboard {
                 ${this.generateFinancialImpactSection(analysis.financial_impact)}
 
                 <!-- Equipment Monitoring Dashboard -->
-                ${this.generateEquipmentMonitoringSection(analysis.equipment_monitoring)}
+                ${this.generateEquipmentMonitoringSection(analysis.equipment_monitoring, analysis.comprehensive_devices)}
 
                 <!-- Compliance Insights -->
                 ${this.generateComplianceInsightsSection(analysis.compliance_insights)}
@@ -1008,8 +1013,11 @@ class ComplianceDashboard {
         `;
     }
 
-    generateEquipmentMonitoringSection(equipmentMonitoring) {
-        if (!equipmentMonitoring) return '';
+    generateEquipmentMonitoringSection(equipmentMonitoring, comprehensiveDevices) {
+        if (!equipmentMonitoring && !comprehensiveDevices) return '';
+        
+        // Use comprehensive devices if available, otherwise fall back to equipment monitoring
+        const useComprehensiveData = comprehensiveDevices && (comprehensiveDevices.elevators?.length > 0 || comprehensiveDevices.boilers?.length > 0 || comprehensiveDevices.electrical_permits?.length > 0);
         
         return `
             <div class="compliance-section equipment-monitoring-section">
@@ -1017,11 +1025,92 @@ class ComplianceDashboard {
                     <div class="section-icon text-primary">🔧</div>
                     <h2 class="section-title">Equipment Monitoring</h2>
                 </div>
-                <div class="equipment-grid">
-                    ${equipmentMonitoring.elevators ? this.generateEquipmentCard('Elevators', equipmentMonitoring.elevators, '🛗') : ''}
-                    ${equipmentMonitoring.boilers ? this.generateEquipmentCard('Boilers', equipmentMonitoring.boilers, '🔥') : ''}
-                    ${equipmentMonitoring.electrical ? this.generateEquipmentCard('Electrical', equipmentMonitoring.electrical, '⚡') : ''}
+                ${useComprehensiveData ? 
+                    this.generateComprehensiveEquipmentGrid(comprehensiveDevices) : 
+                    this.generateLegacyEquipmentGrid(equipmentMonitoring)
+                }
+            </div>
+        `;
+    }
+
+    generateLegacyEquipmentGrid(equipmentMonitoring) {
+        return `
+            <div class="equipment-grid">
+                ${equipmentMonitoring.elevators ? this.generateEquipmentCard('Elevators', equipmentMonitoring.elevators, '🛗') : ''}
+                ${equipmentMonitoring.boilers ? this.generateEquipmentCard('Boilers', equipmentMonitoring.boilers, '🔥') : ''}
+                ${equipmentMonitoring.electrical ? this.generateEquipmentCard('Electrical', equipmentMonitoring.electrical, '⚡') : ''}
+            </div>
+        `;
+    }
+
+    generateComprehensiveEquipmentGrid(comprehensiveDevices) {
+        return `
+            <div class="equipment-grid">
+                ${comprehensiveDevices.elevators?.length > 0 ? this.generateComprehensiveDeviceCard('Elevators', comprehensiveDevices.elevators, '🛗', 'elevator') : ''}
+                ${comprehensiveDevices.boilers?.length > 0 ? this.generateComprehensiveDeviceCard('Boilers', comprehensiveDevices.boilers, '🔥', 'boiler') : ''}
+                ${comprehensiveDevices.electrical_permits?.length > 0 ? this.generateComprehensiveDeviceCard('Electrical', comprehensiveDevices.electrical_permits, '⚡', 'electrical') : ''}
+            </div>
+        `;
+    }
+
+    generateComprehensiveDeviceCard(type, devices, icon, category) {
+        // Group devices by unique identifier
+        const deviceGroups = this.groupDevicesByIdentifier(devices, category);
+        const totalInspections = devices.length;
+        const uniqueDeviceCount = Object.keys(deviceGroups).length;
+        
+        // Get recent inspection status summary
+        const recentInspections = devices.slice(0, 10); // Show last 10
+        const hasDefects = devices.some(device => this.hasDeviceDefects(device, category));
+        
+        return `
+            <div class="equipment-card comprehensive-device-card">
+                <div class="equipment-header">
+                    <div class="equipment-icon">${icon}</div>
+                    <h4>${type}</h4>
+                    <div class="device-counts">
+                        <span class="device-count">${uniqueDeviceCount} ${type === 'Electrical' ? 'permits' : 'devices'}</span>
+                        <small class="inspection-count">${totalInspections} inspections</small>
+                    </div>
                 </div>
+                
+                <div class="equipment-status comprehensive">
+                    <div class="status-summary">
+                        <div class="status-item">
+                            <span class="status-label">Unique Devices:</span>
+                            <span class="status-value">${uniqueDeviceCount}</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Total Inspections:</span>
+                            <span class="status-value">${totalInspections}</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Status:</span>
+                            <span class="status-value ${hasDefects ? 'text-warning' : 'text-success'}">
+                                ${hasDefects ? 'Issues Found' : 'Compliant'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="device-details-section">
+                    <div class="device-summary-toggle" onclick="this.parentNode.querySelector('.device-details').classList.toggle('expanded')">
+                        <strong>Device Details</strong> 
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <div class="device-details">
+                        ${this.generateDeviceDetailsTable(deviceGroups, category)}
+                    </div>
+                </div>
+                
+                ${hasDefects ? `
+                    <div class="compliance-gaps">
+                        <strong><i class="fas fa-exclamation-triangle text-warning"></i> Action Required:</strong>
+                        <div class="defects-summary">
+                            ${this.generateDefectsSummary(devices, category)}
+                        </div>
+                    </div>
+                ` : ''}
             </div>
         `;
     }
@@ -1170,6 +1259,273 @@ class ComplianceDashboard {
         if (p.includes('high')) return 'priority-high';
         if (p.includes('medium')) return 'priority-medium';
         return 'priority-low';
+    }
+
+    // Device utility functions for comprehensive device handling
+    groupDevicesByIdentifier(devices, category) {
+        const groups = {};
+        
+        devices.forEach(device => {
+            let identifier;
+            
+            // Extract unique device identifier based on category
+            switch(category) {
+                case 'elevator':
+                    identifier = device.device_number || device.device_id || `Device-${device.device_type || 'Unknown'}`;
+                    break;
+                case 'boiler':
+                    identifier = device.boiler_id || device.device_id || `Boiler-${device.boiler_type || 'Unknown'}`;
+                    break;
+                case 'electrical':
+                    identifier = device.work_permit || device.permit_number || `Permit-${device.work_type || 'Unknown'}`;
+                    break;
+                default:
+                    identifier = device.device_id || device.id || `Device-${Math.random().toString(36).substr(2, 9)}`;
+            }
+            
+            if (!groups[identifier]) {
+                groups[identifier] = {
+                    identifier,
+                    inspections: [],
+                    latestInspection: null,
+                    totalInspections: 0,
+                    hasDefects: false,
+                    deviceInfo: this.extractDeviceInfo(device, category)
+                };
+            }
+            
+            groups[identifier].inspections.push(device);
+            groups[identifier].totalInspections++;
+            
+            // Update latest inspection
+            const inspectionDate = this.getInspectionDate(device, category);
+            if (!groups[identifier].latestInspection || 
+                (inspectionDate && inspectionDate > this.getInspectionDate(groups[identifier].latestInspection, category))) {
+                groups[identifier].latestInspection = device;
+            }
+            
+            // Check for defects
+            if (this.hasDeviceDefects(device, category)) {
+                groups[identifier].hasDefects = true;
+            }
+        });
+        
+        return groups;
+    }
+
+    extractDeviceInfo(device, category) {
+        switch(category) {
+            case 'elevator':
+                return {
+                    type: device.device_type || 'Elevator',
+                    location: device.device_location || '',
+                    status: device.device_status || 'Unknown',
+                    capacity: device.capacity || ''
+                };
+            case 'boiler':
+                return {
+                    type: device.boiler_type || 'Boiler',
+                    capacity: device.capacity || '',
+                    fuel_type: device.fuel_type || '',
+                    location: device.location || ''
+                };
+            case 'electrical':
+                return {
+                    type: device.work_type || 'Electrical Work',
+                    description: device.work_description || '',
+                    status: device.permit_status || 'Unknown'
+                };
+            default:
+                return { type: 'Device', status: 'Unknown' };
+        }
+    }
+
+    getInspectionDate(device, category) {
+        let dateStr;
+        
+        switch(category) {
+            case 'elevator':
+                dateStr = device.inspection_date || device.status_date || device.last_inspection_date;
+                break;
+            case 'boiler':
+                dateStr = device.inspection_date || device.test_date || device.last_inspection_date;
+                break;
+            case 'electrical':
+                dateStr = device.issue_date || device.permit_issue_date || device.inspection_date;
+                break;
+            default:
+                dateStr = device.inspection_date || device.date;
+        }
+        
+        return dateStr ? new Date(dateStr) : null;
+    }
+
+    hasDeviceDefects(device, category) {
+        switch(category) {
+            case 'elevator':
+                const elevatorDefects = device.deficiency_description || device.violation_details || '';
+                return elevatorDefects.toLowerCase().includes('violation') || 
+                       elevatorDefects.toLowerCase().includes('defect') ||
+                       elevatorDefects.toLowerCase().includes('deficiency');
+            case 'boiler':
+                const boilerDefects = device.deficiency_description || device.test_results || '';
+                return boilerDefects.toLowerCase().includes('fail') || 
+                       boilerDefects.toLowerCase().includes('defect') ||
+                       boilerDefects.toLowerCase().includes('violation');
+            case 'electrical':
+                const workStatus = (device.permit_status || '').toLowerCase();
+                return workStatus.includes('violation') || workStatus.includes('rejected');
+            default:
+                return false;
+        }
+    }
+
+    generateDeviceDetailsTable(deviceGroups, category) {
+        const devices = Object.values(deviceGroups);
+        if (devices.length === 0) return '<p class="text-muted">No device details available</p>';
+        
+        return `
+            <div class="device-details-table">
+                <div class="table-responsive">
+                    <table class="table table-sm device-table">
+                        <thead>
+                            <tr>
+                                ${this.getDeviceTableHeaders(category)}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${devices.map(device => this.generateDeviceTableRow(device, category)).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+    }
+
+    getDeviceTableHeaders(category) {
+        switch(category) {
+            case 'elevator':
+                return `
+                    <th>Device ID</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Inspections</th>
+                    <th>Latest Inspection</th>
+                    <th>Issues</th>
+                `;
+            case 'boiler':
+                return `
+                    <th>Boiler ID</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>Inspections</th>
+                    <th>Latest Test</th>
+                    <th>Status</th>
+                `;
+            case 'electrical':
+                return `
+                    <th>Permit #</th>
+                    <th>Work Type</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    <th>Description</th>
+                    <th>Issues</th>
+                `;
+            default:
+                return `<th>Device</th><th>Status</th><th>Inspections</th>`;
+        }
+    }
+
+    generateDeviceTableRow(deviceGroup, category) {
+        const latest = deviceGroup.latestInspection;
+        const latestDate = this.getInspectionDate(latest, category);
+        
+        switch(category) {
+            case 'elevator':
+                return `
+                    <tr class="${deviceGroup.hasDefects ? 'table-warning' : ''}">
+                        <td><strong>${deviceGroup.identifier}</strong></td>
+                        <td>${deviceGroup.deviceInfo.type}</td>
+                        <td>
+                            <span class="badge ${deviceGroup.hasDefects ? 'bg-warning' : 'bg-success'}">
+                                ${deviceGroup.deviceInfo.status}
+                            </span>
+                        </td>
+                        <td>${deviceGroup.totalInspections}</td>
+                        <td>${latestDate ? latestDate.toLocaleDateString() : 'N/A'}</td>
+                        <td>${deviceGroup.hasDefects ? '<i class="fas fa-exclamation-triangle text-warning"></i> Issues Found' : '<i class="fas fa-check text-success"></i> OK'}</td>
+                    </tr>
+                `;
+            case 'boiler':
+                return `
+                    <tr class="${deviceGroup.hasDefects ? 'table-warning' : ''}">
+                        <td><strong>${deviceGroup.identifier}</strong></td>
+                        <td>${deviceGroup.deviceInfo.type}</td>
+                        <td>${deviceGroup.deviceInfo.capacity || 'N/A'}</td>
+                        <td>${deviceGroup.totalInspections}</td>
+                        <td>${latestDate ? latestDate.toLocaleDateString() : 'N/A'}</td>
+                        <td>
+                            <span class="badge ${deviceGroup.hasDefects ? 'bg-danger' : 'bg-success'}">
+                                ${deviceGroup.hasDefects ? 'Issues' : 'Compliant'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            case 'electrical':
+                return `
+                    <tr class="${deviceGroup.hasDefects ? 'table-warning' : ''}">
+                        <td><strong>${deviceGroup.identifier}</strong></td>
+                        <td>${deviceGroup.deviceInfo.type}</td>
+                        <td>
+                            <span class="badge ${deviceGroup.hasDefects ? 'bg-warning' : 'bg-success'}">
+                                ${deviceGroup.deviceInfo.status}
+                            </span>
+                        </td>
+                        <td>${latestDate ? latestDate.toLocaleDateString() : 'N/A'}</td>
+                        <td class="text-truncate" style="max-width: 200px;">${deviceGroup.deviceInfo.description || 'N/A'}</td>
+                        <td>${deviceGroup.hasDefects ? '<i class="fas fa-exclamation-triangle text-warning"></i> Issues' : '<i class="fas fa-check text-success"></i> OK'}</td>
+                    </tr>
+                `;
+            default:
+                return `
+                    <tr>
+                        <td>${deviceGroup.identifier}</td>
+                        <td>${deviceGroup.deviceInfo.status}</td>
+                        <td>${deviceGroup.totalInspections}</td>
+                    </tr>
+                `;
+        }
+    }
+
+    generateDefectsSummary(devices, category) {
+        const devicesWithDefects = devices.filter(device => this.hasDeviceDefects(device, category));
+        const defectCount = devicesWithDefects.length;
+        
+        if (defectCount === 0) return '';
+        
+        const examples = devicesWithDefects.slice(0, 3).map(device => {
+            let defectText = '';
+            switch(category) {
+                case 'elevator':
+                    defectText = device.deficiency_description || device.violation_details || 'Violation found';
+                    break;
+                case 'boiler':
+                    defectText = device.deficiency_description || device.test_results || 'Test failure';
+                    break;
+                case 'electrical':
+                    defectText = device.permit_status || 'Permit issues';
+                    break;
+            }
+            return defectText.substring(0, 100) + (defectText.length > 100 ? '...' : '');
+        });
+        
+        return `
+            <p><strong>${defectCount}</strong> devices with issues found:</p>
+            <ul class="defects-list">
+                ${examples.map(example => `<li class="text-warning">${example}</li>`).join('')}
+                ${defectCount > 3 ? `<li class="text-muted">...and ${defectCount - 3} more</li>` : ''}
+            </ul>
+        `;
     }
 }
 

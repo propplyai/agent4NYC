@@ -482,6 +482,11 @@ def analyze_property():
                     'boiler_data': json.loads(record.boiler_data) if record.boiler_data else [],
                     'electrical_data': json.loads(record.electrical_data) if record.electrical_data else []
                 },
+                'comprehensive_devices': {
+                    'elevators': json.loads(record.elevator_data) if record.elevator_data else [],
+                    'boilers': json.loads(record.boiler_data) if record.boiler_data else [],
+                    'electrical_permits': json.loads(record.electrical_data) if record.electrical_data else []
+                },
                 'analysis_metadata': {
                     'processed_at': record.processed_at,
                     'data_sources': record.data_sources,

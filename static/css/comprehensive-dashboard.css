@@ -480,8 +480,156 @@
 /* Equipment Monitoring Grid */
 .equipment-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1.5rem;
+}
+
+/* Comprehensive Device Cards */
+.comprehensive-device-card {
+    min-height: auto;
+}
+
+.device-counts {
+    text-align: center;
+}
+
+.device-counts .device-count {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.device-counts .inspection-count {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.equipment-status.comprehensive {
+    margin-bottom: 1rem;
+}
+
+.status-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.status-item {
+    text-align: center;
+}
+
+.status-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-value {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+/* Device Details Section */
+.device-details-section {
+    margin-top: 1rem;
+}
+
+.device-summary-toggle {
+    cursor: pointer;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.device-summary-toggle:hover {
+    background: var(--bg-tertiary);
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.device-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.device-details.expanded {
+    max-height: 500px;
+    margin-top: 1rem;
+}
+
+.device-details.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.device-details-table {
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+}
+
+.device-table {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+}
+
+.device-table thead th {
+    background: var(--bg-secondary);
+    border: none;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    padding: 0.75rem 0.5rem;
+}
+
+.device-table tbody td {
+    border-top: 1px solid var(--border-color);
+    padding: 0.75rem 0.5rem;
+    vertical-align: middle;
+}
+
+.device-table tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+.defects-summary {
+    margin-top: 0.5rem;
+}
+
+.defects-list {
+    margin: 0.5rem 0 0 1rem;
+    padding-left: 0;
+}
+
+.defects-list li {
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    list-style-type: none;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.defects-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--warning-color);
+    font-weight: bold;
 }
 
 .equipment-card {
@@ -723,6 +871,10 @@
         grid-template-columns: 1fr;
     }
     
+    .equipment-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .action-header {
         flex-direction: column;
         align-items: flex-start;
@@ -731,6 +883,24 @@
     
     .priority-action-card {
         padding: 1rem;
+    }
+    
+    .status-summary {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .device-details-table {
+        overflow-x: auto;
+    }
+    
+    .device-table {
+        font-size: 0.75rem;
+    }
+    
+    .device-table thead th,
+    .device-table tbody td {
+        padding: 0.5rem 0.25rem;
     }
 }
 
