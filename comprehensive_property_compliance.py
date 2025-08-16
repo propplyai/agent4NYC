@@ -341,7 +341,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if violations_data and len(violations_data) > 0:
-                    hpd_violations = violations_data.to_dict('records')
+                    hpd_violations = violations_data  # Already a list of dicts
                     print(f"✅ HPD Violations - Found {len(hpd_violations)} ACTIVE violations using {strategy_name}")
                     break
                 else:
@@ -414,7 +414,7 @@ class ComprehensivePropertyComplianceSystem:
                 )
                 
                 if violations_data and len(violations_data) > 0:
-                    dob_violations = violations_data.to_dict('records')
+                    dob_violations = violations_data  # Already a list of dicts
                     print(f"✅ DOB Violations - Found {len(dob_violations)} ACTIVE violations using {strategy_name}")
                     break
                 else:
