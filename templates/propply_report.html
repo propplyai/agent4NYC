@@ -1464,6 +1464,71 @@
             color: var(--text-primary);
         }
         
+        /* Device item styles for comprehensive data */
+        .device-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .device-item:hover {
+            box-shadow: var(--shadow-light);
+            transform: translateY(-1px);
+        }
+        
+        .device-item.has-defects {
+            border-left: 4px solid #dc3545;
+            background: rgba(220, 53, 69, 0.05);
+        }
+        
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .device-header strong {
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .device-type {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            background: var(--bg-tertiary);
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+        
+        .defect-indicator {
+            color: #dc3545;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .compliant-indicator {
+            color: #28a745;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .device-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .devices-list h4 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
         .service-category {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -3979,10 +4044,22 @@
             setTextContent('elevatorTotal', data.equipment.elevator_total);
             setTextContent('elevatorActive', data.equipment.elevator_active);
             
-            // Boiler - Calculate unique devices from inspection data
-            const boilerData = data.inspections.boiler_data || [];
-            const uniqueBoilerDevices = new Set(boilerData.map(record => record.boiler_id)).size;
-            const recentInspections = boilerData.length;
+            // Boiler - Use comprehensive devices data when available, fallback to inspection data
+            let boilerData, uniqueBoilerDevices, recentInspections;
+            
+            if (data.comprehensive_devices && data.comprehensive_devices.boilers && data.comprehensive_devices.boilers.length > 0) {
+                // Use comprehensive devices data (no time filtering)
+                boilerData = data.comprehensive_devices.boilers;
+                uniqueBoilerDevices = new Set(boilerData.map(record => record.boiler_id || record.device_id)).size;
+                recentInspections = boilerData.length;
+                console.log(`Using comprehensive boiler data: ${uniqueBoilerDevices} unique devices, ${recentInspections} total inspections`);
+            } else {
+                // Fallback to legacy inspection data
+                boilerData = data.inspections.boiler_data || [];
+                uniqueBoilerDevices = new Set(boilerData.map(record => record.boiler_id)).size;
+                recentInspections = boilerData.length;
+                console.log(`Using legacy boiler data: ${uniqueBoilerDevices} unique devices, ${recentInspections} inspections`);
+            }
             
             setTextContent('boilerStatus', `${recentInspections} inspections`);
             setTextContent('boilerTotal', uniqueBoilerDevices);
@@ -4409,10 +4486,26 @@
                 recordsContainer.removeChild(recordsContainer.lastChild);
             }
             
-            let data = currentData.inspections[category + '_data'] || 
+            // Use comprehensive devices data when available, otherwise use inspections data
+            let data = [];
+            
+            if (currentData.comprehensive_devices && category === 'boiler' && currentData.comprehensive_devices.boilers) {
+                data = currentData.comprehensive_devices.boilers;
+                console.log(`Loading comprehensive boiler data: ${data.length} records`);
+            } else if (currentData.comprehensive_devices && category === 'elevator' && currentData.comprehensive_devices.elevators) {
+                data = currentData.comprehensive_devices.elevators;
+                console.log(`Loading comprehensive elevator data: ${data.length} records`);
+            } else if (currentData.comprehensive_devices && category === 'electrical' && currentData.comprehensive_devices.electrical_permits) {
+                data = currentData.comprehensive_devices.electrical_permits;
+                console.log(`Loading comprehensive electrical data: ${data.length} records`);
+            } else {
+                // Fallback to legacy inspection data
+                data = currentData.inspections[category + '_data'] || 
                       currentData.inspections[category + '_violations'] || 
                       currentData.inspections[category.replace('_', '_inspections')] ||
                       [];
+                console.log(`Loading legacy ${category} data: ${data.length} records`);
+            }
             
             // Filter to show only active violations/records
             if (category === 'hpd') {
@@ -4444,9 +4537,9 @@
                     return !['EXPIRED', 'CANCELLED', 'CLOSED', 'DISAPPROVED', 'REVOKED'].includes(status);
                 });
             }
-            // For boiler, filter to show only last 2 years of inspection records
-            if (category === 'boiler') {
-                // Filter boiler data to only show last 2 years
+            // For boiler data - only apply 2-year filtering to legacy data, not comprehensive devices
+            if (category === 'boiler' && !(currentData.comprehensive_devices && currentData.comprehensive_devices.boilers)) {
+                // Filter legacy boiler data to only show last 2 years
                 const twoYearsAgo = new Date();
                 twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
                 
@@ -4463,6 +4556,10 @@
                         return false;
                     }
                 });
+                console.log(`Applied 2-year filter to legacy boiler data: ${data.length} records remaining`);
+            } else if (category === 'boiler' && currentData.comprehensive_devices && currentData.comprehensive_devices.boilers) {
+                console.log(`Skipping time filter for comprehensive boiler data: showing all ${data.length} records`);
+            }
             }
             
             if (data.length === 0) {
@@ -4956,8 +5053,13 @@
                 
                 setTextContent('equipmentSummary', `${totalDevices} total devices`);
                 
-                // Populate detailed equipment tabs
-                populateDetailedEquipmentTabs(equipment);
+                // Populate detailed equipment tabs with comprehensive devices data when available
+                const equipmentData = data.comprehensive_devices ? {
+                    elevators: data.comprehensive_devices.elevators,
+                    boilers: data.comprehensive_devices.boilers,
+                    electrical: data.comprehensive_devices.electrical_permits
+                } : equipment;
+                populateDetailedEquipmentTabs(equipmentData, data.comprehensive_devices ? true : false);
             }
             
             // Populate Regulatory Intelligence
@@ -5143,24 +5245,75 @@
                 }
             }
             
-            // Populate Boilers tab
+            // Populate Boilers tab with comprehensive or legacy data
             if (equipment.boilers) {
                 const boilersPanel = document.getElementById('boilers-panel');
                 if (boilersPanel) {
-                    boilersPanel.innerHTML = `
-                        <div class="equipment-summary">
-                            <h4>Boiler Overview</h4>
-                            <p><strong>Total Devices:</strong> ${equipment.boilers.total_devices || '-'}</p>
-                            <p><strong>Inspection Status:</strong> ${equipment.boilers.inspection_status || '-'}</p>
-                            <p><strong>Estimated Annual Costs:</strong> ${equipment.boilers.estimated_annual_costs || '-'}</p>
-                        </div>
-                        <div class="equipment-requirements">
-                            <h4>Filing Requirements</h4>
-                            <ul>${(equipment.boilers.filing_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
-                            <h4>Compliance Gaps</h4>
-                            <ul>${(equipment.boilers.compliance_gaps || []).map(gap => `<li style="color: #dc3545;">${gap}</li>`).join('')}</ul>
-                        </div>
-                    `;
+                    if (isComprehensive && Array.isArray(equipment.boilers)) {
+                        // Handle comprehensive boiler devices data
+                        const uniqueBoilers = new Map();
+                        equipment.boilers.forEach(device => {
+                            const id = device.boiler_id || device.device_id || 'Unknown';
+                            if (!uniqueBoilers.has(id)) {
+                                uniqueBoilers.set(id, {
+                                    id: id,
+                                    type: device.boiler_type || 'Boiler',
+                                    inspections: [],
+                                    hasDefects: false
+                                });
+                            }
+                            uniqueBoilers.get(id).inspections.push(device);
+                            if (device.deficiency_description || device.test_results) {
+                                const defectText = (device.deficiency_description || device.test_results || '').toLowerCase();
+                                if (defectText.includes('fail') || defectText.includes('defect') || defectText.includes('violation')) {
+                                    uniqueBoilers.get(id).hasDefects = true;
+                                }
+                            }
+                        });
+                        
+                        const deviceList = Array.from(uniqueBoilers.values()).map(device => `
+                            <div class="device-item ${device.hasDefects ? 'has-defects' : ''}">
+                                <div class="device-header">
+                                    <strong>${device.id}</strong>
+                                    <span class="device-type">${device.type}</span>
+                                    ${device.hasDefects ? '<span class="defect-indicator"><i class="fas fa-exclamation-triangle"></i> Issues Found</span>' : '<span class="compliant-indicator"><i class="fas fa-check"></i> Compliant</span>'}
+                                </div>
+                                <div class="device-stats">
+                                    <span>Inspections: ${device.inspections.length}</span>
+                                    <span>Latest: ${device.inspections[0]?.inspection_date || 'N/A'}</span>
+                                </div>
+                            </div>
+                        `).join('');
+                        
+                        boilersPanel.innerHTML = `
+                            <div class="equipment-summary">
+                                <h4>Comprehensive Boiler Data</h4>
+                                <p><strong>Unique Devices:</strong> ${uniqueBoilers.size}</p>
+                                <p><strong>Total Inspections:</strong> ${equipment.boilers.length}</p>
+                                <p><strong>Devices with Issues:</strong> ${Array.from(uniqueBoilers.values()).filter(d => d.hasDefects).length}</p>
+                            </div>
+                            <div class="devices-list">
+                                <h4>Device Details</h4>
+                                ${deviceList || '<p>No boiler devices found</p>'}
+                            </div>
+                        `;
+                    } else {
+                        // Handle legacy equipment data
+                        boilersPanel.innerHTML = `
+                            <div class="equipment-summary">
+                                <h4>Boiler Overview</h4>
+                                <p><strong>Total Devices:</strong> ${equipment.boilers.total_devices || '-'}</p>
+                                <p><strong>Inspection Status:</strong> ${equipment.boilers.inspection_status || '-'}</p>
+                                <p><strong>Estimated Annual Costs:</strong> ${equipment.boilers.estimated_annual_costs || '-'}</p>
+                            </div>
+                            <div class="equipment-requirements">
+                                <h4>Filing Requirements</h4>
+                                <ul>${(equipment.boilers.filing_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
+                                <h4>Compliance Gaps</h4>
+                                <ul>${(equipment.boilers.compliance_gaps || []).map(gap => `<li style="color: #dc3545;">${gap}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                    }
                 }
             }
             
@@ -5285,7 +5438,7 @@
             }
         }
         
-        function populateDetailedEquipmentTabs(equipment) {
+        function populateDetailedEquipmentTabs(equipment, isComprehensive = false) {
             // Populate Elevators tab with detailed information
             if (equipment.elevators) {
                 const elevatorsPanel = document.getElementById('elevators-panel');
