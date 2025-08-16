@@ -1669,6 +1669,43 @@
             font-style: italic;
         }
         
+        .show-more-container {
+            text-align: center;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 8px;
+        }
+        
+        .show-more-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .show-more-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--primary-color);
+        }
+        
+        .show-more-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .additional-inspections {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
         /* Mobile responsiveness for organic display */
         @media (max-width: 768px) {
             .device-summary-row {
@@ -4665,14 +4702,33 @@
                             <h5>All Inspections for ${deviceId}</h5>
                         </div>
                         <div class="inspections-table">
-                            ${device.inspections ? device.inspections.map(inspection => `
-                                <div class="inspection-row">
-                                    <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
-                                    <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
-                                    <div class="inspection-defects">${inspection.defects_exist || 'N/A'}</div>
-                                    <div class="inspection-type">${inspection.report_type || 'N/A'}</div>
-                                </div>
-                            `).join('') : '<div class="no-inspections">No inspection records</div>'}
+                            ${device.inspections ? (
+                                device.inspections.slice(0, 3).map(inspection => `
+                                    <div class="inspection-row">
+                                        <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
+                                        <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
+                                        <div class="inspection-defects">${inspection.defects_exist || 'N/A'}</div>
+                                        <div class="inspection-type">${inspection.report_type || 'N/A'}</div>
+                                    </div>
+                                `).join('') +
+                                (device.inspections.length > 3 ? `
+                                    <div class="show-more-container">
+                                        <button class="show-more-btn" onclick="toggleMoreInspections('${deviceId}')">
+                                            <i class="fas fa-chevron-down"></i> Show ${device.inspections.length - 3} more inspections
+                                        </button>
+                                    </div>
+                                    <div class="additional-inspections" id="additional-${deviceId}" style="display: none;">
+                                        ${device.inspections.slice(3).map(inspection => `
+                                            <div class="inspection-row">
+                                                <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
+                                                <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
+                                                <div class="inspection-defects">${inspection.defects_exist || 'N/A'}</div>
+                                                <div class="inspection-type">${inspection.report_type || 'N/A'}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : '')
+                            ) : '<div class="no-inspections">No inspection records</div>'}
                         </div>
                     </div>
                 `;
@@ -4693,6 +4749,28 @@
                 detailsDiv.style.display = 'none';
                 expandIcon.classList.remove('fa-chevron-up');
                 expandIcon.classList.add('fa-chevron-down');
+            }
+        }
+        
+        function toggleMoreInspections(deviceId) {
+            const additionalDiv = document.getElementById(`additional-${deviceId}`);
+            const button = event.currentTarget;
+            const icon = button.querySelector('i');
+            
+            if (additionalDiv.style.display === 'none' || !additionalDiv.style.display) {
+                additionalDiv.style.display = 'block';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+                const currentText = button.textContent.trim();
+                const count = currentText.match(/\d+/)[0];
+                button.innerHTML = `<i class="fas fa-chevron-up"></i> Hide ${count} inspections`;
+            } else {
+                additionalDiv.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+                const currentText = button.textContent.trim();
+                const count = currentText.match(/\d+/)[0];
+                button.innerHTML = `<i class="fas fa-chevron-down"></i> Show ${count} more inspections`;
             }
         }
 
