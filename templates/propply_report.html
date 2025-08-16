@@ -1529,6 +1529,160 @@
             font-size: 1rem;
         }
         
+        /* Organic Device Display Styles */
+        .device-group-row {
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+        
+        .device-summary-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            align-items: center;
+        }
+        
+        .device-summary-row:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .device-id-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .device-id-cell strong {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .inspection-count {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        
+        .latest-date-cell {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-badge.accepted {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+        
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+        
+        .status-badge.rejected {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+        
+        .defects-indicator {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .defects-indicator.has-defects {
+            color: #dc2626;
+        }
+        
+        .defects-indicator.no-defects {
+            color: #059669;
+        }
+        
+        .expand-icon {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        
+        .device-inspections-details {
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            padding: 16px;
+        }
+        
+        .inspections-header h5 {
+            margin: 0 0 12px 0;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .inspections-table {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .inspection-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 16px;
+            padding: 12px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .inspection-date {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .inspection-status {
+            color: var(--text-primary);
+        }
+        
+        .inspection-defects {
+            color: var(--text-secondary);
+        }
+        
+        .inspection-type {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .no-inspections {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+            font-style: italic;
+        }
+        
+        /* Mobile responsiveness for organic display */
+        @media (max-width: 768px) {
+            .device-summary-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                text-align: left;
+            }
+            
+            .inspection-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+        
         .service-category {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -1826,6 +1980,11 @@
             gap: 15px;
             padding: 12px 15px;
             border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .records-header.organic-header {
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 16px;
         }
 
         .record-row:last-child {
@@ -3659,11 +3818,12 @@
                                     </div>
                                 </div>
                                 <div class="records-table" id="boilerRecords">
-                                    <div class="records-header">
-                                        <div>Boiler ID</div>
-                                        <div>Inspection Date</div>
+                                    <div class="records-header organic-header">
+                                        <div>Device ID & Count</div>
+                                        <div>Latest Inspection</div>
                                         <div>Status</div>
                                         <div>Defects</div>
+                                        <div></div>
                                     </div>
                                 </div>
                             </div>
@@ -4468,6 +4628,74 @@
             }
         }
         
+        function displayOrganicDeviceData(category, groupedData, container) {
+            // Create organic device-grouped display
+            groupedData.forEach((device, index) => {
+                const deviceRow = document.createElement('div');
+                deviceRow.className = 'device-group-row';
+                
+                const deviceId = device.device_id || device.boiler_id || `Device ${index + 1}`;
+                const totalInspections = device.inspections ? device.inspections.length : 0;
+                const latestInspection = device.inspections && device.inspections.length > 0 ? device.inspections[0] : null;
+                const latestDate = latestInspection ? (latestInspection.inspection_date || 'N/A') : 'N/A';
+                const latestStatus = latestInspection ? (latestInspection.report_status || 'N/A') : 'N/A';
+                const hasDefects = latestInspection ? (latestInspection.defects_exist === 'Yes') : false;
+                
+                deviceRow.innerHTML = `
+                    <div class="device-summary-row" onclick="toggleDeviceDetails('${deviceId}', '${category}')">
+                        <div class="device-id-cell">
+                            <strong>${deviceId}</strong>
+                            <small class="inspection-count">${totalInspections} inspections</small>
+                        </div>
+                        <div class="latest-date-cell">${formatDate(latestDate)}</div>
+                        <div class="status-cell">
+                            <span class="status-badge ${latestStatus.toLowerCase()}">${latestStatus}</span>
+                        </div>
+                        <div class="defects-cell">
+                            <span class="defects-indicator ${hasDefects ? 'has-defects' : 'no-defects'}">
+                                ${hasDefects ? '⚠️ Yes' : '✅ No'}
+                            </span>
+                        </div>
+                        <div class="expand-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="device-inspections-details" id="details-${deviceId}" style="display: none;">
+                        <div class="inspections-header">
+                            <h5>All Inspections for ${deviceId}</h5>
+                        </div>
+                        <div class="inspections-table">
+                            ${device.inspections ? device.inspections.map(inspection => `
+                                <div class="inspection-row">
+                                    <div class="inspection-date">${formatDate(inspection.inspection_date)}</div>
+                                    <div class="inspection-status">${inspection.report_status || 'N/A'}</div>
+                                    <div class="inspection-defects">${inspection.defects_exist || 'N/A'}</div>
+                                    <div class="inspection-type">${inspection.report_type || 'N/A'}</div>
+                                </div>
+                            `).join('') : '<div class="no-inspections">No inspection records</div>'}
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(deviceRow);
+            });
+        }
+        
+        function toggleDeviceDetails(deviceId, category) {
+            const detailsDiv = document.getElementById(`details-${deviceId}`);
+            const expandIcon = event.currentTarget.querySelector('.expand-icon i');
+            
+            if (detailsDiv.style.display === 'none') {
+                detailsDiv.style.display = 'block';
+                expandIcon.classList.remove('fa-chevron-down');
+                expandIcon.classList.add('fa-chevron-up');
+            } else {
+                detailsDiv.style.display = 'none';
+                expandIcon.classList.remove('fa-chevron-up');
+                expandIcon.classList.add('fa-chevron-down');
+            }
+        }
+
         function loadRowDetails(category) {
             if (!currentData || !currentData.inspections) return;
             
@@ -4490,17 +4718,13 @@
             let data = [];
             
             if (currentData.comprehensive_devices && category === 'boiler' && currentData.comprehensive_devices.boilers) {
-                // Flatten the grouped device data into individual inspection records
+                // Use grouped device data for organic display
                 const groupedData = currentData.comprehensive_devices.boilers;
-                data = [];
-                groupedData.forEach(device => {
-                    if (device.inspections && Array.isArray(device.inspections)) {
-                        // Add all inspections for this device
-                        data.push(...device.inspections);
-                    }
-                });
-                console.log(`Loading comprehensive boiler data: ${groupedData.length} devices, ${data.length} total inspections`);
-                console.log('Sample flattened inspection record:', data[0]); // Debug: show field structure
+                
+                // For boiler category, we'll use the organic grouped display
+                displayOrganicDeviceData(category, groupedData, recordsContainer);
+                console.log(`Loading comprehensive boiler data: ${groupedData.length} devices`);
+                return; // Skip the normal row generation for boilers
             } else if (currentData.comprehensive_devices && category === 'elevator' && currentData.comprehensive_devices.elevators) {
                 // Flatten the grouped device data into individual inspection records
                 const groupedData = currentData.comprehensive_devices.elevators;
