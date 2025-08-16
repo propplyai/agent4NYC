@@ -404,8 +404,8 @@ class ComprehensivePropertyComplianceSystem:
             try:
                 print(f"🔍 DOB Violations - Trying {strategy_name} search: {where_clause}")
                 
-                # Add active status filter to the where clause
-                active_where_clause = f"({where_clause}) AND violationstatus IN ('OPEN', 'ACTIVE')"
+                # Add active status filter to the where clause - DOB uses violation_category field
+                active_where_clause = f"({where_clause}) AND violation_category LIKE '%ACTIVE%'"
                 
                 violations_data = self.nyc_client.get_data(
                     'dob_violations',
