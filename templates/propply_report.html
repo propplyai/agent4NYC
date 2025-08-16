@@ -5280,7 +5280,7 @@
                                 </div>
                                 <div class="device-stats">
                                     <span>Inspections: ${device.inspections.length}</span>
-                                    <span>Latest: ${device.inspections[0]?.inspection_date || 'N/A'}</span>
+                                    <span>Latest: ${device.inspections.length > 0 ? (device.inspections[0].inspection_date || 'N/A') : 'N/A'}</span>
                                 </div>
                             </div>
                         `).join('');
@@ -5480,42 +5480,7 @@
                 }
             }
             
-            // Populate Boilers tab with detailed information
-            if (equipment.boilers) {
-                const boilersPanel = document.getElementById('boilers-panel');
-                if (boilersPanel) {
-                    const boilerData = equipment.boilers;
-                    
-                    boilersPanel.innerHTML = `
-                        <div class="equipment-overview">
-                            <div class="equipment-stats">
-                                <div class="stat-item">
-                                    <span class="stat-label">Total Devices:</span>
-                                    <span class="stat-value">${boilerData.total_devices || '-'}</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Inspection Status:</span>
-                                    <span class="stat-value">${boilerData.inspection_status || '-'}</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Estimated Annual Costs:</span>
-                                    <span class="stat-value">${boilerData.estimated_annual_costs || '-'}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="equipment-requirements">
-                            <div class="requirement-section">
-                                <h4><i class="fas fa-file-alt"></i> Filing Requirements</h4>
-                                <ul>${(boilerData.filing_requirements || []).map(req => `<li>${req}</li>`).join('')}</ul>
-                            </div>
-                            <div class="requirement-section gaps">
-                                <h4><i class="fas fa-exclamation-triangle"></i> Compliance Gaps</h4>
-                                <ul>${(boilerData.compliance_gaps || []).map(gap => `<li class="gap-item">${gap}</li>`).join('')}</ul>
-                            </div>
-                        </div>
-                    `;
-                }
-            }
+            // Boiler tab handling is now done above in the comprehensive section
             
             // Populate Electrical tab with detailed information
             if (equipment.electrical) {
