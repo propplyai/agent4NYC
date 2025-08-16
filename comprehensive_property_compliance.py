@@ -355,6 +355,15 @@ class ComprehensivePropertyComplianceSystem:
         if hpd_violations:
             hpd_violations = self.clean_data_for_json(hpd_violations)
             
+            # Sort violations by inspection date in descending order (newest first)
+            hpd_violations.sort(
+                key=lambda x: (
+                    x.get('inspectiondate') or '1900-01-01T00:00:00.000',  # Fallback for missing dates
+                    x.get('violationid', '')  # Secondary sort by violation ID
+                ),
+                reverse=True  # Newest first
+            )
+            
             # All violations are active since we filtered for them
             active_violations = hpd_violations
             
