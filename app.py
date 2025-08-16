@@ -334,54 +334,55 @@ def analyze_property():
             # Start AI analysis in background (non-blocking)
             import threading
             def background_ai_analysis():
-                try:
-                    print(f"🤖 [Background] Starting AI analysis for {analysis_id}...")
-                    raw_ai_response = webhook_service.send_compliance_data(compliance_data)
-                    
-                    # Process the AI response
-                    processed_ai_analysis = None
-                    if raw_ai_response:
-                        if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
-                            first_item = raw_ai_response[0]
-                            if isinstance(first_item, dict) and 'output' in first_item:
-                                processed_ai_analysis = first_item['output']
-                            else:
-                                processed_ai_analysis = first_item
-                        elif isinstance(raw_ai_response, dict):
-                            if 'output' in raw_ai_response:
-                                processed_ai_analysis = raw_ai_response['output']
-                            else:
-                                processed_ai_analysis = raw_ai_response
-                    
-                    # Store result in memory (in production, use Redis/database)
-                    if not hasattr(app, 'ai_analysis_results'):
-                        app.ai_analysis_results = {}
-                    
-                    app.ai_analysis_results[analysis_id] = {
-                        'status': 'completed',
-                        'result': processed_ai_analysis,
-                        'completed_at': datetime.now().isoformat()
-                    }
-                    print(f"✅ [Background] AI analysis completed for {analysis_id}")
-                except Exception as e:
-                    print(f"❌ [Background] AI analysis failed for {analysis_id}: {e}")
-                    if not hasattr(app, 'ai_analysis_results'):
-                        app.ai_analysis_results = {}
-                    
-                    # Determine error type for better user messaging
-                    error_message = str(e)
-                    if 'timeout' in error_message.lower():
-                        error_message = "AI analysis timed out. The external AI service took too long to respond. Please try again or contact support if this persists."
-                    elif 'connection' in error_message.lower():
-                        error_message = "Connection error with AI service. Please check your internet connection and try again."
-                    else:
-                        error_message = f"AI analysis failed: {error_message}"
-                    
-                    app.ai_analysis_results[analysis_id] = {
-                        'status': 'failed',
-                        'error': error_message,
-                        'completed_at': datetime.now().isoformat()
-                    }
+                with app.app_context():
+                    try:
+                        print(f"🤖 [Background] Starting AI analysis for {analysis_id}...")
+                        raw_ai_response = webhook_service.send_compliance_data(compliance_data)
+                        
+                        # Process the AI response
+                        processed_ai_analysis = None
+                        if raw_ai_response:
+                            if isinstance(raw_ai_response, list) and len(raw_ai_response) > 0:
+                                first_item = raw_ai_response[0]
+                                if isinstance(first_item, dict) and 'output' in first_item:
+                                    processed_ai_analysis = first_item['output']
+                                else:
+                                    processed_ai_analysis = first_item
+                            elif isinstance(raw_ai_response, dict):
+                                if 'output' in raw_ai_response:
+                                    processed_ai_analysis = raw_ai_response['output']
+                                else:
+                                    processed_ai_analysis = raw_ai_response
+                        
+                        # Store result in memory (in production, use Redis/database)
+                        if not hasattr(app, 'ai_analysis_results'):
+                            app.ai_analysis_results = {}
+                        
+                        app.ai_analysis_results[analysis_id] = {
+                            'status': 'completed',
+                            'result': processed_ai_analysis,
+                            'completed_at': datetime.now().isoformat()
+                        }
+                        print(f"✅ [Background] AI analysis completed for {analysis_id}")
+                    except Exception as e:
+                        print(f"❌ [Background] AI analysis failed for {analysis_id}: {e}")
+                        if not hasattr(app, 'ai_analysis_results'):
+                            app.ai_analysis_results = {}
+                        
+                        # Determine error type for better user messaging
+                        error_message = str(e)
+                        if 'timeout' in error_message.lower():
+                            error_message = "AI analysis timed out. The external AI service took too long to respond. Please try again or contact support if this persists."
+                        elif 'connection' in error_message.lower():
+                            error_message = "Connection error with AI service. Please check your internet connection and try again."
+                        else:
+                            error_message = f"AI analysis failed: {error_message}"
+                        
+                        app.ai_analysis_results[analysis_id] = {
+                            'status': 'failed',
+                            'error': error_message,
+                            'completed_at': datetime.now().isoformat()
+                        }
             
             # Initialize analysis status
             if not hasattr(app, 'ai_analysis_results'):
