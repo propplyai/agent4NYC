@@ -4490,14 +4490,39 @@
             let data = [];
             
             if (currentData.comprehensive_devices && category === 'boiler' && currentData.comprehensive_devices.boilers) {
-                data = currentData.comprehensive_devices.boilers;
-                console.log(`Loading comprehensive boiler data: ${data.length} records`);
+                // Flatten the grouped device data into individual inspection records
+                const groupedData = currentData.comprehensive_devices.boilers;
+                data = [];
+                groupedData.forEach(device => {
+                    if (device.inspections && Array.isArray(device.inspections)) {
+                        // Add all inspections for this device
+                        data.push(...device.inspections);
+                    }
+                });
+                console.log(`Loading comprehensive boiler data: ${groupedData.length} devices, ${data.length} total inspections`);
+                console.log('Sample flattened inspection record:', data[0]); // Debug: show field structure
             } else if (currentData.comprehensive_devices && category === 'elevator' && currentData.comprehensive_devices.elevators) {
-                data = currentData.comprehensive_devices.elevators;
-                console.log(`Loading comprehensive elevator data: ${data.length} records`);
+                // Flatten the grouped device data into individual inspection records
+                const groupedData = currentData.comprehensive_devices.elevators;
+                data = [];
+                groupedData.forEach(device => {
+                    if (device.inspections && Array.isArray(device.inspections)) {
+                        // Add all inspections for this device
+                        data.push(...device.inspections);
+                    }
+                });
+                console.log(`Loading comprehensive elevator data: ${groupedData.length} devices, ${data.length} total inspections`);
             } else if (currentData.comprehensive_devices && category === 'electrical' && currentData.comprehensive_devices.electrical_permits) {
-                data = currentData.comprehensive_devices.electrical_permits;
-                console.log(`Loading comprehensive electrical data: ${data.length} records`);
+                // Flatten the grouped device data into individual inspection/permit records
+                const groupedData = currentData.comprehensive_devices.electrical_permits;
+                data = [];
+                groupedData.forEach(device => {
+                    if (device.inspections && Array.isArray(device.inspections)) {
+                        // Add all permits/inspections for this device
+                        data.push(...device.inspections);
+                    }
+                });
+                console.log(`Loading comprehensive electrical data: ${groupedData.length} devices, ${data.length} total permits`);
             } else {
                 // Fallback to legacy inspection data
                 data = currentData.inspections[category + '_data'] || 
